@@ -45,13 +45,17 @@
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v18.1" />
     <Reference Include="DevExpress.Data.v18.1" />
+    <Reference Include="DevExpress.Images.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v18.1.Core" />
     <Reference Include="DevExpress.Utils.v18.1" />
     <Reference Include="DevExpress.XtraBars.v18.1" />
     <Reference Include="DevExpress.Sparkline.v18.1.Core" />
     <Reference Include="DevExpress.XtraEditors.v18.1" />
+    <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -97,6 +101,21 @@
     <Compile Include="Views\ucBase.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\ucSalesInvc.Designer.vb">
+      <DependentUpon>ucSalesInvc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucSalesInvc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucBaseSalesRep.Designer.vb">
+      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucBaseSalesRep.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Views\ucBaseSalesRep.resx">
+      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Data\mkdb.dbml.layout">
       <DependentUpon>mkdb.dbml</DependentUpon>
