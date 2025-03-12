@@ -84,6 +84,12 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Views\ucBase.Designer.vb">
+      <DependentUpon>ucBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucBase.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -98,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\ucBase.resx">
+      <DependentUpon>ucBase.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
