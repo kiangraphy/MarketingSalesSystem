@@ -1,11 +1,11 @@
+D:\MarketingSalesSystem\MarketingSalesSystem\bin\Debug\MarketingSalesSystem.exe.config
 D:\MarketingSalesSystem\MarketingSalesSystem\bin\Debug\MarketingSalesSystem.exe
 D:\MarketingSalesSystem\MarketingSalesSystem\bin\Debug\MarketingSalesSystem.pdb
+D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.ucBaseSalesRep.resources
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.frmMain.resources
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.Resources.resources
+D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.ucBase.resources
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.vbproj.GenerateResource.Cache
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.exe.licenses
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.exe
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.pdb
-D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.ucBase.resources
-D:\MarketingSalesSystem\MarketingSalesSystem\bin\Debug\MarketingSalesSystem.exe.config
-D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.ucBaseSalesRep.resources
