@@ -55,6 +55,7 @@
     <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -99,10 +100,22 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Views\frmSalesInvoice.Designer.vb">
-      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
+    <Compile Include="Views\frmSI_amountDetails.Designer.vb">
+      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmSalesInvoice.vb">
+    <Compile Include="Views\frmSI_amountDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmSI_summary.Designer.vb">
+      <DependentUpon>frmSI_summary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSI_summary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmSI_weightSlips.Designer.vb">
+      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSI_weightSlips.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ucBase.Designer.vb">
@@ -117,6 +130,15 @@
     <Compile Include="Views\ucSalesInvc.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\ucWeightSlips.Designer.vb">
+      <DependentUpon>ucWeightSlips.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucWeightSlips.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Views\ucWeightSlips.resx">
+      <DependentUpon>ucWeightSlips.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Data\mkdb.dbml.layout">
       <DependentUpon>mkdb.dbml</DependentUpon>
@@ -135,8 +157,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\frmSalesInvoice.resx">
-      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
+    <EmbeddedResource Include="Views\frmSI_amountDetails.resx">
+      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmSI_summary.resx">
+      <DependentUpon>frmSI_summary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmSI_weightSlips.resx">
+      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucBase.resx">
       <DependentUpon>ucBase.vb</DependentUpon>
