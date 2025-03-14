@@ -54,4 +54,21 @@ Partial Public Class frmMain
         End If
     End Sub
 
+    Private Sub btn_weightSlips_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_weightSlips.ItemClick
+        Dim frm2 As New frmSI_weightSlips
+
+        frm2.Show()
+    End Sub
+
+    Private Sub btn_amountDetails_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_amountDetails.ItemClick
+        Dim frm3 As New frmSI_amountDetails
+
+        frm3.Show()
+    End Sub
+
+    Private Sub btn_summary_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_summary.ItemClick
+        Dim frm3 As New frmSI_summary
+
+        frm3.Show()
+    End Sub
 End Class

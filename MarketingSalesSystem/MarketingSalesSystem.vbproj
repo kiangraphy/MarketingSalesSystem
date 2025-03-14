@@ -43,6 +43,7 @@
     <StartupObject>MarketingSalesSystem.My.MyApplication</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="DevExpress.BonusSkins.v18.1" />
     <Reference Include="DevExpress.Data.v18.1" />
     <Reference Include="DevExpress.Images.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -54,10 +55,14 @@
     <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,12 +95,29 @@
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesReport.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Views\frmSI_amountDetails.Designer.vb">
+      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSI_amountDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmSI_summary.Designer.vb">
+      <DependentUpon>frmSI_summary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSI_summary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmSI_weightSlips.Designer.vb">
+      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSI_weightSlips.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\ucBase.Designer.vb">
       <DependentUpon>ucBase.vb</DependentUpon>
     </Compile>
@@ -108,14 +130,14 @@
     <Compile Include="Views\ucSalesInvc.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ucBaseSalesRep.Designer.vb">
-      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
+    <Compile Include="Views\ucWeightSlips.Designer.vb">
+      <DependentUpon>ucWeightSlips.vb</DependentUpon>
     </Compile>
-    <Compile Include="Views\ucBaseSalesRep.vb">
+    <Compile Include="Views\ucWeightSlips.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <EmbeddedResource Include="Views\ucBaseSalesRep.resx">
-      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
+    <EmbeddedResource Include="Views\ucWeightSlips.resx">
+      <DependentUpon>ucWeightSlips.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Data\mkdb.dbml.layout">
@@ -135,6 +157,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\frmSI_amountDetails.resx">
+      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmSI_summary.resx">
+      <DependentUpon>frmSI_summary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmSI_weightSlips.resx">
+      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucBase.resx">
       <DependentUpon>ucBase.vb</DependentUpon>
     </EmbeddedResource>
@@ -162,7 +193,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

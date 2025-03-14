@@ -28,7 +28,9 @@
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ribbonControl1 = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.btn_salesInvc = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
+        Me.btn_weightSlips = New DevExpress.XtraBars.BarButtonItem()
+        Me.btn_amountDetails = New DevExpress.XtraBars.BarButtonItem()
+        Me.btn_summary = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -53,9 +55,9 @@
         'ribbonControl1
         '
         Me.ribbonControl1.ExpandCollapseItem.Id = 0
-        Me.ribbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl1.ExpandCollapseItem, Me.btn_salesInvc, Me.BarButtonItem1})
+        Me.ribbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl1.ExpandCollapseItem, Me.btn_salesInvc, Me.btn_weightSlips, Me.btn_amountDetails, Me.btn_summary})
         Me.ribbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.ribbonControl1.MaxItemId = 3
+        Me.ribbonControl1.MaxItemId = 6
         Me.ribbonControl1.Name = "ribbonControl1"
         Me.ribbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.ribbonPage1})
         Me.ribbonControl1.Size = New System.Drawing.Size(894, 143)
@@ -68,13 +70,29 @@
         Me.btn_salesInvc.ImageOptions.LargeImage = CType(resources.GetObject("btn_salesInvc.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btn_salesInvc.Name = "btn_salesInvc"
         '
-        'BarButtonItem1
+        'btn_weightSlips
         '
-        Me.BarButtonItem1.Caption = "Sales Report"
-        Me.BarButtonItem1.Id = 2
-        Me.BarButtonItem1.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
-        Me.BarButtonItem1.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.btn_weightSlips.Caption = "Weight Slips"
+        Me.btn_weightSlips.Id = 2
+        Me.btn_weightSlips.ImageOptions.Image = CType(resources.GetObject("btn_weightSlips.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_weightSlips.ImageOptions.LargeImage = CType(resources.GetObject("btn_weightSlips.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btn_weightSlips.Name = "btn_weightSlips"
+        '
+        'btn_amountDetails
+        '
+        Me.btn_amountDetails.Caption = "Amount Details"
+        Me.btn_amountDetails.Id = 3
+        Me.btn_amountDetails.ImageOptions.Image = CType(resources.GetObject("btn_amountDetails.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_amountDetails.ImageOptions.LargeImage = CType(resources.GetObject("btn_amountDetails.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btn_amountDetails.Name = "btn_amountDetails"
+        '
+        'btn_summary
+        '
+        Me.btn_summary.Caption = "Summary"
+        Me.btn_summary.Id = 5
+        Me.btn_summary.ImageOptions.Image = CType(resources.GetObject("btn_summary.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_summary.ImageOptions.LargeImage = CType(resources.GetObject("btn_summary.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btn_summary.Name = "btn_summary"
         '
         'ribbonPage1
         '
@@ -84,14 +102,18 @@
         '
         'ribbonPageGroup1
         '
+        Me.ribbonPageGroup1.AllowTextClipping = False
         Me.ribbonPageGroup1.ItemLinks.Add(Me.btn_salesInvc)
         Me.ribbonPageGroup1.Name = "ribbonPageGroup1"
         Me.ribbonPageGroup1.Text = "Sales"
         '
         'RibbonPageGroup2
         '
+        Me.RibbonPageGroup2.AllowTextClipping = False
         Me.RibbonPageGroup2.ImageOptions.SvgImage = CType(resources.GetObject("RibbonPageGroup2.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem1)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btn_weightSlips)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btn_amountDetails)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btn_summary)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
         Me.RibbonPageGroup2.Text = "Reports"
         '
@@ -177,7 +199,7 @@
     Private WithEvents ribbonPage1 As DevExpress.XtraBars.Ribbon.RibbonPage
     Private WithEvents ribbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents btn_salesInvc As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btn_weightSlips As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup2 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents XtraTabbedMdiManager1 As DevExpress.XtraTabbedMdi.XtraTabbedMdiManager
     Friend WithEvents LayoutControl1 As DevExpress.XtraLayout.LayoutControl
@@ -187,4 +209,6 @@
     Friend WithEvents XtraTabPage2 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents XtraTabPage1 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents BehaviorManager1 As DevExpress.Utils.Behaviors.BehaviorManager
+    Friend WithEvents btn_amountDetails As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btn_summary As DevExpress.XtraBars.BarButtonItem
 End Class
