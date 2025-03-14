@@ -43,6 +43,7 @@
     <StartupObject>MarketingSalesSystem.My.MyApplication</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="DevExpress.BonusSkins.v18.1" />
     <Reference Include="DevExpress.Data.v18.1" />
     <Reference Include="DevExpress.Images.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -56,8 +57,11 @@
     <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,12 +94,17 @@
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesReport.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Views\frmSalesInvoice.Designer.vb">
+      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSalesInvoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\ucBase.Designer.vb">
       <DependentUpon>ucBase.vb</DependentUpon>
     </Compile>
@@ -108,15 +117,6 @@
     <Compile Include="Views\ucSalesInvc.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ucBaseSalesRep.Designer.vb">
-      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ucBaseSalesRep.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <EmbeddedResource Include="Views\ucBaseSalesRep.resx">
-      <DependentUpon>ucBaseSalesRep.vb</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Data\mkdb.dbml.layout">
       <DependentUpon>mkdb.dbml</DependentUpon>
@@ -135,6 +135,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\frmSalesInvoice.resx">
+      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucBase.resx">
       <DependentUpon>ucBase.vb</DependentUpon>
     </EmbeddedResource>
@@ -162,7 +165,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
