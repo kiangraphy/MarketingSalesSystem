@@ -130,10 +130,28 @@
     <Compile Include="Views\ucBase.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\ucBuyer.Designer.vb">
+      <DependentUpon>ucBuyer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucBuyer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucCatcher.Designer.vb">
+      <DependentUpon>ucCatcher.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucCatcher.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\ucSalesInvc.Designer.vb">
       <DependentUpon>ucSalesInvc.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\ucSalesInvc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucTableBase.Designer.vb">
+      <DependentUpon>ucTableBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucTableBase.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ucWeightSlips.Designer.vb">
@@ -142,6 +160,12 @@
     <Compile Include="Views\ucWeightSlips.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <EmbeddedResource Include="Views\ucSalesInvc.resx">
+      <DependentUpon>ucSalesInvc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucTableBase.resx">
+      <DependentUpon>ucTableBase.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucWeightSlips.resx">
       <DependentUpon>ucWeightSlips.vb</DependentUpon>
     </EmbeddedResource>
@@ -198,6 +222,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
