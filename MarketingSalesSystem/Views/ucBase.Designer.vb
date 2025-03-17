@@ -43,6 +43,7 @@ Partial Class ucBase
         Me.EmptySpaceItem3 = New DevExpress.XtraLayout.EmptySpaceItem()
         Me.LayoutControlItem3 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.EmptySpaceItem1 = New DevExpress.XtraLayout.EmptySpaceItem()
+        Me.XtraTabPage3 = New DevExpress.XtraTab.XtraTabPage()
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LayoutControl1.SuspendLayout()
         CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -85,7 +86,7 @@ Partial Class ucBase
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
         Me.XtraTabControl1.Size = New System.Drawing.Size(1158, 559)
         Me.XtraTabControl1.TabIndex = 4
-        Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
+        Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2, Me.XtraTabPage3})
         '
         'XtraTabPage1
         '
@@ -247,6 +248,12 @@ Partial Class ucBase
         Me.EmptySpaceItem1.Size = New System.Drawing.Size(238, 26)
         Me.EmptySpaceItem1.TextSize = New System.Drawing.Size(0, 0)
         '
+        'XtraTabPage3
+        '
+        Me.XtraTabPage3.Name = "XtraTabPage3"
+        Me.XtraTabPage3.Size = New System.Drawing.Size(1152, 531)
+        Me.XtraTabPage3.Text = "Weight Slips"
+        '
         'ucBase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -294,5 +301,6 @@ Partial Class ucBase
     Friend WithEvents LayoutControlItem3 As DevExpress.XtraLayout.LayoutControlItem
     Friend WithEvents XtraTabPage2 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents EmptySpaceItem1 As DevExpress.XtraLayout.EmptySpaceItem
+    Friend WithEvents XtraTabPage3 As DevExpress.XtraTab.XtraTabPage
 
 End Class
