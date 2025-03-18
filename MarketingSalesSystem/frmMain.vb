@@ -15,23 +15,47 @@ Partial Public Class frmMain
     End Sub
 
     Private Sub addTab(ByVal uc As ucBase, ByVal title As String)
+        Dim existingTabIndex As Integer = InTabs(title)
+
+        If existingTabIndex <> -1 Then
+            xtraTab.SelectedTabPage = xtraTab.TabPages(existingTabIndex)
+            Return
+        End If
+
         ucList.Add(uc)
-        xtraTab.TabPages.Add(uc.title)
-        uc.Parent = xtraTab.TabPages(xtraTab.TabPages.Count - 1)
+        Dim newTab As New DevExpress.XtraTab.XtraTabPage With {.Text = title}
+        xtraTab.TabPages.Add(newTab)
+
+        uc.Parent = newTab
         uc.Dock = DockStyle.Fill
-        xtraTab.TabPages(ucList.IndexOf(uc)).Show()
+        xtraTab.SelectedTabPage = newTab
     End Sub
 
     Private Function InTabs(title As String) As Integer
-        If ucList.Count = 0 OrElse Not ucList.Any(Function(x) x.title = title) Then
-            Return -1
-        End If
-        Return ucList.FindIndex(Function(x) x.title = title)
+        Dim normalizedTitle As String = title.Trim().ToLower()
+
+        For i As Integer = 0 To xtraTab.TabPages.Count - 1
+            If xtraTab.TabPages(i).Text.Trim().ToLower() = normalizedTitle Then
+                Return i
+            End If
+        Next
+
+        Return -1
     End Function
 
-    
+    Private Sub btn_salesInvc_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_salesInvc.ItemClick
+        Dim title = "List Of Sales Invoice"
+        Dim intab = InTabs(title)
 
-    Private Sub xtraTab_CloseButtonClick(sender As Object, e As EventArgs)
+        If intab = -1 Then
+            Dim uc As New ucSales(title)
+            addTab(uc, title)
+        Else
+            xtraTab.SelectedTabPage = xtraTab.TabPages(intab)
+        End If
+    End Sub
+
+    Private Sub xtraTab_CloseButtonClick(sender As Object, e As EventArgs) Handles xtraTab.CloseButtonClick
         Dim page As DevExpress.XtraTab.XtraTabPage = TryCast(xtraTab.SelectedTabPage, DevExpress.XtraTab.XtraTabPage)
 
         If page IsNot Nothing Then
@@ -45,14 +69,15 @@ Partial Public Class frmMain
         End If
     End Sub
 
+
     Private Sub btn_weightSlips_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_weightSlips.ItemClick
         Dim title = "Weight Slip"
-        Dim inTab = InTabs("ucWeightSlip")
-        If inTab = -1 Then
+        Dim intab = InTabs("ucWeightSlip")
+        If intab = -1 Then
             Dim uc As New ucWeightSlip(title)
             addTab(uc, title)
         Else
-            xtraTab.TabPages(inTab).Show()
+            xtraTab.TabPages(intab).Show()
         End If
     End Sub
 
@@ -68,14 +93,6 @@ Partial Public Class frmMain
         frm3.Show()
     End Sub
 
-    Private Sub btn_salesInvc_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_salesInvc.ItemClick
-        Dim title = "List Of Sales Invoice"
-        Dim inTab = InTabs("ucSales")
-        If inTab = -1 Then
-            Dim uc As New ucSales(title)
-            addTab(uc, title)
-        Else
-            xtraTab.TabPages(inTab).Show()
-        End If
-    End Sub
+
+
 End Class
