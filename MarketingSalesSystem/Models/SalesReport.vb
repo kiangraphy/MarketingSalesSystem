@@ -44,4 +44,38 @@
             approvalStatus = i.approvalStatus
         Next
     End Sub
+
+    Sub New(ByRef sr As trans_SalesReport, ByRef dc_ As mkdbDataContext)
+        dc = dc_
+
+        Dim i = sr
+
+        Me.salesReport_ID = i.salesReport_ID
+        salesDate = i.salesDate
+        salesNum = i.salesNum
+        sellingType = i.sellingType
+        unloadingType = i.unloadingType
+        unloadingVessel_ID = i.unloadingVessel_ID
+        unloadingForeignVessel = i.unloadingForeignVessel
+        buyer = i.buyer
+        catchtDeliveryNum = i.catchtDeliveryNum
+        usdRate = i.usdRate
+        contractNum = i.contractNum
+        remarks = i.remarks
+        encodedBy = i.encodedBy
+        encodedOn = i.encodedOn
+        approvalStatus = i.approvalStatus
+    End Sub
+
+    Function getRows() As List(Of SalesReport)
+        Dim srList As New List(Of SalesReport)
+
+        Dim srs = From item In dc.trans_SalesReports Select item
+
+        For Each sr In srs
+            srList.Add(New SalesReport(sr, dc))
+        Next
+
+        Return srList
+    End Function
 End Class

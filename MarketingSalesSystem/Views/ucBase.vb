@@ -2,9 +2,7 @@
     Public title As String
 
     Sub New()
-
         InitializeComponent()
-
     End Sub
 
     Sub hideDate()
@@ -14,4 +12,7 @@
     End Sub
 
 
+    Private Sub XtraTabControl1_SelectedPageChanged(sender As Object, e As DevExpress.XtraTab.TabPageChangedEventArgs)
+        Debug.WriteLine("Switched to: " & e.Page.Text)
+    End Sub
 End Class

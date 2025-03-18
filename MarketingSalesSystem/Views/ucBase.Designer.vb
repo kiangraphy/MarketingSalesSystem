@@ -24,9 +24,6 @@ Partial Class ucBase
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucBase))
         Me.LayoutControl1 = New DevExpress.XtraLayout.LayoutControl()
-        Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
-        Me.XtraTabPage1 = New DevExpress.XtraTab.XtraTabPage()
-        Me.XtraTabPage2 = New DevExpress.XtraTab.XtraTabPage()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
@@ -41,13 +38,12 @@ Partial Class ucBase
         Me.LayoutControlItem6 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem7 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.EmptySpaceItem3 = New DevExpress.XtraLayout.EmptySpaceItem()
-        Me.LayoutControlItem3 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.EmptySpaceItem1 = New DevExpress.XtraLayout.EmptySpaceItem()
-        Me.XtraTabPage3 = New DevExpress.XtraTab.XtraTabPage()
+        Me.LayoutControl2 = New DevExpress.XtraLayout.LayoutControl()
+        Me.LayoutControlItem3 = New DevExpress.XtraLayout.LayoutControlItem()
+        Me.Root = New DevExpress.XtraLayout.LayoutControlGroup()
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LayoutControl1.SuspendLayout()
-        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.XtraTabControl1.SuspendLayout()
         CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,13 +54,15 @@ Partial Class ucBase
         CType(Me.LayoutControlItem6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EmptySpaceItem3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Root, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LayoutControl1
         '
-        Me.LayoutControl1.Controls.Add(Me.XtraTabControl1)
+        Me.LayoutControl1.Controls.Add(Me.LayoutControl2)
         Me.LayoutControl1.Controls.Add(Me.LabelControl1)
         Me.LayoutControl1.Controls.Add(Me.SimpleButton3)
         Me.LayoutControl1.Controls.Add(Me.SimpleButton2)
@@ -73,41 +71,22 @@ Partial Class ucBase
         Me.LayoutControl1.Controls.Add(Me.TextEdit1)
         Me.LayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LayoutControl1.Location = New System.Drawing.Point(0, 0)
+        Me.LayoutControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.LayoutControl1.Name = "LayoutControl1"
         Me.LayoutControl1.Root = Me.LayoutControlGroup1
-        Me.LayoutControl1.Size = New System.Drawing.Size(1182, 641)
+        Me.LayoutControl1.Size = New System.Drawing.Size(1576, 789)
         Me.LayoutControl1.TabIndex = 0
         Me.LayoutControl1.Text = "LayoutControl1"
-        '
-        'XtraTabControl1
-        '
-        Me.XtraTabControl1.Location = New System.Drawing.Point(12, 70)
-        Me.XtraTabControl1.Name = "XtraTabControl1"
-        Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
-        Me.XtraTabControl1.Size = New System.Drawing.Size(1158, 559)
-        Me.XtraTabControl1.TabIndex = 4
-        Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2, Me.XtraTabPage3})
-        '
-        'XtraTabPage1
-        '
-        Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(1152, 531)
-        Me.XtraTabPage1.Text = "View by Buyer"
-        '
-        'XtraTabPage2
-        '
-        Me.XtraTabPage2.Name = "XtraTabPage2"
-        Me.XtraTabPage2.Size = New System.Drawing.Size(1152, 531)
-        Me.XtraTabPage2.Text = "View by Catcher"
         '
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl1.Appearance.Options.UseFont = True
         Me.LabelControl1.Location = New System.Drawing.Point(12, 12)
+        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Padding = New System.Windows.Forms.Padding(5)
-        Me.LabelControl1.Size = New System.Drawing.Size(116, 28)
+        Me.LabelControl1.Padding = New System.Windows.Forms.Padding(7, 6, 7, 6)
+        Me.LabelControl1.Size = New System.Drawing.Size(148, 35)
         Me.LabelControl1.StyleController = Me.LayoutControl1
         Me.LabelControl1.TabIndex = 10
         Me.LabelControl1.Text = "LabelControl1"
@@ -115,9 +94,10 @@ Partial Class ucBase
         'SimpleButton3
         '
         Me.SimpleButton3.ImageOptions.Image = CType(resources.GetObject("SimpleButton3.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton3.Location = New System.Drawing.Point(1047, 44)
+        Me.SimpleButton3.Location = New System.Drawing.Point(1398, 51)
+        Me.SimpleButton3.Margin = New System.Windows.Forms.Padding(4)
         Me.SimpleButton3.Name = "SimpleButton3"
-        Me.SimpleButton3.Size = New System.Drawing.Size(123, 22)
+        Me.SimpleButton3.Size = New System.Drawing.Size(166, 27)
         Me.SimpleButton3.StyleController = Me.LayoutControl1
         Me.SimpleButton3.TabIndex = 9
         Me.SimpleButton3.Text = "New"
@@ -125,9 +105,10 @@ Partial Class ucBase
         'SimpleButton2
         '
         Me.SimpleButton2.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton2.Location = New System.Drawing.Point(688, 44)
+        Me.SimpleButton2.Location = New System.Drawing.Point(917, 51)
+        Me.SimpleButton2.Margin = New System.Windows.Forms.Padding(4)
         Me.SimpleButton2.Name = "SimpleButton2"
-        Me.SimpleButton2.Size = New System.Drawing.Size(117, 22)
+        Me.SimpleButton2.Size = New System.Drawing.Size(158, 27)
         Me.SimpleButton2.StyleController = Me.LayoutControl1
         Me.SimpleButton2.TabIndex = 8
         Me.SimpleButton2.Text = "Print"
@@ -135,28 +116,31 @@ Partial Class ucBase
         'SimpleButton1
         '
         Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(568, 44)
+        Me.SimpleButton1.Location = New System.Drawing.Point(756, 51)
+        Me.SimpleButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(116, 22)
+        Me.SimpleButton1.Size = New System.Drawing.Size(157, 27)
         Me.SimpleButton1.StyleController = Me.LayoutControl1
         Me.SimpleButton1.TabIndex = 7
         Me.SimpleButton1.Text = "Filter"
         '
         'TextEdit2
         '
-        Me.TextEdit2.Location = New System.Drawing.Point(329, 44)
+        Me.TextEdit2.Location = New System.Drawing.Point(428, 51)
+        Me.TextEdit2.Margin = New System.Windows.Forms.Padding(4)
         Me.TextEdit2.Name = "TextEdit2"
         Me.TextEdit2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit2.Size = New System.Drawing.Size(225, 20)
+        Me.TextEdit2.Size = New System.Drawing.Size(311, 22)
         Me.TextEdit2.StyleController = Me.LayoutControl1
         Me.TextEdit2.TabIndex = 5
         '
         'TextEdit1
         '
-        Me.TextEdit1.Location = New System.Drawing.Point(65, 44)
+        Me.TextEdit1.Location = New System.Drawing.Point(75, 51)
+        Me.TextEdit1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextEdit1.Name = "TextEdit1"
         Me.TextEdit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit1.Size = New System.Drawing.Size(207, 20)
+        Me.TextEdit1.Size = New System.Drawing.Size(286, 22)
         Me.TextEdit1.StyleController = Me.LayoutControl1
         Me.TextEdit1.TabIndex = 4
         '
@@ -164,53 +148,53 @@ Partial Class ucBase
         '
         Me.LayoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.[True]
         Me.LayoutControlGroup1.GroupBordersVisible = False
-        Me.LayoutControlGroup1.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem1, Me.LayoutControlItem2, Me.LayoutControlItem4, Me.LayoutControlItem5, Me.LayoutControlItem6, Me.LayoutControlItem7, Me.EmptySpaceItem3, Me.LayoutControlItem3, Me.EmptySpaceItem1})
+        Me.LayoutControlGroup1.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem1, Me.LayoutControlItem2, Me.LayoutControlItem4, Me.LayoutControlItem5, Me.LayoutControlItem6, Me.LayoutControlItem7, Me.EmptySpaceItem3, Me.EmptySpaceItem1, Me.LayoutControlItem3})
         Me.LayoutControlGroup1.Name = "Root"
-        Me.LayoutControlGroup1.Size = New System.Drawing.Size(1182, 641)
+        Me.LayoutControlGroup1.Size = New System.Drawing.Size(1576, 789)
         Me.LayoutControlGroup1.TextVisible = False
         '
         'LayoutControlItem1
         '
         Me.LayoutControlItem1.Control = Me.TextEdit1
-        Me.LayoutControlItem1.Location = New System.Drawing.Point(0, 32)
+        Me.LayoutControlItem1.Location = New System.Drawing.Point(0, 39)
         Me.LayoutControlItem1.Name = "LayoutControlItem1"
-        Me.LayoutControlItem1.Size = New System.Drawing.Size(264, 26)
+        Me.LayoutControlItem1.Size = New System.Drawing.Size(353, 31)
         Me.LayoutControlItem1.Text = "Data From"
-        Me.LayoutControlItem1.TextSize = New System.Drawing.Size(50, 13)
+        Me.LayoutControlItem1.TextSize = New System.Drawing.Size(60, 16)
         '
         'LayoutControlItem2
         '
         Me.LayoutControlItem2.Control = Me.TextEdit2
-        Me.LayoutControlItem2.Location = New System.Drawing.Point(264, 32)
+        Me.LayoutControlItem2.Location = New System.Drawing.Point(353, 39)
         Me.LayoutControlItem2.Name = "LayoutControlItem2"
-        Me.LayoutControlItem2.Size = New System.Drawing.Size(282, 26)
+        Me.LayoutControlItem2.Size = New System.Drawing.Size(378, 31)
         Me.LayoutControlItem2.Text = "To"
-        Me.LayoutControlItem2.TextSize = New System.Drawing.Size(50, 13)
+        Me.LayoutControlItem2.TextSize = New System.Drawing.Size(60, 16)
         '
         'LayoutControlItem4
         '
         Me.LayoutControlItem4.Control = Me.SimpleButton1
-        Me.LayoutControlItem4.Location = New System.Drawing.Point(556, 32)
+        Me.LayoutControlItem4.Location = New System.Drawing.Point(744, 39)
         Me.LayoutControlItem4.Name = "LayoutControlItem4"
-        Me.LayoutControlItem4.Size = New System.Drawing.Size(120, 26)
+        Me.LayoutControlItem4.Size = New System.Drawing.Size(161, 31)
         Me.LayoutControlItem4.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem4.TextVisible = False
         '
         'LayoutControlItem5
         '
         Me.LayoutControlItem5.Control = Me.SimpleButton2
-        Me.LayoutControlItem5.Location = New System.Drawing.Point(676, 32)
+        Me.LayoutControlItem5.Location = New System.Drawing.Point(905, 39)
         Me.LayoutControlItem5.Name = "LayoutControlItem5"
-        Me.LayoutControlItem5.Size = New System.Drawing.Size(121, 26)
+        Me.LayoutControlItem5.Size = New System.Drawing.Size(162, 31)
         Me.LayoutControlItem5.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem5.TextVisible = False
         '
         'LayoutControlItem6
         '
         Me.LayoutControlItem6.Control = Me.SimpleButton3
-        Me.LayoutControlItem6.Location = New System.Drawing.Point(1035, 32)
+        Me.LayoutControlItem6.Location = New System.Drawing.Point(1386, 39)
         Me.LayoutControlItem6.Name = "LayoutControlItem6"
-        Me.LayoutControlItem6.Size = New System.Drawing.Size(127, 26)
+        Me.LayoutControlItem6.Size = New System.Drawing.Size(170, 31)
         Me.LayoutControlItem6.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem6.TextVisible = False
         '
@@ -219,53 +203,62 @@ Partial Class ucBase
         Me.LayoutControlItem7.Control = Me.LabelControl1
         Me.LayoutControlItem7.Location = New System.Drawing.Point(0, 0)
         Me.LayoutControlItem7.Name = "LayoutControlItem7"
-        Me.LayoutControlItem7.Size = New System.Drawing.Size(1162, 32)
+        Me.LayoutControlItem7.Size = New System.Drawing.Size(1556, 39)
         Me.LayoutControlItem7.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem7.TextVisible = False
         '
         'EmptySpaceItem3
         '
         Me.EmptySpaceItem3.AllowHotTrack = False
-        Me.EmptySpaceItem3.Location = New System.Drawing.Point(546, 32)
+        Me.EmptySpaceItem3.Location = New System.Drawing.Point(731, 39)
         Me.EmptySpaceItem3.Name = "EmptySpaceItem3"
-        Me.EmptySpaceItem3.Size = New System.Drawing.Size(10, 26)
+        Me.EmptySpaceItem3.Size = New System.Drawing.Size(13, 31)
         Me.EmptySpaceItem3.TextSize = New System.Drawing.Size(0, 0)
-        '
-        'LayoutControlItem3
-        '
-        Me.LayoutControlItem3.Control = Me.XtraTabControl1
-        Me.LayoutControlItem3.Location = New System.Drawing.Point(0, 58)
-        Me.LayoutControlItem3.Name = "LayoutControlItem3"
-        Me.LayoutControlItem3.Size = New System.Drawing.Size(1162, 563)
-        Me.LayoutControlItem3.TextSize = New System.Drawing.Size(0, 0)
-        Me.LayoutControlItem3.TextVisible = False
         '
         'EmptySpaceItem1
         '
         Me.EmptySpaceItem1.AllowHotTrack = False
-        Me.EmptySpaceItem1.Location = New System.Drawing.Point(797, 32)
+        Me.EmptySpaceItem1.Location = New System.Drawing.Point(1067, 39)
         Me.EmptySpaceItem1.Name = "EmptySpaceItem1"
-        Me.EmptySpaceItem1.Size = New System.Drawing.Size(238, 26)
+        Me.EmptySpaceItem1.Size = New System.Drawing.Size(319, 31)
         Me.EmptySpaceItem1.TextSize = New System.Drawing.Size(0, 0)
         '
-        'XtraTabPage3
+        'LayoutControl2
         '
-        Me.XtraTabPage3.Name = "XtraTabPage3"
-        Me.XtraTabPage3.Size = New System.Drawing.Size(1152, 531)
-        Me.XtraTabPage3.Text = "Weight Slips"
+        Me.LayoutControl2.Location = New System.Drawing.Point(12, 82)
+        Me.LayoutControl2.Name = "LayoutControl2"
+        Me.LayoutControl2.Root = Me.Root
+        Me.LayoutControl2.Size = New System.Drawing.Size(1552, 695)
+        Me.LayoutControl2.TabIndex = 11
+        Me.LayoutControl2.Text = "LayoutControl2"
+        '
+        'LayoutControlItem3
+        '
+        Me.LayoutControlItem3.Control = Me.LayoutControl2
+        Me.LayoutControlItem3.Location = New System.Drawing.Point(0, 70)
+        Me.LayoutControlItem3.Name = "LayoutControlItem3"
+        Me.LayoutControlItem3.Size = New System.Drawing.Size(1556, 699)
+        Me.LayoutControlItem3.TextSize = New System.Drawing.Size(0, 0)
+        Me.LayoutControlItem3.TextVisible = False
+        '
+        'Root
+        '
+        Me.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.[True]
+        Me.Root.GroupBordersVisible = False
+        Me.Root.Name = "Root"
+        Me.Root.Size = New System.Drawing.Size(1552, 695)
+        Me.Root.TextVisible = False
         '
         'ucBase
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LayoutControl1)
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "ucBase"
-        Me.Size = New System.Drawing.Size(1182, 641)
+        Me.Size = New System.Drawing.Size(1576, 789)
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.LayoutControl1.ResumeLayout(False)
-        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.XtraTabControl1.ResumeLayout(False)
         CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -276,8 +269,10 @@ Partial Class ucBase
         CType(Me.LayoutControlItem6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EmptySpaceItem3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Root, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -295,12 +290,10 @@ Partial Class ucBase
     Friend WithEvents LayoutControlItem5 As DevExpress.XtraLayout.LayoutControlItem
     Friend WithEvents LayoutControlItem6 As DevExpress.XtraLayout.LayoutControlItem
     Friend WithEvents LayoutControlItem7 As DevExpress.XtraLayout.LayoutControlItem
-    Friend WithEvents XtraTabControl1 As DevExpress.XtraTab.XtraTabControl
-    Friend WithEvents XtraTabPage1 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents EmptySpaceItem3 As DevExpress.XtraLayout.EmptySpaceItem
-    Friend WithEvents LayoutControlItem3 As DevExpress.XtraLayout.LayoutControlItem
-    Friend WithEvents XtraTabPage2 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents EmptySpaceItem1 As DevExpress.XtraLayout.EmptySpaceItem
-    Friend WithEvents XtraTabPage3 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents LayoutControl2 As DevExpress.XtraLayout.LayoutControl
+    Friend WithEvents Root As DevExpress.XtraLayout.LayoutControlGroup
+    Friend WithEvents LayoutControlItem3 As DevExpress.XtraLayout.LayoutControlItem
 
 End Class
