@@ -50,6 +50,10 @@ Public Class ucSales
         grid.MainView = gridView
         grid.ViewCollection.Add(gridView)
 
+        ' Enable footer and merge all columns into one
+        gridView.OptionsView.ShowFooter = True
+        gridView.OptionsView.AllowCellMerge = True
+
         ' Force GridControl to initialize before setting the data source
         grid.ForceInitialize()
 
@@ -63,7 +67,7 @@ Public Class ucSales
                     CoveredDate = i.salesDate,
                     SellingType = i.sellingType,
                     Buyer = i.buyer,
-                    UnloadingVesser = i.unloadingForeignVessel,
+                    UnloadingVessel = i.unloadingForeignVessel,
                     VesselType = i.unloadingType,
                     ActualQty = "",
                     FishMeal = "",
@@ -77,6 +81,8 @@ Public Class ucSales
         ' Bind the data source
         grid.DataSource = data
 
+        AddHandler gridView.CustomDrawFooter, AddressOf GridView_CustomDrawFooter
+
     End Sub
 
     Sub displayCatcher(ByRef grid As GridControl)
@@ -84,6 +90,10 @@ Public Class ucSales
         Dim gridView As New GridView(grid)
         grid.MainView = gridView
         grid.ViewCollection.Add(gridView)
+
+        ' Enable footer and merge all columns into one
+        gridView.OptionsView.ShowFooter = True
+        gridView.OptionsView.AllowCellMerge = True
 
         ' Force GridControl to initialize before setting the data source
         grid.ForceInitialize()
@@ -99,7 +109,7 @@ Public Class ucSales
                     Catcher = "Human",
                     SellingType = i.sellingType,
                     Buyer = i.buyer,
-                    UnloadingVesser = i.unloadingVessel_ID,
+                    UnloadingVessel = i.unloadingVessel_ID,
                     VesselType = i.unloadingType,
                     ActualQty = "",
                     FishMeal = "",
@@ -112,6 +122,28 @@ Public Class ucSales
 
         ' Bind the data source
         grid.DataSource = data
+
+        AddHandler gridView.CustomDrawFooter, AddressOf GridView_CustomDrawFooter
     End Sub
+
+    Private Sub GridView_CustomDrawFooter(sender As Object, e As Views.Base.RowObjectCustomDrawEventArgs)
+        Dim view As GridView = TryCast(sender, GridView)
+        If view Is Nothing Then Exit Sub
+
+        e.DefaultDraw()
+
+        Dim footerRect As Rectangle = e.Bounds
+
+        Dim footerFont As New Font("Arial", 10, FontStyle.Bold)
+
+        Dim drawFormat As New StringFormat()
+        drawFormat.LineAlignment = StringAlignment.Center
+
+        e.Graphics.DrawString(" Total:", footerFont, Brushes.Black, footerRect, drawFormat)
+
+        e.Handled = True
+    End Sub
+
+
 
 End Class
