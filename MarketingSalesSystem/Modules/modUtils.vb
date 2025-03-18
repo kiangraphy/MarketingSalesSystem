@@ -9,4 +9,5 @@ Module modUtils
 
         Return newTab
     End Function
+
 End Module
