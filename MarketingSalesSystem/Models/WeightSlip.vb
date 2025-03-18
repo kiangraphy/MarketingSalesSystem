@@ -64,4 +64,16 @@
         encodedBy = ws.encodedBy
         encodedOn = ws.encodedOn
     End Sub
+
+    Function getRows() As List(Of WeightSlip)
+        Dim wsList As New List(Of WeightSlip)
+
+        Dim wss = From item In dc.trans_WeightSlips Select item
+
+        For Each ws In wss
+            wsList.Add(New WeightSlip(ws, dc))
+        Next
+
+        Return wsList
+    End Function
 End Class
