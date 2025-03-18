@@ -29,16 +29,7 @@ Partial Public Class frmMain
         Return ucList.FindIndex(Function(x) x.title = title)
     End Function
 
-    Private Sub btn_salesInvc_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_salesInvc.ItemClick
-        Dim title = "Sales Invoice"
-        Dim intab = InTabs(title)
-        If intab = -1 Then
-            Dim uc As New ucSalesInvc(title)
-            addTab(uc, title)
-        Else
-            xtraTab.TabPages(intab).Show()
-        End If
-    End Sub
+    
 
     Private Sub xtraTab_CloseButtonClick(sender As Object, e As EventArgs)
         Dim page As DevExpress.XtraTab.XtraTabPage = TryCast(xtraTab.SelectedTabPage, DevExpress.XtraTab.XtraTabPage)
@@ -70,5 +61,16 @@ Partial Public Class frmMain
         Dim frm3 As New frmSI_summary
 
         frm3.Show()
+    End Sub
+
+    Private Sub btn_salesInvc_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_salesInvc.ItemClick
+        Dim title = "List Of Sales Invoice"
+        Dim inTab = InTabs("ucSales")
+        If inTab = -1 Then
+            Dim uc As New ucSales(title)
+            addTab(uc, title)
+        Else
+            xtraTab.TabPages(inTab).Show()
+        End If
     End Sub
 End Class

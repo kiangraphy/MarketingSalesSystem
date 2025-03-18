@@ -60,7 +60,7 @@
         Me.ribbonControl1.MaxItemId = 6
         Me.ribbonControl1.Name = "ribbonControl1"
         Me.ribbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.ribbonPage1})
-        Me.ribbonControl1.Size = New System.Drawing.Size(894, 143)
+        Me.ribbonControl1.Size = New System.Drawing.Size(894, 178)
         '
         'btn_salesInvc
         '
@@ -137,7 +137,7 @@
         Me.LayoutControlGroup1.GroupBordersVisible = False
         Me.LayoutControlGroup1.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem1})
         Me.LayoutControlGroup1.Name = "LayoutControlGroup1"
-        Me.LayoutControlGroup1.Size = New System.Drawing.Size(894, 366)
+        Me.LayoutControlGroup1.Size = New System.Drawing.Size(894, 331)
         Me.LayoutControlGroup1.TextVisible = False
         '
         'LayoutControlItem1
@@ -145,7 +145,7 @@
         Me.LayoutControlItem1.Control = Me.xtraTab
         Me.LayoutControlItem1.Location = New System.Drawing.Point(0, 0)
         Me.LayoutControlItem1.Name = "LayoutControlItem1"
-        Me.LayoutControlItem1.Size = New System.Drawing.Size(874, 346)
+        Me.LayoutControlItem1.Size = New System.Drawing.Size(874, 311)
         Me.LayoutControlItem1.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem1.TextVisible = False
         '
@@ -155,17 +155,17 @@
         Me.xtraTab.Location = New System.Drawing.Point(12, 12)
         Me.xtraTab.MultiLine = DevExpress.Utils.DefaultBoolean.[False]
         Me.xtraTab.Name = "xtraTab"
-        Me.xtraTab.Size = New System.Drawing.Size(870, 342)
+        Me.xtraTab.Size = New System.Drawing.Size(870, 307)
         Me.xtraTab.TabIndex = 4
         '
         'LayoutControl1
         '
         Me.LayoutControl1.Controls.Add(Me.xtraTab)
         Me.LayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LayoutControl1.Location = New System.Drawing.Point(0, 143)
+        Me.LayoutControl1.Location = New System.Drawing.Point(0, 178)
         Me.LayoutControl1.Name = "LayoutControl1"
         Me.LayoutControl1.Root = Me.LayoutControlGroup1
-        Me.LayoutControl1.Size = New System.Drawing.Size(894, 366)
+        Me.LayoutControl1.Size = New System.Drawing.Size(894, 331)
         Me.LayoutControl1.TabIndex = 3
         Me.LayoutControl1.Text = "LayoutControl1"
         '
