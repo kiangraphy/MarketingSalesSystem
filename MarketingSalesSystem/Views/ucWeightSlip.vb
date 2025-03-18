@@ -1,6 +1,7 @@
 ﻿Imports DevExpress.XtraTab
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraLayout
+Imports DevExpress.XtraGrid.Views.BandedGrid
 
 Public Class ucWeightSlip
     Inherits ucBase
@@ -20,24 +21,35 @@ Public Class ucWeightSlip
 
         LayoutControl2.Controls.Add(grid)
 
-        Dim layoutItem As LayoutControlItem = LayoutControl2.AddItem("", grid)
-        layoutItem.TextVisible = False
+        Dim layoutItem = LayoutControl2.AddItem("", grid)
+
+        Dim bandView = New BandedGridView(grid)
+
+        grid.MainView = bandView
+        grid.ViewCollection.Add(bandView)
+
+        Dim bandSJ = createBand("Skip Jack", bandView)
+        Dim bandYF = createBand("Yellow Fin", bandView)
+        Dim bandBE = createBand("Big Eye", bandView)
+        Dim bandBon = createBand("Bonito", bandView)
+
     End Sub
 
-    Function setTab(ByRef tab As XtraTabPage) As GridControl
-        Dim layout = New LayoutControl With {
-                        .Dock = DockStyle.Fill
-                    }
-        tab.Controls.Add(layout)
-        Dim grid = New GridControl() With {
-            .Dock = DockStyle.Fill
+    Function createBand(ByVal caption As String, ByRef bandView As BandedGridView) As GridBand
+        Dim band As New GridBand() With {
+            .Caption = caption
         }
-        layout.Controls.Add(grid)
-        Dim layoutItem As LayoutControlItem = layout.AddItem("", grid)
-        layoutItem.TextVisible = False
-
-        Return grid
+        bandView.Bands.Add(band)
+        Return band
     End Function
 
+    'Sub addBandToView(ByVal items() As Object, ByRef band As GridBand, ByRef bandView As BandedGridView)
+    '    For Each item In items
+    '        Dim colName As String = item(0)
+    '        Dim colCaption As String = item(1)
+    '        Dim colBand As BandedGridColumn = bandView.Columns.AddVisible(colName, colCaption)
+    '        colBand.OwnerBand = band
+    '    Next
+    'End Sub
 
 End Class
