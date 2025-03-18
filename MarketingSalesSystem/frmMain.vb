@@ -46,9 +46,14 @@ Partial Public Class frmMain
     End Sub
 
     Private Sub btn_weightSlips_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_weightSlips.ItemClick
-        Dim frm2 As New frmSI_weightSlips
-
-        frm2.Show()
+        Dim title = "Weight Slip"
+        Dim inTab = InTabs("ucWeightSlip")
+        If inTab = -1 Then
+            Dim uc As New ucWeightSlip(title)
+            addTab(uc, title)
+        Else
+            xtraTab.TabPages(inTab).Show()
+        End If
     End Sub
 
     Private Sub btn_amountDetails_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btn_amountDetails.ItemClick
