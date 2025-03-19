@@ -27,9 +27,11 @@ Partial Class ucBase
         Me.LayoutControl2 = New DevExpress.XtraLayout.LayoutControl()
         Me.Root = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
-        Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btn_new = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.TextEdit1 = New DevExpress.XtraEditors.DateEdit()
+        Me.TextEdit2 = New DevExpress.XtraEditors.DateEdit()
         Me.LayoutControlGroup1 = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LayoutControlItem1 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem2 = New DevExpress.XtraLayout.LayoutControlItem()
@@ -40,12 +42,14 @@ Partial Class ucBase
         Me.EmptySpaceItem3 = New DevExpress.XtraLayout.EmptySpaceItem()
         Me.EmptySpaceItem1 = New DevExpress.XtraLayout.EmptySpaceItem()
         Me.LayoutControlItem3 = New DevExpress.XtraLayout.LayoutControlItem()
-        Me.TextEdit1 = New DevExpress.XtraEditors.DateEdit()
-        Me.TextEdit2 = New DevExpress.XtraEditors.DateEdit()
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LayoutControl1.SuspendLayout()
         CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,17 +60,13 @@ Partial Class ucBase
         CType(Me.EmptySpaceItem3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LayoutControl1
         '
         Me.LayoutControl1.Controls.Add(Me.LayoutControl2)
         Me.LayoutControl1.Controls.Add(Me.LabelControl1)
-        Me.LayoutControl1.Controls.Add(Me.SimpleButton3)
+        Me.LayoutControl1.Controls.Add(Me.btn_new)
         Me.LayoutControl1.Controls.Add(Me.SimpleButton2)
         Me.LayoutControl1.Controls.Add(Me.SimpleButton1)
         Me.LayoutControl1.Controls.Add(Me.TextEdit1)
@@ -81,11 +81,11 @@ Partial Class ucBase
         '
         'LayoutControl2
         '
-        Me.LayoutControl2.Location = New System.Drawing.Point(8, 68)
-        Me.LayoutControl2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LayoutControl2.Location = New System.Drawing.Point(12, 70)
+        Me.LayoutControl2.Margin = New System.Windows.Forms.Padding(2)
         Me.LayoutControl2.Name = "LayoutControl2"
         Me.LayoutControl2.Root = Me.Root
-        Me.LayoutControl2.Size = New System.Drawing.Size(1166, 563)
+        Me.LayoutControl2.Size = New System.Drawing.Size(1158, 559)
         Me.LayoutControl2.TabIndex = 11
         Me.LayoutControl2.Text = "LayoutControl2"
         '
@@ -94,37 +94,37 @@ Partial Class ucBase
         Me.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.[True]
         Me.Root.GroupBordersVisible = False
         Me.Root.Name = "Root"
-        Me.Root.Size = New System.Drawing.Size(1166, 563)
+        Me.Root.Size = New System.Drawing.Size(1158, 559)
         Me.Root.TextVisible = False
         '
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl1.Appearance.Options.UseFont = True
-        Me.LabelControl1.Location = New System.Drawing.Point(8, 10)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 12)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.LabelControl1.Padding = New System.Windows.Forms.Padding(5)
         Me.LabelControl1.Size = New System.Drawing.Size(116, 28)
         Me.LabelControl1.StyleController = Me.LayoutControl1
         Me.LabelControl1.TabIndex = 10
         Me.LabelControl1.Text = "LabelControl1"
         '
-        'SimpleButton3
+        'btn_new
         '
-        Me.SimpleButton3.ImageOptions.Image = CType(resources.GetObject("SimpleButton3.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton3.Location = New System.Drawing.Point(1048, 42)
-        Me.SimpleButton3.Name = "SimpleButton3"
-        Me.SimpleButton3.Size = New System.Drawing.Size(126, 22)
-        Me.SimpleButton3.StyleController = Me.LayoutControl1
-        Me.SimpleButton3.TabIndex = 9
-        Me.SimpleButton3.Text = "New"
+        Me.btn_new.ImageOptions.Image = CType(resources.GetObject("btn_new.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_new.Location = New System.Drawing.Point(1046, 44)
+        Me.btn_new.Name = "btn_new"
+        Me.btn_new.Size = New System.Drawing.Size(124, 22)
+        Me.btn_new.StyleController = Me.LayoutControl1
+        Me.btn_new.TabIndex = 9
+        Me.btn_new.Text = "New"
         '
         'SimpleButton2
         '
         Me.SimpleButton2.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton2.Location = New System.Drawing.Point(688, 42)
+        Me.SimpleButton2.Location = New System.Drawing.Point(688, 44)
         Me.SimpleButton2.Name = "SimpleButton2"
-        Me.SimpleButton2.Size = New System.Drawing.Size(119, 22)
+        Me.SimpleButton2.Size = New System.Drawing.Size(116, 22)
         Me.SimpleButton2.StyleController = Me.LayoutControl1
         Me.SimpleButton2.TabIndex = 8
         Me.SimpleButton2.Text = "Print"
@@ -132,12 +132,46 @@ Partial Class ucBase
         'SimpleButton1
         '
         Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(567, 42)
+        Me.SimpleButton1.Location = New System.Drawing.Point(568, 44)
         Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(119, 22)
+        Me.SimpleButton1.Size = New System.Drawing.Size(116, 22)
         Me.SimpleButton1.StyleController = Me.LayoutControl1
         Me.SimpleButton1.TabIndex = 7
         Me.SimpleButton1.Text = "Filter"
+        '
+        'TextEdit1
+        '
+        Me.TextEdit1.EditValue = Nothing
+        Me.TextEdit1.Location = New System.Drawing.Point(65, 44)
+        Me.TextEdit1.Name = "TextEdit1"
+        Me.TextEdit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.TextEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.TextEdit1.Properties.DisplayFormat.FormatString = ""
+        Me.TextEdit1.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.TextEdit1.Properties.EditFormat.FormatString = ""
+        Me.TextEdit1.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.TextEdit1.Properties.Mask.EditMask = ""
+        Me.TextEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
+        Me.TextEdit1.Size = New System.Drawing.Size(207, 20)
+        Me.TextEdit1.StyleController = Me.LayoutControl1
+        Me.TextEdit1.TabIndex = 4
+        '
+        'TextEdit2
+        '
+        Me.TextEdit2.EditValue = Nothing
+        Me.TextEdit2.Location = New System.Drawing.Point(329, 44)
+        Me.TextEdit2.Name = "TextEdit2"
+        Me.TextEdit2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.TextEdit2.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.TextEdit2.Properties.DisplayFormat.FormatString = ""
+        Me.TextEdit2.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.TextEdit2.Properties.EditFormat.FormatString = ""
+        Me.TextEdit2.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.TextEdit2.Properties.Mask.EditMask = ""
+        Me.TextEdit2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
+        Me.TextEdit2.Size = New System.Drawing.Size(225, 20)
+        Me.TextEdit2.StyleController = Me.LayoutControl1
+        Me.TextEdit2.TabIndex = 5
         '
         'LayoutControlGroup1
         '
@@ -153,41 +187,41 @@ Partial Class ucBase
         Me.LayoutControlItem1.Control = Me.TextEdit1
         Me.LayoutControlItem1.Location = New System.Drawing.Point(0, 32)
         Me.LayoutControlItem1.Name = "LayoutControlItem1"
-        Me.LayoutControlItem1.Size = New System.Drawing.Size(265, 26)
+        Me.LayoutControlItem1.Size = New System.Drawing.Size(264, 26)
         Me.LayoutControlItem1.Text = "Data From"
         Me.LayoutControlItem1.TextSize = New System.Drawing.Size(50, 13)
         '
         'LayoutControlItem2
         '
         Me.LayoutControlItem2.Control = Me.TextEdit2
-        Me.LayoutControlItem2.Location = New System.Drawing.Point(265, 32)
+        Me.LayoutControlItem2.Location = New System.Drawing.Point(264, 32)
         Me.LayoutControlItem2.Name = "LayoutControlItem2"
-        Me.LayoutControlItem2.Size = New System.Drawing.Size(284, 26)
+        Me.LayoutControlItem2.Size = New System.Drawing.Size(282, 26)
         Me.LayoutControlItem2.Text = "To"
         Me.LayoutControlItem2.TextSize = New System.Drawing.Size(50, 13)
         '
         'LayoutControlItem4
         '
         Me.LayoutControlItem4.Control = Me.SimpleButton1
-        Me.LayoutControlItem4.Location = New System.Drawing.Point(559, 32)
+        Me.LayoutControlItem4.Location = New System.Drawing.Point(556, 32)
         Me.LayoutControlItem4.Name = "LayoutControlItem4"
-        Me.LayoutControlItem4.Size = New System.Drawing.Size(121, 26)
+        Me.LayoutControlItem4.Size = New System.Drawing.Size(120, 26)
         Me.LayoutControlItem4.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem4.TextVisible = False
         '
         'LayoutControlItem5
         '
         Me.LayoutControlItem5.Control = Me.SimpleButton2
-        Me.LayoutControlItem5.Location = New System.Drawing.Point(680, 32)
+        Me.LayoutControlItem5.Location = New System.Drawing.Point(676, 32)
         Me.LayoutControlItem5.Name = "LayoutControlItem5"
-        Me.LayoutControlItem5.Size = New System.Drawing.Size(121, 26)
+        Me.LayoutControlItem5.Size = New System.Drawing.Size(120, 26)
         Me.LayoutControlItem5.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem5.TextVisible = False
         '
         'LayoutControlItem6
         '
-        Me.LayoutControlItem6.Control = Me.SimpleButton3
-        Me.LayoutControlItem6.Location = New System.Drawing.Point(1040, 32)
+        Me.LayoutControlItem6.Control = Me.btn_new
+        Me.LayoutControlItem6.Location = New System.Drawing.Point(1034, 32)
         Me.LayoutControlItem6.Name = "LayoutControlItem6"
         Me.LayoutControlItem6.Size = New System.Drawing.Size(128, 26)
         Me.LayoutControlItem6.TextSize = New System.Drawing.Size(0, 0)
@@ -198,14 +232,14 @@ Partial Class ucBase
         Me.LayoutControlItem7.Control = Me.LabelControl1
         Me.LayoutControlItem7.Location = New System.Drawing.Point(0, 0)
         Me.LayoutControlItem7.Name = "LayoutControlItem7"
-        Me.LayoutControlItem7.Size = New System.Drawing.Size(1168, 32)
+        Me.LayoutControlItem7.Size = New System.Drawing.Size(1162, 32)
         Me.LayoutControlItem7.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem7.TextVisible = False
         '
         'EmptySpaceItem3
         '
         Me.EmptySpaceItem3.AllowHotTrack = False
-        Me.EmptySpaceItem3.Location = New System.Drawing.Point(549, 32)
+        Me.EmptySpaceItem3.Location = New System.Drawing.Point(546, 32)
         Me.EmptySpaceItem3.Name = "EmptySpaceItem3"
         Me.EmptySpaceItem3.Size = New System.Drawing.Size(10, 26)
         Me.EmptySpaceItem3.TextSize = New System.Drawing.Size(0, 0)
@@ -213,9 +247,9 @@ Partial Class ucBase
         'EmptySpaceItem1
         '
         Me.EmptySpaceItem1.AllowHotTrack = False
-        Me.EmptySpaceItem1.Location = New System.Drawing.Point(801, 32)
+        Me.EmptySpaceItem1.Location = New System.Drawing.Point(796, 32)
         Me.EmptySpaceItem1.Name = "EmptySpaceItem1"
-        Me.EmptySpaceItem1.Size = New System.Drawing.Size(239, 26)
+        Me.EmptySpaceItem1.Size = New System.Drawing.Size(238, 26)
         Me.EmptySpaceItem1.TextSize = New System.Drawing.Size(0, 0)
         '
         'LayoutControlItem3
@@ -223,52 +257,26 @@ Partial Class ucBase
         Me.LayoutControlItem3.Control = Me.LayoutControl2
         Me.LayoutControlItem3.Location = New System.Drawing.Point(0, 58)
         Me.LayoutControlItem3.Name = "LayoutControlItem3"
-        Me.LayoutControlItem3.Size = New System.Drawing.Size(1168, 567)
+        Me.LayoutControlItem3.Size = New System.Drawing.Size(1162, 563)
         Me.LayoutControlItem3.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem3.TextVisible = False
-        '
-        'TextEdit1
-        '
-        Me.TextEdit1.EditValue = Nothing
-        Me.TextEdit1.Location = New System.Drawing.Point(60, 42)
-        Me.TextEdit1.Name = "TextEdit1"
-        Me.TextEdit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit1.Properties.DisplayFormat.FormatString = ""
-        Me.TextEdit1.Properties.EditFormat.FormatString = ""
-        Me.TextEdit1.Properties.Mask.EditMask = ""
-        Me.TextEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
-        Me.TextEdit1.Size = New System.Drawing.Size(211, 20)
-        Me.TextEdit1.StyleController = Me.LayoutControl1
-        Me.TextEdit1.TabIndex = 4
-        '
-        'TextEdit2
-        '
-        Me.TextEdit2.EditValue = Nothing
-        Me.TextEdit2.Location = New System.Drawing.Point(325, 42)
-        Me.TextEdit2.Name = "TextEdit2"
-        Me.TextEdit2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit2.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit2.Properties.DisplayFormat.FormatString = ""
-        Me.TextEdit2.Properties.EditFormat.FormatString = ""
-        Me.TextEdit2.Properties.Mask.EditMask = ""
-        Me.TextEdit2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
-        Me.TextEdit2.Size = New System.Drawing.Size(230, 20)
-        Me.TextEdit2.StyleController = Me.LayoutControl1
-        Me.TextEdit2.TabIndex = 5
         '
         'ucBase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LayoutControl1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ucBase"
         Me.Size = New System.Drawing.Size(1182, 641)
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.LayoutControl1.ResumeLayout(False)
         CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -279,16 +287,12 @@ Partial Class ucBase
         CType(Me.EmptySpaceItem3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents LayoutControl1 As DevExpress.XtraLayout.LayoutControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents SimpleButton3 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btn_new As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton2 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents LayoutControlGroup1 As DevExpress.XtraLayout.LayoutControlGroup
