@@ -15,4 +15,8 @@
     Private Sub XtraTabControl1_SelectedPageChanged(sender As Object, e As DevExpress.XtraTab.TabPageChangedEventArgs)
         Debug.WriteLine("Switched to: " & e.Page.Text)
     End Sub
+
+    Private Sub SimpleButton3_Click(sender As Object, e As EventArgs) Handles SimpleButton3.Click
+        frm_salesInvoice.Show()
+    End Sub
 End Class

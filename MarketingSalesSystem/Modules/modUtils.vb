@@ -22,7 +22,7 @@ Module modUtils
             grid.OptionsBehavior.Editable = editable
             grid.OptionsSelection.EnableAppearanceFocusedRow = True
             grid.Columns(0).Visible = False
-            grid.OptionsCustomization.AllowColumnMoving = False
+            grid.OptionsCustomization.AllowColumnMoving = True
         Catch ex As Exception
 
         End Try
