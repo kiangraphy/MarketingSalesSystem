@@ -1,0 +1,72 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.sln.docstates
+*.VC.db
+*.vssscc
+*.vsp
+
+# Build output
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.idb
+*.ipch
+*.o
+*.so
+*.swp
+*.tlog
+
+# Temporary files
+*.tmp
+*.log
+*.log2
+*.log3
+*.tlog
+*.old
+*.bak
+
+# NuGet Packages
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+# Debugging files
+debug/
+release/
+TestResults/
+*.psess
+*.psess.session
+
+# Resharper & Rider
+*.DotSettings.user
+_ReSharper.Caches/
+_ReSharper*/
+
+# Rider-specific
+.idea/
+.idea_modules/
+
+# JetBrains Rider logs
+*.rider/
+*.rider.user/
+*.rider-gateway/
+.idea/
+
+# SQL Server generated files
+*.mdf
+*.ldf
+*.sdf
+
+# Publish settings
+publish/
+app.publish/
+
+# IIS Express
+iisexpress/
