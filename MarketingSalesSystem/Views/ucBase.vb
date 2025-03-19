@@ -17,6 +17,6 @@
     End Sub
 
     Private Sub SimpleButton3_Click(sender As Object, e As EventArgs) Handles SimpleButton3.Click
-        frm_salesInvoice.Show()
+        Dim ctrl = New ctrlSales()
     End Sub
 End Class
