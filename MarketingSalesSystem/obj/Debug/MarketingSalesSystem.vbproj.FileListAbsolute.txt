@@ -11,3 +11,4 @@ D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.exe.
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.exe
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.pdb
 D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.frm_salesInvoice.resources
+D:\MarketingSalesSystem\MarketingSalesSystem\obj\Debug\MarketingSalesSystem.vbprojResolveAssemblyReference.cache
