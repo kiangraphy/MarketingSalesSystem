@@ -7,9 +7,13 @@ Public Class frm_salesInvoice
     Private tabControl As XtraTabControl
     Private txtNote As TextBox
 
-    Sub New()
+    Private ctrlSales As ctrlSales
+
+    Sub New(ByRef ctrlS As ctrlSales)
 
         InitializeComponent()
+
+        ctrlSales = ctrlS
 
         tabControl = New XtraTabControl() With {
             .Dock = DockStyle.Fill

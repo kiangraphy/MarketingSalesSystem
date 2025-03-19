@@ -89,6 +89,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>mkdb.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Data\tpmdb.designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tpmdb.dbml</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +136,9 @@
     <Compile Include="Views\ucWeightSlip.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <None Include="Data\tpmdb.dbml.layout">
+      <DependentUpon>tpmdb.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Views\ucSales.resx">
       <DependentUpon>ucSales.vb</DependentUpon>
     </EmbeddedResource>
@@ -164,6 +172,11 @@
     <None Include="Data\mkdb.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>mkdb.designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\tpmdb.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>tpmdb.designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="My Project\Settings.settings">

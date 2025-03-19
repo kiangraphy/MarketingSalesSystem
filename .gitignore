@@ -70,3 +70,10 @@ app.publish/
 
 # IIS Express
 iisexpress/
+MarketingSalesSystem.v12.suo
+MarketingSalesSystem/bin/Debug/MarketingSalesSystem.exe
+MarketingSalesSystem/bin/Debug/MarketingSalesSystem.pdb
+MarketingSalesSystem/MarketingSalesSystem.vbproj
+MarketingSalesSystem/obj/Debug/MarketingSalesSystem.exe
+MarketingSalesSystem/obj/Debug/MarketingSalesSystem.pdb
+MarketingSalesSystem/obj/Debug/MarketingSalesSystem.vbproj.GenerateResource.Cache

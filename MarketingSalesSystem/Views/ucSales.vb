@@ -7,6 +7,7 @@ Public Class ucSales
     Inherits ucBase
 
     Private tabControl As XtraTabControl
+    Private grid As GridControl
 
     Sub New(ByVal title As String)
         InitializeComponent()
@@ -14,136 +15,67 @@ Public Class ucSales
         MyBase.title = title
         LabelControl1.Text = title
 
-        tabControl = New XtraTabControl() With {
-            .Dock = DockStyle.Fill
-        }
+        loadData()
 
-        LayoutControl2.Controls.Add(tabControl)
+        AddHandler grid.Load, AddressOf gridLoaded
 
-        Dim layoutItem As LayoutControlItem = LayoutControl2.AddItem("", tabControl)
-        layoutItem.TextVisible = False ' Hide label
-
-        Dim buyerGrid = setTab(AddTab(tabControl, "View By Buyer"))
-        Dim catcherGrid = setTab(AddTab(tabControl, "View By Catcher"))
-        displayBuyer(buyerGrid)
-        displayCatcher(catcherGrid)
     End Sub
 
-    Function setTab(ByRef tab As XtraTabPage) As GridControl
-        Dim layout = New LayoutControl With {
-                        .Dock = DockStyle.Fill
-                    }
-        tab.Controls.Add(layout)
-        Dim grid = New GridControl() With {
+    Sub loadData()
+        grid = New GridControl() With {
             .Dock = DockStyle.Fill
         }
-        layout.Controls.Add(grid)
-        Dim layoutItem As LayoutControlItem = layout.AddItem("", grid)
+
+        LayoutControl2.Controls.Add(grid)
+
+        Dim layoutItem As LayoutControlItem = LayoutControl2.AddItem("", grid)
         layoutItem.TextVisible = False
+    End Sub
 
-        Return grid
-    End Function
+    Private Sub gridLoaded(sender As Object, e As EventArgs)
+        Dim gridView = New GridView()
+        gridView.GridControl = grid
 
-    Sub displayBuyer(ByRef grid As GridControl)
-        ' Initialize GridView
-        Dim gridView As New GridView(grid)
         grid.MainView = gridView
         grid.ViewCollection.Add(gridView)
 
-        ' Enable footer and merge all columns into one
-        gridView.OptionsView.ShowFooter = True
-        gridView.OptionsView.AllowCellMerge = True
-
-        ' Force GridControl to initialize before setting the data source
-        grid.ForceInitialize()
-
-        ' Retrieve Data
         Dim dc = New mkdbDataContext
-        Dim sr = New SalesReport(dc).getRows()
+        Dim mdb = New tpmdbDataContext
 
-        Dim data = From i In sr
-                    Select i.salesReport_ID,
-                    SalesNo = i.salesNum,
-                    CoveredDate = i.salesDate,
-                    SellingType = i.sellingType,
-                    Buyer = i.buyer,
-                    UnloadingVessel = i.unloadingForeignVessel,
-                    VesselType = i.unloadingType,
-                    ActualQty = "",
-                    FishMeal = "",
-                    TotalQty = "",
-                    Spoilage = "",
-                    NetQty = "",
-                    SalesInUSD = "",
-                    USDRate = i.usdRate,
-                    SalesInPHP = ""
+        Dim sales = New SalesReport(dc).getRows()
+        Dim salesPrice = (From i In dc.trans_SalesReportPrices).ToList()
+        Dim salesPriceSummary = (From i In dc.trans_SalesReportSummaries).ToList()
+        Dim vessel = (From i In mdb.ml_Vessels Select i).ToList()
 
-        ' Bind the data source
-        grid.DataSource = data
+        Dim salesData = From sr In sales Join
+                        v In vessel On sr.unloadingVessel_ID Equals v.ml_vID Join
+                        sp In salesPrice On sr.salesReport_ID Equals sp.salesReport_ID Join
+                        sps In salesPriceSummary On sr.salesReport_ID Equals sps.salesReport_ID
+                        Select sr.salesReport_ID,
+                        SalesNo = sr.salesNum,
+                        CoveredDate = sr.salesDate,
+                        Catcher = sr.catchtDeliveryNum,
+                        SellingType = sr.sellingType,
+                        Buyer = sr.buyer,
+                        UnloadingVessel = v.vesselName,
+                        ActualQty = sps.actualQtyInKilos,
+                        Fishmeal = sp.fishmeal,
+                        Total = "Unknown",
+                        Spoilage = sps.spoilageInAmount,
+                        NetQty = sps.actualQtyInAmount,
+                        SalesInUSD = sps.actualQtyInAmount * sr.usdRate,
+                        USDRate = sr.usdRate,
+                        SalesInPHP = sps.actualQtyInAmount,
+                        AveragePrice = sps.actualQtyInAmount
 
-        AddHandler gridView.CustomDrawFooter, AddressOf GridView_CustomDrawFooter
+        gridView.GridControl.DataSource = salesData
+        gridView.PopulateColumns()
 
+        ' Debug: Check column count after forcing column population
+        Debug.WriteLine("Columns After DataSource: " & gridView.Columns.Count)
+
+        ' Call gridTransMode to hide the first column
+        gridTransMode(gridView)
     End Sub
-
-    Sub displayCatcher(ByRef grid As GridControl)
-        ' Initialize GridView
-        Dim gridView As New GridView(grid)
-        grid.MainView = gridView
-        grid.ViewCollection.Add(gridView)
-
-        ' Enable footer and merge all columns into one
-        gridView.OptionsView.ShowFooter = True
-        gridView.OptionsView.AllowCellMerge = True
-
-        ' Force GridControl to initialize before setting the data source
-        grid.ForceInitialize()
-
-        ' Retrieve Data
-        Dim dc = New mkdbDataContext
-        Dim sr = New SalesReport(dc).getRows()
-
-        Dim data = From i In sr
-                    Select i.salesReport_ID,
-                    SalesNo = i.salesNum,
-                    CoveredDate = i.salesDate,
-                    Catcher = "Human",
-                    SellingType = i.sellingType,
-                    Buyer = i.buyer,
-                    UnloadingVessel = i.unloadingVessel_ID,
-                    VesselType = i.unloadingType,
-                    ActualQty = "",
-                    FishMeal = "",
-                    TotalQty = "",
-                    Spoilage = "",
-                    NetQty = "",
-                    SalesInUSD = "",
-                    USDRate = i.usdRate,
-                    SalesInPHP = ""
-
-        ' Bind the data source
-        grid.DataSource = data
-
-        AddHandler gridView.CustomDrawFooter, AddressOf GridView_CustomDrawFooter
-    End Sub
-
-    Private Sub GridView_CustomDrawFooter(sender As Object, e As Views.Base.RowObjectCustomDrawEventArgs)
-        Dim view As GridView = TryCast(sender, GridView)
-        If view Is Nothing Then Exit Sub
-
-        e.DefaultDraw()
-
-        Dim footerRect As Rectangle = e.Bounds
-
-        Dim footerFont As New Font("Arial", 10, FontStyle.Bold)
-
-        Dim drawFormat As New StringFormat()
-        drawFormat.LineAlignment = StringAlignment.Center
-
-        e.Graphics.DrawString(" Total:", footerFont, Brushes.Black, footerRect, drawFormat)
-
-        e.Handled = True
-    End Sub
-
-
 
 End Class
