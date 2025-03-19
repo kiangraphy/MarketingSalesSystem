@@ -64,9 +64,6 @@ _ReSharper*/
 *.ldf
 *.sdf
 
-# Windows Form Designer
-*.Designer.vb
-
 # Publish settings
 publish/
 app.publish/
