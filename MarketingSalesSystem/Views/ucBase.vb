@@ -3,6 +3,11 @@
 
     Sub New()
         InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Dim dateNow = getServerDate()
+        dtFrom.EditValue = dateNow.AddDays(-30)
+        dtTo.EditValue = dateNow
     End Sub
 
     Sub hideDate()
@@ -19,5 +24,17 @@
     Private Sub btn_new_Click(sender As Object, e As EventArgs) Handles btn_new.Click
         Dim frmSI As New frm_salesInvoice
         frmSI.Show()
+    End Sub
+
+    Private Sub btn_filter_Click(sender As Object, e As EventArgs) Handles btn_filter.Click
+        refreshData()
+    End Sub
+
+    Overridable Sub refreshData()
+
+    End Sub
+
+    Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
+
     End Sub
 End Class

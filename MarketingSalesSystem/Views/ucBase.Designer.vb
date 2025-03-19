@@ -28,10 +28,10 @@ Partial Class ucBase
         Me.Root = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.btn_new = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.TextEdit1 = New DevExpress.XtraEditors.DateEdit()
-        Me.TextEdit2 = New DevExpress.XtraEditors.DateEdit()
+        Me.btn_print = New DevExpress.XtraEditors.SimpleButton()
+        Me.btn_filter = New DevExpress.XtraEditors.SimpleButton()
+        Me.dtFrom = New DevExpress.XtraEditors.DateEdit()
+        Me.dtTo = New DevExpress.XtraEditors.DateEdit()
         Me.LayoutControlGroup1 = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LayoutControlItem1 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem2 = New DevExpress.XtraLayout.LayoutControlItem()
@@ -46,10 +46,10 @@ Partial Class ucBase
         Me.LayoutControl1.SuspendLayout()
         CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtFrom.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtTo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,10 +67,10 @@ Partial Class ucBase
         Me.LayoutControl1.Controls.Add(Me.LayoutControl2)
         Me.LayoutControl1.Controls.Add(Me.LabelControl1)
         Me.LayoutControl1.Controls.Add(Me.btn_new)
-        Me.LayoutControl1.Controls.Add(Me.SimpleButton2)
-        Me.LayoutControl1.Controls.Add(Me.SimpleButton1)
-        Me.LayoutControl1.Controls.Add(Me.TextEdit1)
-        Me.LayoutControl1.Controls.Add(Me.TextEdit2)
+        Me.LayoutControl1.Controls.Add(Me.btn_print)
+        Me.LayoutControl1.Controls.Add(Me.btn_filter)
+        Me.LayoutControl1.Controls.Add(Me.dtFrom)
+        Me.LayoutControl1.Controls.Add(Me.dtTo)
         Me.LayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LayoutControl1.Location = New System.Drawing.Point(0, 0)
         Me.LayoutControl1.Name = "LayoutControl1"
@@ -119,59 +119,59 @@ Partial Class ucBase
         Me.btn_new.TabIndex = 9
         Me.btn_new.Text = "New"
         '
-        'SimpleButton2
+        'btn_print
         '
-        Me.SimpleButton2.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton2.Location = New System.Drawing.Point(688, 44)
-        Me.SimpleButton2.Name = "SimpleButton2"
-        Me.SimpleButton2.Size = New System.Drawing.Size(116, 22)
-        Me.SimpleButton2.StyleController = Me.LayoutControl1
-        Me.SimpleButton2.TabIndex = 8
-        Me.SimpleButton2.Text = "Print"
+        Me.btn_print.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_print.Location = New System.Drawing.Point(688, 44)
+        Me.btn_print.Name = "btn_print"
+        Me.btn_print.Size = New System.Drawing.Size(116, 22)
+        Me.btn_print.StyleController = Me.LayoutControl1
+        Me.btn_print.TabIndex = 8
+        Me.btn_print.Text = "Print"
         '
-        'SimpleButton1
+        'btn_filter
         '
-        Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(568, 44)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(116, 22)
-        Me.SimpleButton1.StyleController = Me.LayoutControl1
-        Me.SimpleButton1.TabIndex = 7
-        Me.SimpleButton1.Text = "Filter"
+        Me.btn_filter.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
+        Me.btn_filter.Location = New System.Drawing.Point(568, 44)
+        Me.btn_filter.Name = "btn_filter"
+        Me.btn_filter.Size = New System.Drawing.Size(116, 22)
+        Me.btn_filter.StyleController = Me.LayoutControl1
+        Me.btn_filter.TabIndex = 7
+        Me.btn_filter.Text = "Filter"
         '
-        'TextEdit1
+        'dtFrom
         '
-        Me.TextEdit1.EditValue = Nothing
-        Me.TextEdit1.Location = New System.Drawing.Point(65, 44)
-        Me.TextEdit1.Name = "TextEdit1"
-        Me.TextEdit1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit1.Properties.DisplayFormat.FormatString = ""
-        Me.TextEdit1.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-        Me.TextEdit1.Properties.EditFormat.FormatString = ""
-        Me.TextEdit1.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-        Me.TextEdit1.Properties.Mask.EditMask = ""
-        Me.TextEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
-        Me.TextEdit1.Size = New System.Drawing.Size(207, 20)
-        Me.TextEdit1.StyleController = Me.LayoutControl1
-        Me.TextEdit1.TabIndex = 4
+        Me.dtFrom.EditValue = Nothing
+        Me.dtFrom.Location = New System.Drawing.Point(65, 44)
+        Me.dtFrom.Name = "dtFrom"
+        Me.dtFrom.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtFrom.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtFrom.Properties.DisplayFormat.FormatString = ""
+        Me.dtFrom.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.dtFrom.Properties.EditFormat.FormatString = ""
+        Me.dtFrom.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.dtFrom.Properties.Mask.EditMask = ""
+        Me.dtFrom.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
+        Me.dtFrom.Size = New System.Drawing.Size(207, 20)
+        Me.dtFrom.StyleController = Me.LayoutControl1
+        Me.dtFrom.TabIndex = 4
         '
-        'TextEdit2
+        'dtTo
         '
-        Me.TextEdit2.EditValue = Nothing
-        Me.TextEdit2.Location = New System.Drawing.Point(329, 44)
-        Me.TextEdit2.Name = "TextEdit2"
-        Me.TextEdit2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit2.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.TextEdit2.Properties.DisplayFormat.FormatString = ""
-        Me.TextEdit2.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-        Me.TextEdit2.Properties.EditFormat.FormatString = ""
-        Me.TextEdit2.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-        Me.TextEdit2.Properties.Mask.EditMask = ""
-        Me.TextEdit2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
-        Me.TextEdit2.Size = New System.Drawing.Size(225, 20)
-        Me.TextEdit2.StyleController = Me.LayoutControl1
-        Me.TextEdit2.TabIndex = 5
+        Me.dtTo.EditValue = Nothing
+        Me.dtTo.Location = New System.Drawing.Point(329, 44)
+        Me.dtTo.Name = "dtTo"
+        Me.dtTo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtTo.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtTo.Properties.DisplayFormat.FormatString = ""
+        Me.dtTo.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.dtTo.Properties.EditFormat.FormatString = ""
+        Me.dtTo.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
+        Me.dtTo.Properties.Mask.EditMask = ""
+        Me.dtTo.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
+        Me.dtTo.Size = New System.Drawing.Size(225, 20)
+        Me.dtTo.StyleController = Me.LayoutControl1
+        Me.dtTo.TabIndex = 5
         '
         'LayoutControlGroup1
         '
@@ -184,7 +184,7 @@ Partial Class ucBase
         '
         'LayoutControlItem1
         '
-        Me.LayoutControlItem1.Control = Me.TextEdit1
+        Me.LayoutControlItem1.Control = Me.dtFrom
         Me.LayoutControlItem1.Location = New System.Drawing.Point(0, 32)
         Me.LayoutControlItem1.Name = "LayoutControlItem1"
         Me.LayoutControlItem1.Size = New System.Drawing.Size(264, 26)
@@ -193,7 +193,7 @@ Partial Class ucBase
         '
         'LayoutControlItem2
         '
-        Me.LayoutControlItem2.Control = Me.TextEdit2
+        Me.LayoutControlItem2.Control = Me.dtTo
         Me.LayoutControlItem2.Location = New System.Drawing.Point(264, 32)
         Me.LayoutControlItem2.Name = "LayoutControlItem2"
         Me.LayoutControlItem2.Size = New System.Drawing.Size(282, 26)
@@ -202,7 +202,7 @@ Partial Class ucBase
         '
         'LayoutControlItem4
         '
-        Me.LayoutControlItem4.Control = Me.SimpleButton1
+        Me.LayoutControlItem4.Control = Me.btn_filter
         Me.LayoutControlItem4.Location = New System.Drawing.Point(556, 32)
         Me.LayoutControlItem4.Name = "LayoutControlItem4"
         Me.LayoutControlItem4.Size = New System.Drawing.Size(120, 26)
@@ -211,7 +211,7 @@ Partial Class ucBase
         '
         'LayoutControlItem5
         '
-        Me.LayoutControlItem5.Control = Me.SimpleButton2
+        Me.LayoutControlItem5.Control = Me.btn_print
         Me.LayoutControlItem5.Location = New System.Drawing.Point(676, 32)
         Me.LayoutControlItem5.Name = "LayoutControlItem5"
         Me.LayoutControlItem5.Size = New System.Drawing.Size(120, 26)
@@ -273,10 +273,10 @@ Partial Class ucBase
         Me.LayoutControl1.ResumeLayout(False)
         CType(Me.LayoutControl2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit1.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit2.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TextEdit2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtFrom.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtFrom.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtTo.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtTo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -293,8 +293,8 @@ Partial Class ucBase
     Friend WithEvents LayoutControl1 As DevExpress.XtraLayout.LayoutControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btn_new As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton2 As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btn_print As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btn_filter As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents LayoutControlGroup1 As DevExpress.XtraLayout.LayoutControlGroup
     Friend WithEvents LayoutControlItem1 As DevExpress.XtraLayout.LayoutControlItem
     Friend WithEvents LayoutControlItem2 As DevExpress.XtraLayout.LayoutControlItem
@@ -307,7 +307,7 @@ Partial Class ucBase
     Friend WithEvents LayoutControl2 As DevExpress.XtraLayout.LayoutControl
     Friend WithEvents Root As DevExpress.XtraLayout.LayoutControlGroup
     Friend WithEvents LayoutControlItem3 As DevExpress.XtraLayout.LayoutControlItem
-    Friend WithEvents TextEdit1 As DevExpress.XtraEditors.DateEdit
-    Friend WithEvents TextEdit2 As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents dtFrom As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents dtTo As DevExpress.XtraEditors.DateEdit
 
 End Class
