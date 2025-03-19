@@ -151,7 +151,7 @@ Partial Public Class trans_SalesReport
 	
 	Private _salesReport_ID As Integer
 	
-	Private _salesDate As System.Nullable(Of Date)
+	Private _salesDate As Date
 	
 	Private _salesNum As String
 	
@@ -167,17 +167,17 @@ Partial Public Class trans_SalesReport
 	
 	Private _catchtDeliveryNum As String
 	
-	Private _usdRate As System.Nullable(Of Decimal)
+	Private _usdRate As Decimal
 	
 	Private _contractNum As String
 	
 	Private _remarks As String
 	
-	Private _encodedBy As System.Nullable(Of Integer)
+	Private _encodedBy As Integer
 	
-	Private _encodedOn As System.Nullable(Of Date)
+	Private _encodedOn As Date
 	
-	Private _approvalStatus As System.Nullable(Of Integer)
+	Private _approvalStatus As Integer
 	
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -190,7 +190,7 @@ Partial Public Class trans_SalesReport
     End Sub
     Partial Private Sub OnsalesReport_IDChanged()
     End Sub
-    Partial Private Sub OnsalesDateChanging(value As System.Nullable(Of Date))
+    Partial Private Sub OnsalesDateChanging(value As Date)
     End Sub
     Partial Private Sub OnsalesDateChanged()
     End Sub
@@ -222,7 +222,7 @@ Partial Public Class trans_SalesReport
     End Sub
     Partial Private Sub OncatchtDeliveryNumChanged()
     End Sub
-    Partial Private Sub OnusdRateChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub OnusdRateChanging(value As Decimal)
     End Sub
     Partial Private Sub OnusdRateChanged()
     End Sub
@@ -234,15 +234,15 @@ Partial Public Class trans_SalesReport
     End Sub
     Partial Private Sub OnremarksChanged()
     End Sub
-    Partial Private Sub OnencodedByChanging(value As System.Nullable(Of Integer))
+    Partial Private Sub OnencodedByChanging(value As Integer)
     End Sub
     Partial Private Sub OnencodedByChanged()
     End Sub
-    Partial Private Sub OnencodedOnChanging(value As System.Nullable(Of Date))
+    Partial Private Sub OnencodedOnChanging(value As Date)
     End Sub
     Partial Private Sub OnencodedOnChanged()
     End Sub
-    Partial Private Sub OnapprovalStatusChanging(value As System.Nullable(Of Integer))
+    Partial Private Sub OnapprovalStatusChanging(value As Integer)
     End Sub
     Partial Private Sub OnapprovalStatusChanged()
     End Sub
@@ -270,13 +270,14 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesDate", DbType:="Date")>  _
-	Public Property salesDate() As System.Nullable(Of Date)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesDate", DbType:="Date NOT NULL")>  _
+	Public Property salesDate() As Date
 		Get
 			Return Me._salesDate
 		End Get
 		Set
-			If (Me._salesDate.Equals(value) = false) Then
+			If ((Me._salesDate = value)  _
+						= false) Then
 				Me.OnsalesDateChanging(value)
 				Me.SendPropertyChanging
 				Me._salesDate = value
@@ -286,7 +287,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesNum", DbType:="VarChar(20)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesNum", DbType:="VarChar(20) NOT NULL", CanBeNull:=false)>  _
 	Public Property salesNum() As String
 		Get
 			Return Me._salesNum
@@ -302,7 +303,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_sellingType", DbType:="VarChar(20)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_sellingType", DbType:="VarChar(20) NOT NULL", CanBeNull:=false)>  _
 	Public Property sellingType() As String
 		Get
 			Return Me._sellingType
@@ -318,7 +319,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_unloadingType", DbType:="VarChar(20)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_unloadingType", DbType:="VarChar(20) NOT NULL", CanBeNull:=false)>  _
 	Public Property unloadingType() As String
 		Get
 			Return Me._unloadingType
@@ -366,7 +367,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_buyer", DbType:="VarChar(100)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_buyer", DbType:="VarChar(100) NOT NULL", CanBeNull:=false)>  _
 	Public Property buyer() As String
 		Get
 			Return Me._buyer
@@ -382,7 +383,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchtDeliveryNum", DbType:="VarChar(15)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchtDeliveryNum", DbType:="VarChar(15) NOT NULL", CanBeNull:=false)>  _
 	Public Property catchtDeliveryNum() As String
 		Get
 			Return Me._catchtDeliveryNum
@@ -398,13 +399,14 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_usdRate", DbType:="Decimal(10,2)")>  _
-	Public Property usdRate() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_usdRate", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property usdRate() As Decimal
 		Get
 			Return Me._usdRate
 		End Get
 		Set
-			If (Me._usdRate.Equals(value) = false) Then
+			If ((Me._usdRate = value)  _
+						= false) Then
 				Me.OnusdRateChanging(value)
 				Me.SendPropertyChanging
 				Me._usdRate = value
@@ -414,7 +416,7 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_contractNum", DbType:="VarChar(50)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_contractNum", DbType:="VarChar(50) NOT NULL", CanBeNull:=false)>  _
 	Public Property contractNum() As String
 		Get
 			Return Me._contractNum
@@ -446,13 +448,14 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_encodedBy", DbType:="Int")>  _
-	Public Property encodedBy() As System.Nullable(Of Integer)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_encodedBy", DbType:="Int NOT NULL")>  _
+	Public Property encodedBy() As Integer
 		Get
 			Return Me._encodedBy
 		End Get
 		Set
-			If (Me._encodedBy.Equals(value) = false) Then
+			If ((Me._encodedBy = value)  _
+						= false) Then
 				Me.OnencodedByChanging(value)
 				Me.SendPropertyChanging
 				Me._encodedBy = value
@@ -462,13 +465,14 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_encodedOn", DbType:="DateTime")>  _
-	Public Property encodedOn() As System.Nullable(Of Date)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_encodedOn", DbType:="DateTime NOT NULL")>  _
+	Public Property encodedOn() As Date
 		Get
 			Return Me._encodedOn
 		End Get
 		Set
-			If (Me._encodedOn.Equals(value) = false) Then
+			If ((Me._encodedOn = value)  _
+						= false) Then
 				Me.OnencodedOnChanging(value)
 				Me.SendPropertyChanging
 				Me._encodedOn = value
@@ -478,13 +482,14 @@ Partial Public Class trans_SalesReport
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_approvalStatus", DbType:="Int")>  _
-	Public Property approvalStatus() As System.Nullable(Of Integer)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_approvalStatus", DbType:="Int NOT NULL")>  _
+	Public Property approvalStatus() As Integer
 		Get
 			Return Me._approvalStatus
 		End Get
 		Set
-			If (Me._approvalStatus.Equals(value) = false) Then
+			If ((Me._approvalStatus = value)  _
+						= false) Then
 				Me.OnapprovalStatusChanging(value)
 				Me.SendPropertyChanging
 				Me._approvalStatus = value
@@ -1309,57 +1314,57 @@ Partial Public Class trans_SalesReportPrice
 	
 	Private _salesReportPrice_ID As Integer
 	
-	Private _salesReport_ID As System.Nullable(Of Integer)
+	Private _salesReport_ID As Integer
 	
-	Private _skipjack0_300To0_499 As System.Nullable(Of Decimal)
+	Private _skipjack0_300To0_499 As Decimal
 	
-	Private _skipjack0_500To0_999 As System.Nullable(Of Decimal)
+	Private _skipjack0_500To0_999 As Decimal
 	
-	Private _skipjack1_0To1_39 As System.Nullable(Of Decimal)
+	Private _skipjack1_0To1_39 As Decimal
 	
-	Private _skipjack1_4To1_79 As System.Nullable(Of Decimal)
+	Private _skipjack1_4To1_79 As Decimal
 	
-	Private _skipjack1_8To2_49 As System.Nullable(Of Decimal)
+	Private _skipjack1_8To2_49 As Decimal
 	
-	Private _skipjack2_5To3_49 As System.Nullable(Of Decimal)
+	Private _skipjack2_5To3_49 As Decimal
 	
-	Private _skipjack3_5AndUP As System.Nullable(Of Decimal)
+	Private _skipjack3_5AndUP As Decimal
 	
-	Private _yellowfin0_300To0_499 As System.Nullable(Of Decimal)
+	Private _yellowfin0_300To0_499 As Decimal
 	
-	Private _yellowfin0_500To0_999 As System.Nullable(Of Decimal)
+	Private _yellowfin0_500To0_999 As Decimal
 	
-	Private _yellowfin1_0To1_49 As System.Nullable(Of Decimal)
+	Private _yellowfin1_0To1_49 As Decimal
 	
-	Private _yellowfin1_5To2_49 As System.Nullable(Of Decimal)
+	Private _yellowfin1_5To2_49 As Decimal
 	
-	Private _yellowfin2_5To3_49 As System.Nullable(Of Decimal)
+	Private _yellowfin2_5To3_49 As Decimal
 	
-	Private _yellowfin3_5To4_99 As System.Nullable(Of Decimal)
+	Private _yellowfin3_5To4_99 As Decimal
 	
-	Private _yellowfin5_0To9_99 As System.Nullable(Of Decimal)
+	Private _yellowfin5_0To9_99 As Decimal
 	
-	Private _yellowfin10AndUpGood As System.Nullable(Of Decimal)
+	Private _yellowfin10AndUpGood As Decimal
 	
-	Private _yellowfin10AndUpDeformed As System.Nullable(Of Decimal)
+	Private _yellowfin10AndUpDeformed As Decimal
 	
-	Private _bigeye0_500To0_999 As System.Nullable(Of Decimal)
+	Private _bigeye0_500To0_999 As Decimal
 	
-	Private _bigeye1_0To1_49 As System.Nullable(Of Decimal)
+	Private _bigeye1_0To1_49 As Decimal
 	
-	Private _bigeye1_5To2_49 As System.Nullable(Of Decimal)
+	Private _bigeye1_5To2_49 As Decimal
 	
-	Private _bigeye2_5To3_49 As System.Nullable(Of Decimal)
+	Private _bigeye2_5To3_49 As Decimal
 	
-	Private _bigeye3_5To4_99 As System.Nullable(Of Decimal)
+	Private _bigeye3_5To4_99 As Decimal
 	
-	Private _bigeye5_0To9_99 As System.Nullable(Of Decimal)
+	Private _bigeye5_0To9_99 As Decimal
 	
-	Private _bigeye10AndUP As System.Nullable(Of Decimal)
+	Private _bigeye10AndUP As Decimal
 	
-	Private _bonito As System.Nullable(Of Decimal)
+	Private _bonito As Decimal
 	
-	Private _fishmeal As System.Nullable(Of Decimal)
+	Private _fishmeal As Decimal
 	
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -1372,107 +1377,107 @@ Partial Public Class trans_SalesReportPrice
     End Sub
     Partial Private Sub OnsalesReportPrice_IDChanged()
     End Sub
-    Partial Private Sub OnsalesReport_IDChanging(value As System.Nullable(Of Integer))
+    Partial Private Sub OnsalesReport_IDChanging(value As Integer)
     End Sub
     Partial Private Sub OnsalesReport_IDChanged()
     End Sub
-    Partial Private Sub Onskipjack0_300To0_499Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack0_300To0_499Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack0_300To0_499Changed()
     End Sub
-    Partial Private Sub Onskipjack0_500To0_999Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack0_500To0_999Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack0_500To0_999Changed()
     End Sub
-    Partial Private Sub Onskipjack1_0To1_39Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack1_0To1_39Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack1_0To1_39Changed()
     End Sub
-    Partial Private Sub Onskipjack1_4To1_79Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack1_4To1_79Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack1_4To1_79Changed()
     End Sub
-    Partial Private Sub Onskipjack1_8To2_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack1_8To2_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack1_8To2_49Changed()
     End Sub
-    Partial Private Sub Onskipjack2_5To3_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack2_5To3_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack2_5To3_49Changed()
     End Sub
-    Partial Private Sub Onskipjack3_5AndUPChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onskipjack3_5AndUPChanging(value As Decimal)
     End Sub
     Partial Private Sub Onskipjack3_5AndUPChanged()
     End Sub
-    Partial Private Sub Onyellowfin0_300To0_499Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin0_300To0_499Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin0_300To0_499Changed()
     End Sub
-    Partial Private Sub Onyellowfin0_500To0_999Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin0_500To0_999Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin0_500To0_999Changed()
     End Sub
-    Partial Private Sub Onyellowfin1_0To1_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin1_0To1_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin1_0To1_49Changed()
     End Sub
-    Partial Private Sub Onyellowfin1_5To2_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin1_5To2_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin1_5To2_49Changed()
     End Sub
-    Partial Private Sub Onyellowfin2_5To3_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin2_5To3_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin2_5To3_49Changed()
     End Sub
-    Partial Private Sub Onyellowfin3_5To4_99Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin3_5To4_99Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin3_5To4_99Changed()
     End Sub
-    Partial Private Sub Onyellowfin5_0To9_99Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin5_0To9_99Changing(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin5_0To9_99Changed()
     End Sub
-    Partial Private Sub Onyellowfin10AndUpGoodChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin10AndUpGoodChanging(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin10AndUpGoodChanged()
     End Sub
-    Partial Private Sub Onyellowfin10AndUpDeformedChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onyellowfin10AndUpDeformedChanging(value As Decimal)
     End Sub
     Partial Private Sub Onyellowfin10AndUpDeformedChanged()
     End Sub
-    Partial Private Sub Onbigeye0_500To0_999Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye0_500To0_999Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye0_500To0_999Changed()
     End Sub
-    Partial Private Sub Onbigeye1_0To1_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye1_0To1_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye1_0To1_49Changed()
     End Sub
-    Partial Private Sub Onbigeye1_5To2_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye1_5To2_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye1_5To2_49Changed()
     End Sub
-    Partial Private Sub Onbigeye2_5To3_49Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye2_5To3_49Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye2_5To3_49Changed()
     End Sub
-    Partial Private Sub Onbigeye3_5To4_99Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye3_5To4_99Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye3_5To4_99Changed()
     End Sub
-    Partial Private Sub Onbigeye5_0To9_99Changing(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye5_0To9_99Changing(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye5_0To9_99Changed()
     End Sub
-    Partial Private Sub Onbigeye10AndUPChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub Onbigeye10AndUPChanging(value As Decimal)
     End Sub
     Partial Private Sub Onbigeye10AndUPChanged()
     End Sub
-    Partial Private Sub OnbonitoChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub OnbonitoChanging(value As Decimal)
     End Sub
     Partial Private Sub OnbonitoChanged()
     End Sub
-    Partial Private Sub OnfishmealChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub OnfishmealChanging(value As Decimal)
     End Sub
     Partial Private Sub OnfishmealChanged()
     End Sub
@@ -1500,13 +1505,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReport_ID", DbType:="Int")>  _
-	Public Property salesReport_ID() As System.Nullable(Of Integer)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReport_ID", DbType:="Int NOT NULL")>  _
+	Public Property salesReport_ID() As Integer
 		Get
 			Return Me._salesReport_ID
 		End Get
 		Set
-			If (Me._salesReport_ID.Equals(value) = false) Then
+			If ((Me._salesReport_ID = value)  _
+						= false) Then
 				Me.OnsalesReport_IDChanging(value)
 				Me.SendPropertyChanging
 				Me._salesReport_ID = value
@@ -1516,13 +1522,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_300To0_499", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack0_300To0_499() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_300To0_499", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack0_300To0_499() As Decimal
 		Get
 			Return Me._skipjack0_300To0_499
 		End Get
 		Set
-			If (Me._skipjack0_300To0_499.Equals(value) = false) Then
+			If ((Me._skipjack0_300To0_499 = value)  _
+						= false) Then
 				Me.Onskipjack0_300To0_499Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack0_300To0_499 = value
@@ -1532,13 +1539,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_500To0_999", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack0_500To0_999() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack0_500To0_999() As Decimal
 		Get
 			Return Me._skipjack0_500To0_999
 		End Get
 		Set
-			If (Me._skipjack0_500To0_999.Equals(value) = false) Then
+			If ((Me._skipjack0_500To0_999 = value)  _
+						= false) Then
 				Me.Onskipjack0_500To0_999Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack0_500To0_999 = value
@@ -1548,13 +1556,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Name:="[skipjack1_0To1-39]", Storage:="_skipjack1_0To1_39", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack1_0To1_39() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Name:="[skipjack1_0To1-39]", Storage:="_skipjack1_0To1_39", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_0To1_39() As Decimal
 		Get
 			Return Me._skipjack1_0To1_39
 		End Get
 		Set
-			If (Me._skipjack1_0To1_39.Equals(value) = false) Then
+			If ((Me._skipjack1_0To1_39 = value)  _
+						= false) Then
 				Me.Onskipjack1_0To1_39Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack1_0To1_39 = value
@@ -1564,13 +1573,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_4To1_79", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack1_4To1_79() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_4To1_79", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_4To1_79() As Decimal
 		Get
 			Return Me._skipjack1_4To1_79
 		End Get
 		Set
-			If (Me._skipjack1_4To1_79.Equals(value) = false) Then
+			If ((Me._skipjack1_4To1_79 = value)  _
+						= false) Then
 				Me.Onskipjack1_4To1_79Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack1_4To1_79 = value
@@ -1580,13 +1590,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_8To2_49", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack1_8To2_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_8To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_8To2_49() As Decimal
 		Get
 			Return Me._skipjack1_8To2_49
 		End Get
 		Set
-			If (Me._skipjack1_8To2_49.Equals(value) = false) Then
+			If ((Me._skipjack1_8To2_49 = value)  _
+						= false) Then
 				Me.Onskipjack1_8To2_49Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack1_8To2_49 = value
@@ -1596,13 +1607,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack2_5To3_49", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack2_5To3_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack2_5To3_49() As Decimal
 		Get
 			Return Me._skipjack2_5To3_49
 		End Get
 		Set
-			If (Me._skipjack2_5To3_49.Equals(value) = false) Then
+			If ((Me._skipjack2_5To3_49 = value)  _
+						= false) Then
 				Me.Onskipjack2_5To3_49Changing(value)
 				Me.SendPropertyChanging
 				Me._skipjack2_5To3_49 = value
@@ -1612,13 +1624,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack3_5AndUP", DbType:="Decimal(10,2)")>  _
-	Public Property skipjack3_5AndUP() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack3_5AndUP", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack3_5AndUP() As Decimal
 		Get
 			Return Me._skipjack3_5AndUP
 		End Get
 		Set
-			If (Me._skipjack3_5AndUP.Equals(value) = false) Then
+			If ((Me._skipjack3_5AndUP = value)  _
+						= false) Then
 				Me.Onskipjack3_5AndUPChanging(value)
 				Me.SendPropertyChanging
 				Me._skipjack3_5AndUP = value
@@ -1628,13 +1641,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_300To0_499", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin0_300To0_499() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_300To0_499", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin0_300To0_499() As Decimal
 		Get
 			Return Me._yellowfin0_300To0_499
 		End Get
 		Set
-			If (Me._yellowfin0_300To0_499.Equals(value) = false) Then
+			If ((Me._yellowfin0_300To0_499 = value)  _
+						= false) Then
 				Me.Onyellowfin0_300To0_499Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin0_300To0_499 = value
@@ -1644,13 +1658,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_500To0_999", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin0_500To0_999() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin0_500To0_999() As Decimal
 		Get
 			Return Me._yellowfin0_500To0_999
 		End Get
 		Set
-			If (Me._yellowfin0_500To0_999.Equals(value) = false) Then
+			If ((Me._yellowfin0_500To0_999 = value)  _
+						= false) Then
 				Me.Onyellowfin0_500To0_999Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin0_500To0_999 = value
@@ -1660,13 +1675,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_0To1_49", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin1_0To1_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_0To1_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin1_0To1_49() As Decimal
 		Get
 			Return Me._yellowfin1_0To1_49
 		End Get
 		Set
-			If (Me._yellowfin1_0To1_49.Equals(value) = false) Then
+			If ((Me._yellowfin1_0To1_49 = value)  _
+						= false) Then
 				Me.Onyellowfin1_0To1_49Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin1_0To1_49 = value
@@ -1676,13 +1692,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_5To2_49", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin1_5To2_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_5To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin1_5To2_49() As Decimal
 		Get
 			Return Me._yellowfin1_5To2_49
 		End Get
 		Set
-			If (Me._yellowfin1_5To2_49.Equals(value) = false) Then
+			If ((Me._yellowfin1_5To2_49 = value)  _
+						= false) Then
 				Me.Onyellowfin1_5To2_49Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin1_5To2_49 = value
@@ -1692,13 +1709,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin2_5To3_49", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin2_5To3_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin2_5To3_49() As Decimal
 		Get
 			Return Me._yellowfin2_5To3_49
 		End Get
 		Set
-			If (Me._yellowfin2_5To3_49.Equals(value) = false) Then
+			If ((Me._yellowfin2_5To3_49 = value)  _
+						= false) Then
 				Me.Onyellowfin2_5To3_49Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin2_5To3_49 = value
@@ -1708,13 +1726,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin3_5To4_99", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin3_5To4_99() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin3_5To4_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin3_5To4_99() As Decimal
 		Get
 			Return Me._yellowfin3_5To4_99
 		End Get
 		Set
-			If (Me._yellowfin3_5To4_99.Equals(value) = false) Then
+			If ((Me._yellowfin3_5To4_99 = value)  _
+						= false) Then
 				Me.Onyellowfin3_5To4_99Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin3_5To4_99 = value
@@ -1724,13 +1743,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin5_0To9_99", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin5_0To9_99() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin5_0To9_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin5_0To9_99() As Decimal
 		Get
 			Return Me._yellowfin5_0To9_99
 		End Get
 		Set
-			If (Me._yellowfin5_0To9_99.Equals(value) = false) Then
+			If ((Me._yellowfin5_0To9_99 = value)  _
+						= false) Then
 				Me.Onyellowfin5_0To9_99Changing(value)
 				Me.SendPropertyChanging
 				Me._yellowfin5_0To9_99 = value
@@ -1740,13 +1760,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpGood", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin10AndUpGood() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpGood", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin10AndUpGood() As Decimal
 		Get
 			Return Me._yellowfin10AndUpGood
 		End Get
 		Set
-			If (Me._yellowfin10AndUpGood.Equals(value) = false) Then
+			If ((Me._yellowfin10AndUpGood = value)  _
+						= false) Then
 				Me.Onyellowfin10AndUpGoodChanging(value)
 				Me.SendPropertyChanging
 				Me._yellowfin10AndUpGood = value
@@ -1756,13 +1777,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpDeformed", DbType:="Decimal(10,2)")>  _
-	Public Property yellowfin10AndUpDeformed() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpDeformed", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin10AndUpDeformed() As Decimal
 		Get
 			Return Me._yellowfin10AndUpDeformed
 		End Get
 		Set
-			If (Me._yellowfin10AndUpDeformed.Equals(value) = false) Then
+			If ((Me._yellowfin10AndUpDeformed = value)  _
+						= false) Then
 				Me.Onyellowfin10AndUpDeformedChanging(value)
 				Me.SendPropertyChanging
 				Me._yellowfin10AndUpDeformed = value
@@ -1772,13 +1794,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye0_500To0_999", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye0_500To0_999() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye0_500To0_999() As Decimal
 		Get
 			Return Me._bigeye0_500To0_999
 		End Get
 		Set
-			If (Me._bigeye0_500To0_999.Equals(value) = false) Then
+			If ((Me._bigeye0_500To0_999 = value)  _
+						= false) Then
 				Me.Onbigeye0_500To0_999Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye0_500To0_999 = value
@@ -1788,13 +1811,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_0To1_49", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye1_0To1_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_0To1_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye1_0To1_49() As Decimal
 		Get
 			Return Me._bigeye1_0To1_49
 		End Get
 		Set
-			If (Me._bigeye1_0To1_49.Equals(value) = false) Then
+			If ((Me._bigeye1_0To1_49 = value)  _
+						= false) Then
 				Me.Onbigeye1_0To1_49Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye1_0To1_49 = value
@@ -1804,13 +1828,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_5To2_49", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye1_5To2_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_5To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye1_5To2_49() As Decimal
 		Get
 			Return Me._bigeye1_5To2_49
 		End Get
 		Set
-			If (Me._bigeye1_5To2_49.Equals(value) = false) Then
+			If ((Me._bigeye1_5To2_49 = value)  _
+						= false) Then
 				Me.Onbigeye1_5To2_49Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye1_5To2_49 = value
@@ -1820,13 +1845,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye2_5To3_49", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye2_5To3_49() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye2_5To3_49() As Decimal
 		Get
 			Return Me._bigeye2_5To3_49
 		End Get
 		Set
-			If (Me._bigeye2_5To3_49.Equals(value) = false) Then
+			If ((Me._bigeye2_5To3_49 = value)  _
+						= false) Then
 				Me.Onbigeye2_5To3_49Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye2_5To3_49 = value
@@ -1836,13 +1862,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye3_5To4_99", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye3_5To4_99() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye3_5To4_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye3_5To4_99() As Decimal
 		Get
 			Return Me._bigeye3_5To4_99
 		End Get
 		Set
-			If (Me._bigeye3_5To4_99.Equals(value) = false) Then
+			If ((Me._bigeye3_5To4_99 = value)  _
+						= false) Then
 				Me.Onbigeye3_5To4_99Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye3_5To4_99 = value
@@ -1852,13 +1879,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye5_0To9_99", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye5_0To9_99() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye5_0To9_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye5_0To9_99() As Decimal
 		Get
 			Return Me._bigeye5_0To9_99
 		End Get
 		Set
-			If (Me._bigeye5_0To9_99.Equals(value) = false) Then
+			If ((Me._bigeye5_0To9_99 = value)  _
+						= false) Then
 				Me.Onbigeye5_0To9_99Changing(value)
 				Me.SendPropertyChanging
 				Me._bigeye5_0To9_99 = value
@@ -1868,13 +1896,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye10AndUP", DbType:="Decimal(10,2)")>  _
-	Public Property bigeye10AndUP() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye10AndUP", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye10AndUP() As Decimal
 		Get
 			Return Me._bigeye10AndUP
 		End Get
 		Set
-			If (Me._bigeye10AndUP.Equals(value) = false) Then
+			If ((Me._bigeye10AndUP = value)  _
+						= false) Then
 				Me.Onbigeye10AndUPChanging(value)
 				Me.SendPropertyChanging
 				Me._bigeye10AndUP = value
@@ -1884,13 +1913,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bonito", DbType:="Decimal(10,2)")>  _
-	Public Property bonito() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bonito", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bonito() As Decimal
 		Get
 			Return Me._bonito
 		End Get
 		Set
-			If (Me._bonito.Equals(value) = false) Then
+			If ((Me._bonito = value)  _
+						= false) Then
 				Me.OnbonitoChanging(value)
 				Me.SendPropertyChanging
 				Me._bonito = value
@@ -1900,13 +1930,14 @@ Partial Public Class trans_SalesReportPrice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_fishmeal", DbType:="Decimal(10,2)")>  _
-	Public Property fishmeal() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_fishmeal", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property fishmeal() As Decimal
 		Get
 			Return Me._fishmeal
 		End Get
 		Set
-			If (Me._fishmeal.Equals(value) = false) Then
+			If ((Me._fishmeal = value)  _
+						= false) Then
 				Me.OnfishmealChanging(value)
 				Me.SendPropertyChanging
 				Me._fishmeal = value

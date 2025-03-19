@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TSP_MASTERDB" Class="tpmdbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=TSP_MASTERDB;Integrated Security=True" SettingsObjectName="MarketingSalesSystem.Settings" SettingsPropertyName="TSP_MASTERDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ml_aStatus" Member="ml_aStatus">
+    <Type Name="ml_aStatus">
+      <Column Name="astatus_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="approvalStat" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_VehicleType" Member="tbl_VehicleTypes">
+    <Type Name="tbl_VehicleType">
+      <Column Name="ml_vehicleTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vehicleType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Bank" Member="ml_Banks">
+    <Type Name="ml_Bank">
+      <Column Name="ml_bankID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Bank" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_BankCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_BankAddress" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Base" Member="ml_Bases">
+    <Type Name="ml_Base">
+      <Column Name="ml_BaseID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_base" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_BusinessType" Member="ml_BusinessTypes">
+    <Type Name="ml_BusinessType">
+      <Column Name="ml_btID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_businessType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_City" Member="ml_Cities">
+    <Type Name="ml_City">
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_City" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Company" Member="ml_Companies">
+    <Type Name="ml_Company">
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_cCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_cAddress" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ml_ctID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_mcID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_CompType" Member="ml_CompTypes">
+    <Type Name="ml_CompType">
+      <Column Name="ml_ctID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_compType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Country" Member="ml_Countries">
+    <Type Name="ml_Country">
+      <Column Name="ml_countryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_CountryCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Currency" Member="ml_Currencies">
+    <Type Name="ml_Currency">
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_currCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ml_currency" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_CusSupCategory" Member="ml_CusSupCategories">
+    <Type Name="ml_CusSupCategory">
+      <Column Name="ml_cscID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_csCategory" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_CusSupCurrency" Member="ml_CusSupCurrencies">
+    <Type Name="ml_CusSupCurrency">
+      <Column Name="ml_csCurrID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_CusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Customer" Member="ml_Customers">
+    <Type Name="ml_Customer">
+      <Column Name="ml_CusID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Customer" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_cscID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_btID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Street" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_TelNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_FaxNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_ContactPerson" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_ContactPersonNum" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_CustomerProduct" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ml_CurrencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="withInvoice" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_MasterCompany" Member="ml_MasterCompanies">
+    <Type Name="ml_MasterCompany">
+      <Column Name="ml_mcID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_mc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_mcCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Position" Member="ml_Positions">
+    <Type Name="ml_Position">
+      <Column Name="ml_pID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Position" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_baseID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_groupNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_reusability" Member="ml_reusabilities">
+    <Type Name="ml_reusability">
+      <Column Name="ml_reusable" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_reuseDesc" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Status" Member="ml_Status">
+    <Type Name="ml_Status">
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Street" Member="ml_Streets">
+    <Type Name="ml_Street">
+      <Column Name="ml_StreetID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Street" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ML_SULLIER_20170329" Member="ML_SULLIER_20170329s">
+    <Type Name="ML_SULLIER_20170329">
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Supplier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_countryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_cscID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_supCatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Street" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_btID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_TelNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_FaxNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_ContactPerson" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_ContactPersonNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_SupplierProduct" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="withInv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Supplier" Member="ml_Suppliers">
+    <Type Name="ml_Supplier">
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Supplier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_countryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_cscID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_supCatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Street" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_btID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_TelNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_FaxNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_ContactPerson" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_ContactPersonNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_SupplierProduct" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="withInv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_SupplierCategory" Member="ml_SupplierCategories">
+    <Type Name="ml_SupplierCategory">
+      <Column Name="ml_supCatID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_supCat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_System" Member="ml_Systems">
+    <Type Name="ml_System">
+      <Column Name="ml_SystemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_System" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Tax" Member="ml_Taxes">
+    <Type Name="ml_Tax">
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="taxName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="taxValue" Type="System.Decimal" DbType="Decimal(20,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Terms" Member="ml_Terms">
+    <Type Name="ml_Term">
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="terms" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="termValue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_User" Member="ml_Users">
+    <Type Name="ml_User">
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="userLastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="userFirstname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="userMname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_pID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_ulID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_utID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID_Encode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_AuthoCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="user_dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="empRecID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserAccessStat" Member="ml_UserAccessStats">
+    <Type Name="ml_UserAccessStat">
+      <Column Name="ml_UserAccessStat" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_access" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserLevel" Member="ml_UserLevels">
+    <Type Name="ml_UserLevel">
+      <Column Name="ml_ulID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_UserLevel" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserModule" Member="ml_UserModules">
+    <Type Name="ml_UserModule">
+      <Column Name="ml_umID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_SystemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Module" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModifed" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserPermission" Member="ml_UserPermissions">
+    <Type Name="ml_UserPermission">
+      <Column Name="ml_upID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_SystemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_umID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_uasID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID_encode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserType" Member="ml_UserTypes">
+    <Type Name="ml_UserType">
+      <Column Name="ml_utID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_UserType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_UserTypePermission" Member="ml_UserTypePermissions">
+    <Type Name="ml_UserTypePermission">
+      <Column Name="ml_utpID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_SystemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_umID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_utID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_uasID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID_encode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesFishingClass" Member="ml_VesFishingClasses">
+    <Type Name="ml_VesFishingClass">
+      <Column Name="ml_vfcID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vfClass" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesFishingType" Member="ml_VesFishingTypes">
+    <Type Name="ml_VesFishingType">
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_fvType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesLicense" Member="ml_VesLicenses">
+    <Type Name="ml_VesLicense">
+      <Column Name="ml_vlID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_licenseName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_datefFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_DateTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesSecAssign" Member="ml_VesSecAssigns">
+    <Type Name="ml_VesSecAssign">
+      <Column Name="ml_vsaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_UnitName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vehicleTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesSecPosAssign" Member="ml_VesSecPosAssigns">
+    <Type Name="ml_VesSecPosAssign">
+      <Column Name="ml_vspaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_pID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Share" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_groupNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesSection" Member="ml_VesSections">
+    <Type Name="ml_VesSection">
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Section" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_reusable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_Vessel" Member="ml_Vessels">
+    <Type Name="ml_Vessel">
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vesselCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_CallName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_capacity" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="ml_CountryID_CurrLoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_voID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quota" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="shoreLeaveDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vfcID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesselOwnership" Member="ml_VesselOwnerships">
+    <Type Name="ml_VesselOwnership">
+      <Column Name="ml_voID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_cID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ml_VesselType" Member="ml_VesselTypes">
+    <Type Name="ml_VesselType">
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_vesType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.subDep" Member="subDeps">
+    <Type Name="subDep">
+      <Column Name="sdep_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="subDep" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="v_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vc_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="c_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vt_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ms_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VSAID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VESSEL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.supplier" Member="suppliers">
+    <Type Name="supplier">
+      <Column Name="s_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cntry_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cur_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="scat_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="t_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tx_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="supplierName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ms_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="contactPerson" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="telNo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="mobNo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="faxNo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="emailAdd" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="product" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="winv" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Supplier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HRSVessel" Member="HRSVessels">
+    <Type Name="HRSVessel">
+      <Column Name="ml_masterVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_masterVessel" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vesType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_fvType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vVesselOwnage" Member="vVesselOwnages">
+    <Type Name="vVesselOwnage">
+      <Column Name="ml_vid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vMl_Supplier" Member="vMl_Suppliers">
+    <Type Name="vMl_Supplier">
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ml_countryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_supCatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Supplier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_ContactPerson" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_currCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ml_supplierAddress" Type="System.String" DbType="VarChar(202)" CanBeNull="true" />
+      <Column Name="ml_TelNum" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_supCat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_terms" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_taxName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="withInv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vML_SupplierLocation" Member="vML_SupplierLocations">
+    <Type Name="vML_SupplierLocation">
+      <Column Name="locationID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vML_VesselClass" Member="vML_VesselClasses">
+    <Type Name="vML_VesselClass">
+      <Column Name="ml_masterVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_masterVessel" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vesType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_fvType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vMl_VesselClassification" Member="vMl_VesselClassifications">
+    <Type Name="vMl_VesselClassification">
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_masterVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_masterVessel" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Section" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vesType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_fvType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ml_vfcID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vfClass" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_statID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vML_VesselCompanyHistory" Member="vML_VesselCompanyHistories">
+    <Type Name="vML_VesselCompanyHistory">
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_CID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ml_Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vMl_VesselList" Member="vMl_VesselLists">
+    <Type Name="vMl_VesselList">
+      <Column Name="ml_vID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vesselName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_vtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_vftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_fvType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vPositionGroupNum" Member="vPositionGroupNums">
+    <Type Name="vPositionGroupNum">
+      <Column Name="ml_groupNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vSecNotDefault" Member="vSecNotDefaults">
+    <Type Name="vSecNotDefault">
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Section" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vSecUnassigned" Member="vSecUnassigneds">
+    <Type Name="vSecUnassigned">
+      <Column Name="ml_sID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ml_Section" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_StatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vSupplierSummary" Member="vSupplierSummaries">
+    <Type Name="vSupplierSummary">
+      <Column Name="ml_SupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ml_Supplier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ml_termID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="terms" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_taxID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="taxName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ml_currencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ml_currCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
