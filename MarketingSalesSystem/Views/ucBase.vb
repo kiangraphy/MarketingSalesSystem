@@ -15,4 +15,9 @@
     Private Sub XtraTabControl1_SelectedPageChanged(sender As Object, e As DevExpress.XtraTab.TabPageChangedEventArgs)
         Debug.WriteLine("Switched to: " & e.Page.Text)
     End Sub
+
+    Private Sub btn_new_Click(sender As Object, e As EventArgs) Handles btn_new.Click
+        Dim frmSI As New frm_salesInvoice
+        frmSI.Show()
+    End Sub
 End Class

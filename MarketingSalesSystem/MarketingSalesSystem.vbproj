@@ -107,22 +107,10 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Views\frmSI_amountDetails.Designer.vb">
-      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
+    <Compile Include="Views\frm_salesInvoice.Designer.vb">
+      <DependentUpon>frm_salesInvoice.vb</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmSI_amountDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmSI_summary.Designer.vb">
-      <DependentUpon>frmSI_summary.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmSI_summary.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmSI_weightSlips.Designer.vb">
-      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmSI_weightSlips.vb">
+    <Compile Include="Views\frm_salesInvoice.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ucBase.Designer.vb">
@@ -167,14 +155,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\frmSI_amountDetails.resx">
-      <DependentUpon>frmSI_amountDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmSI_summary.resx">
-      <DependentUpon>frmSI_summary.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmSI_weightSlips.resx">
-      <DependentUpon>frmSI_weightSlips.vb</DependentUpon>
+    <EmbeddedResource Include="Views\frm_salesInvoice.resx">
+      <DependentUpon>frm_salesInvoice.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucBase.resx">
       <DependentUpon>ucBase.vb</DependentUpon>
