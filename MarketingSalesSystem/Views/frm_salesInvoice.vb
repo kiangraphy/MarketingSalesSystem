@@ -24,11 +24,11 @@ Public Class frm_salesInvoice
         Dim layoutItem As LayoutControlItem = LayoutControl2.AddItem("", tabControl)
         layoutItem.TextVisible = False ' Hide label
 
-        Dim wsGrid = setTab(AddTab(tabControl, "Weight Slips"))
+        'Dim wsGrid = setTab(AddTab(tabControl, "Weight Slips"))
         Dim adGrid = setTab(AddTab(tabControl, "Amount Details"))
         Dim sGrid = setTab(AddTab(tabControl, "Summary"))
 
-        displayWeightSlips(wsGrid)
+        'displayWeightSlips(wsGrid)
         displayAmountDetails(adGrid)
         displaySummary(sGrid)
 
@@ -60,22 +60,6 @@ Public Class frm_salesInvoice
 
         Return grid
     End Function
-
-    Sub displayWeightSlips(ByRef grid As GridControl)
-        ' Initialize GridView
-        Dim gridView As New GridView(grid)
-        grid.MainView = gridView
-        grid.ViewCollection.Add(gridView)
-
-        ' Enable footer and merge all columns into one
-        gridView.OptionsView.ShowFooter = True
-        gridView.OptionsView.AllowCellMerge = True
-
-        ' Force GridControl to initialize before setting the data source
-        grid.ForceInitialize()
-
-        AddHandler gridView.CustomDrawFooter, AddressOf GridView_CustomDrawFooter
-    End Sub
 
     Sub displayAmountDetails(ByRef grid As GridControl)
         ' Initialize GridView
