@@ -71,10 +71,6 @@ Public Class ucSales
         gridView.GridControl.DataSource = salesData
         gridView.PopulateColumns()
 
-        ' Debug: Check column count after forcing column population
-        Debug.WriteLine("Columns After DataSource: " & gridView.Columns.Count)
-
-        ' Call gridTransMode to hide the first column
         gridTransMode(gridView)
     End Sub
 

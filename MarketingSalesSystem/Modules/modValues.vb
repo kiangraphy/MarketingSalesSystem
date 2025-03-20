@@ -8,4 +8,10 @@
         MANILA = 6
         PERSONAL = 7
     End Enum
+
+    Enum VESSEL_TYPE As Integer
+        FISHINGVESSEL = 1
+        DEPARTMENT = 2
+    End Enum
+
 End Module
