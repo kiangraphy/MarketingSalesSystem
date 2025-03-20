@@ -1,4 +1,4 @@
-﻿Imports DevExpress.XtraTab
+Imports DevExpress.XtraTab
 Imports DevExpress.XtraLayout
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Views.Grid
