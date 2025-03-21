@@ -3,7 +3,6 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors
 
 Module modUtils
-
     Function getServerDate() As Date
         Return Date.Now
     End Function
@@ -48,4 +47,12 @@ Module modUtils
     Sub requiredMessage(ByVal fields As String)
         XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End Sub
+    
+    Public Sub gvCount(ByRef gridview As GridView)
+        If gridview.RowCount > 0 Then
+            Dim col = gridview.Columns(1)
+            col.Summary.Add(DevExpress.Data.SummaryItemType.Count, col.FieldName, "Count:{0}")
+        End If
+    End Sub
+
 End Module
