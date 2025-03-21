@@ -26,8 +26,10 @@ Public Class ctrlSales
         frmSI = New frm_salesInvoice(Me)
 
         initSalesDataTable()
+        initSalesDataTableS()
 
         frmSI.GridControl1.DataSource = frmSI.dt
+        frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
             loadRows()
@@ -66,8 +68,6 @@ Public Class ctrlSales
             .dt.Columns.Add("NA_Catcher1", GetType(Double))
             .dt.Columns.Add("NA_Catcher2", GetType(Double))
             .dt.Columns.Add("NA_Total", GetType(Double))
-
-
         End With
     End Sub
 
@@ -211,6 +211,26 @@ Public Class ctrlSales
             .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
         End With
         frmSI.cmbVessel.Enabled = True
+    End Sub
+
+    Sub initSalesDataTableS()
+        With frmSI
+            .dts = New DataTable()
+
+            .dts.Columns.Add("Catcher", GetType(String))
+            .dts.Columns.Add("T_CatcherPartial", GetType(String))
+            .dts.Columns.Add("T_ActualQty", GetType(Double))
+            .dts.Columns.Add("K_ActualQty", GetType(Double))
+            .dts.Columns.Add("K_Fishmeal", GetType(String))
+            .dts.Columns.Add("K_Spoilage", GetType(String))
+            .dts.Columns.Add("K_Net", GetType(Double))
+            .dts.Columns.Add("A_ActualQty", GetType(Double))
+            .dts.Columns.Add("A_Fishmeal", GetType(String))
+            .dts.Columns.Add("A_Spoilage", GetType(String))
+            .dts.Columns.Add("A_NetUSD", GetType(Double))
+            .dts.Columns.Add("A_NetPHP", GetType(Double))
+            .dts.Columns.Add("A_AveragePrice", GetType(Double))
+        End With
     End Sub
 
 End Class
