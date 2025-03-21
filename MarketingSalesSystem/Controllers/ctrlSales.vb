@@ -84,6 +84,26 @@ Public Class ctrlSales
         Dim AUA_Catcher2 As Decimal = 0
         Dim AUA_Total As Decimal = 0
 
+        'Spoilage Kilos
+        Dim SK_Catcher1 As Decimal = 0
+        Dim SK_Catcher2 As Decimal = 0
+        Dim SK_Total As Decimal = 0
+
+        'Spoilage Amount
+        Dim SA_Catcher1 As Decimal = 0
+        Dim SA_Catcher2 As Decimal = 0
+        Dim SA_Total As Decimal = 0
+
+        'Net Kilos
+        Dim NK_Catcher1 As Decimal = 0
+        Dim NK_Catcher2 As Decimal = 0
+        Dim NK_Total As Decimal = 0
+
+        'Net Amount
+        Dim NA_Catcher1 As Decimal = 0
+        Dim NA_Catcher2 As Decimal = 0
+        Dim NA_Total As Decimal = 0
+
         With r
             Price = Price + CDec(.Item("Price"))
 
@@ -96,14 +116,49 @@ Public Class ctrlSales
             AUA_Catcher1 = AUA_Catcher1 + (AUK_Catcher1 * Price)
             AUA_Catcher2 = AUA_Catcher2 + (AUK_Catcher2 * Price)
             AUA_Total = AUA_Total + AUA_Catcher1 + AUA_Catcher2
+
+            'Spoilage Kilos
+            SK_Catcher1 = SK_Catcher1 + CDec(.Item("SK_Catcher1"))
+            SK_Catcher2 = SK_Catcher2 + CDec(.Item("SK_Catcher2"))
+            SK_Total = SK_Total + SK_Catcher1 + SK_Catcher2
+
+            'Spoilage Amount
+            SA_Catcher1 = SA_Catcher1 + (SK_Catcher1 * Price)
+            SA_Catcher2 = SA_Catcher2 + (SK_Catcher2 * Price)
+            SA_Total = SA_Total + SA_Catcher1 + SA_Catcher2
+
+            'Net Kilos
+            NK_Catcher1 = NK_Catcher1 + (AUK_Catcher1 - SK_Catcher1)
+            NK_Catcher2 = NK_Catcher2 + (AUK_Catcher2 - SK_Catcher2)
+            NK_Total = NK_Total + NK_Catcher1 + NK_Catcher2
+
+            'Net Amount
+            NA_Catcher1 = NA_Catcher1 + (AUA_Catcher1 - SA_Catcher1)
+            NA_Catcher2 = NA_Catcher2 + (AUA_Catcher2 - SA_Catcher2)
+            NA_Total = NA_Total + NA_Catcher1 + NA_Catcher2
         End With
 
         'Set Row Value
+
+        'Actual Unloading
         r("AUK_Total") = AUK_Total
         r("AUA_Catcher1") = AUA_Catcher1
         r("AUA_Catcher2") = AUA_Catcher2
         r("AUA_Total") = AUA_Total
 
+        'Spoilage
+        r("SK_Total") = SK_Total
+        r("SA_Catcher1") = SA_Catcher1
+        r("SA_Catcher2") = SA_Catcher2
+        r("SA_Total") = SA_Total
+
+        'Net
+        r("NK_Catcher1") = NK_Catcher1
+        r("NK_Catcher2") = NK_Catcher2
+        r("NK_Total") = NK_Total
+        r("NA_Catcher1") = NA_Catcher1
+        r("NA_Catcher2") = NA_Catcher2
+        r("NA_Total") = NA_Total
     End Sub
 
     Sub updateAllTotals()

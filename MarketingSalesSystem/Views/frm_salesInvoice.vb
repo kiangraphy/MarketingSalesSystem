@@ -105,6 +105,8 @@ Public Class frm_salesInvoice
             .Columns("SA_Catcher1").OptionsColumn.ReadOnly = True
             .Columns("SA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("SA_Total").OptionsColumn.ReadOnly = True
+            .Columns("NK_Catcher1").OptionsColumn.ReadOnly = True
+            .Columns("NK_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("NK_Total").OptionsColumn.ReadOnly = True
             .Columns("NA_Catcher1").OptionsColumn.ReadOnly = True
             .Columns("NA_Catcher2").OptionsColumn.ReadOnly = True
@@ -121,13 +123,14 @@ Public Class frm_salesInvoice
         Next
 
         With BandedGridView1
+            .Columns("Class").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+            .Columns("Size").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+
             .Columns("Price").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
             .Columns("AUK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
             .Columns("AUK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
             .Columns("SK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
             .Columns("SK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("NK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("NK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
 
             .BestFitColumns()
             .OptionsView.ColumnAutoWidth = False
