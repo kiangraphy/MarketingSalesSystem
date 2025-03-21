@@ -112,7 +112,7 @@ Public Class frm_salesInvoice
             .Columns("NA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("NA_Total").OptionsColumn.ReadOnly = True
         End With
-        
+
         bandClass.Fixed = Columns.FixedStyle.Left
         bandSize.Fixed = Columns.FixedStyle.Left
 
