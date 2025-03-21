@@ -71,35 +71,82 @@ Public Class ctrlSales
         End With
     End Sub
 
+    Sub updateTotal(ByRef r As DataRow)
+        Dim Price As Decimal = 0
+
+        'Actual Unloading Kilos
+        Dim AUK_Catcher1 As Decimal = 0
+        Dim AUK_Catcher2 As Decimal = 0
+        Dim AUK_Total As Decimal = 0
+
+        'Actual Unloading Amount
+        Dim AUA_Catcher1 As Decimal = 0
+        Dim AUA_Catcher2 As Decimal = 0
+        Dim AUA_Total As Decimal = 0
+
+        With r
+            Price = Price + CDec(.Item("Price"))
+
+            'Actual Unloading Kilos
+            AUK_Catcher1 = AUK_Catcher1 + CDec(.Item("AUK_Catcher1"))
+            AUK_Catcher2 = AUK_Catcher2 + CDec(.Item("AUK_Catcher2"))
+            AUK_Total = AUK_Total + AUK_Catcher1 + AUK_Catcher2
+
+            'Actual Unloading Amount
+            AUA_Catcher1 = AUA_Catcher1 + (AUK_Catcher1 * Price)
+            AUA_Catcher2 = AUA_Catcher2 + (AUK_Catcher2 * Price)
+            AUA_Total = AUA_Total + AUA_Catcher1 + AUA_Catcher2
+        End With
+
+        'Set Row Value
+        r("AUK_Total") = AUK_Total
+        r("AUA_Catcher1") = AUA_Catcher1
+        r("AUA_Catcher2") = AUA_Catcher2
+        r("AUA_Total") = AUA_Total
+
+    End Sub
+
+    Sub updateAllTotals()
+        For Each r As DataRow In frmSI.dt.Rows
+            updateTotal(r)
+        Next
+    End Sub
+
     Sub loadRows()
-        Dim dr As DataRow
+        Dim fishClasses As New Dictionary(Of String, String()) From {
+            {"SKIPJACK", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.39", "1.4 - 1.79", "1.8 - 2.49", "2.5 - 3.49", "3.5 - UP"}},
+            {"YELLOWFIN", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP GOOD", "10 - UP DEFORMED"}},
+            {"BIGEYE", New String() {"0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP"}},
+            {"BONITO", New String() {"ALL SIZES"}},
+            {"FISHMEAL", New String() {"ALL SIZES"}}
+        }
 
-        Dim skipjack = New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.39", "1.4 - 1.79",
-                                     "1.8 - 2.49", "2.5 - 3.49", "3.5 - UP"}
-        Dim yellowfin = New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49",
-                                     "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10  - UP GOOD", "10 - UP DEFORMED"}
-        Dim bigeye = New String() {"0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99",
-                                   "5.0 - 9.99", "10 -  UP"}
-        For Each sj In skipjack
-            dr = frmSI.dt.NewRow()
-            dr("Class") = "SKIPJACK"
-            dr("Size") = sj
-            frmSI.dt.Rows.Add(dr)
+        ' Loop through each fish class and sizes
+        For Each fishClass In fishClasses
+            For Each size In fishClass.Value
+                AddFishRow(fishClass.Key, size)
+            Next
         Next
-        For Each yf In yellowfin
-            dr = frmSI.dt.NewRow()
-            dr("Class") = "YELLOWFIN"
-            dr("Size") = yf
-            frmSI.dt.Rows.Add(dr)
+    End Sub
+
+    Sub AddFishRow(fishClass As String, size As String)
+        Dim dr As DataRow = frmSI.dt.NewRow()
+        dr("Class") = fishClass
+        dr("Size") = size
+        dr("Price") = 0
+
+        ' Set all catcher and total columns to 0 dynamically
+        Dim columns As String() = {"AUK_Catcher1", "AUK_Catcher2", "AUK_Total",
+                                   "AUA_Catcher1", "AUA_Catcher2", "AUA_Total",
+                                   "SK_Catcher1", "SK_Catcher2", "SK_Total",
+                                   "SA_Catcher1", "SA_Catcher2", "SA_Total",
+                                   "NK_Catcher1", "NK_Catcher2", "NK_Total",
+                                   "NA_Catcher1", "NA_Catcher2", "NA_Total"}
+
+        For Each col In columns
+            dr(col) = 0
         Next
 
-        dr = frmSI.dt.NewRow()
-        dr("Class") = "BONITO"
-        dr("Size") = "ALL SIZES"
-        frmSI.dt.Rows.Add(dr)
-        dr = frmSI.dt.NewRow()
-        dr("Class") = "FISHMEAL"
-        dr("Size") = "ALL SIZES"
         frmSI.dt.Rows.Add(dr)
     End Sub
 
