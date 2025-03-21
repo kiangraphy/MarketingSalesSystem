@@ -1,5 +1,6 @@
 ﻿Imports DevExpress.XtraEditors
 Imports DevExpress.XtraLayout
+Imports System.Transactions
 
 Public Class ctrlSales
 
@@ -32,6 +33,7 @@ Public Class ctrlSales
         frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
+            .dtCreated.Properties.MaxValue = Date.Now
             loadRows()
             .cmbBuyer.Enabled = False
             .txtBuyer.Enabled = False
@@ -166,6 +168,82 @@ Public Class ctrlSales
             updateTotal(r)
         Next
     End Sub
+
+    Sub savePost()
+        Dim srs As New SalesReportSummary(mkdb)
+
+        Using ts As New TransactionScope()
+            Try
+                Dim sr As New SalesReport(mkdb)
+
+                With frmSI
+                    sr.salesDate = CDate(.dtCreated.EditValue)
+                    sr.salesNum = .txtSaleNum.Text
+                    sr.sellingType = .cmbST.EditValue.ToString
+                    sr.unloadingType = .cmbUVT.EditValue.ToString
+                    sr.unloadingVessel_ID = CInt(.cmbVessel.EditValue)
+                    sr.unloadingForeignVessel = .buyerID.ToString
+                    sr.buyer = .buyerName.ToString
+                    sr.catchtDeliveryNum = .txtCDNum.Text
+                    sr.usdRate = CDec(.txtUSD.EditValue)
+                    sr.contractNum = .txtCNum.Text
+                    sr.encodedBy = 1
+                    sr.encodedOn = Date.Now
+                    sr.approvalStatus = 1
+                    sr.Add()
+                End With
+
+                setSalesPrice("Price", sr.salesReport_ID)
+                setSalesPrice("AUK_Catcher1", sr.salesReport_ID)
+                setSalesPrice("AUK_Catcher2", sr.salesReport_ID)
+                setSalesPrice("AUA_Catcher1", sr.salesReport_ID)
+                setSalesPrice("AUA_Catcher2", sr.salesReport_ID)
+                setSalesPrice("SK_Catcher1", sr.salesReport_ID)
+                setSalesPrice("SK_Catcher2", sr.salesReport_ID)
+                setSalesPrice("SA_Catcher1", sr.salesReport_ID)
+                setSalesPrice("SA_Catcher2", sr.salesReport_ID)
+                ts.Complete()
+                Debug.WriteLine("saved post...")
+            Catch ex As Exception
+                Debug.WriteLine(ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Sub setSalesPrice(rowName As String, ByVal salesReportID As Integer)
+        Dim srp As New SalesReportPrice(mkdb)
+
+        With srp
+            .salesReport_ID = salesReportID
+            .skipjack0_300To0_499 = CDec(frmSI.dt.Rows(0)(rowName))
+            .skipjack0_500To0_999 = CDec(frmSI.dt.Rows(1)(rowName))
+            .skipjack1_0To1_39 = CDec(frmSI.dt.Rows(2)(rowName))
+            .skipjack1_4To1_79 = CDec(frmSI.dt.Rows(3)(rowName))
+            .skipjack1_8To2_49 = CDec(frmSI.dt.Rows(4)(rowName))
+            .skipjack2_5To3_49 = CDec(frmSI.dt.Rows(5)(rowName))
+            .skipjack3_5AndUP = CDec(frmSI.dt.Rows(6)(rowName))
+            .yellowfin0_300To0_499 = CDec(frmSI.dt.Rows(7)(rowName))
+            .yellowfin0_500To0_999 = CDec(frmSI.dt.Rows(8)(rowName))
+            .yellowfin1_0To1_49 = CDec(frmSI.dt.Rows(9)(rowName))
+            .yellowfin1_5To2_49 = CDec(frmSI.dt.Rows(10)(rowName))
+            .yellowfin2_5To3_49 = CDec(frmSI.dt.Rows(11)(rowName))
+            .yellowfin3_5To4_99 = CDec(frmSI.dt.Rows(12)(rowName))
+            .yellowfin5_0To9_99 = CDec(frmSI.dt.Rows(13)(rowName))
+            .yellowfin10AndUpGood = CDec(frmSI.dt.Rows(14)(rowName))
+            .yellowfin10AndUpDeformed = CDec(frmSI.dt.Rows(15)(rowName))
+            .bigeye0_500To0_999 = CDec(frmSI.dt.Rows(16)(rowName))
+            .bigeye1_0To1_49 = CDec(frmSI.dt.Rows(17)(rowName))
+            .bigeye1_5To2_49 = CDec(frmSI.dt.Rows(18)(rowName))
+            .bigeye2_5To3_49 = CDec(frmSI.dt.Rows(19)(rowName))
+            .bigeye3_5To4_99 = CDec(frmSI.dt.Rows(20)(rowName))
+            .bigeye5_0To9_99 = CDec(frmSI.dt.Rows(21)(rowName))
+            .bigeye10AndUP = CDec(frmSI.dt.Rows(22)(rowName))
+            .bonito = CDec(frmSI.dt.Rows(23)(rowName))
+            .fishmeal = CDec(frmSI.dt.Rows(24)(rowName))
+            .Add()
+        End With
+    End Sub
+
 
     Sub loadRows()
         Dim fishClasses As New Dictionary(Of String, String()) From {
