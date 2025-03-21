@@ -47,7 +47,7 @@ Module modUtils
     Sub requiredMessage(ByVal fields As String)
         XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End Sub
-
+    
     Public Sub gvCount(ByRef gridview As GridView)
         If gridview.RowCount > 0 Then
             Dim col = gridview.Columns(1)
