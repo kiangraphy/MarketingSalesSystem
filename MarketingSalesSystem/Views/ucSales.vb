@@ -44,13 +44,11 @@ Public Class ucSales
 
         Dim sales = New SalesReport(dc).getRows()
         Dim salesPrice = (From i In dc.trans_SalesReportPrices).ToList()
-        Dim salesPriceSummary = (From i In dc.trans_SalesReportSummaries).ToList()
         Dim vessel = (From i In mdb.ml_Vessels Select i).ToList()
 
         Dim salesData = From sr In sales Join
                         v In vessel On sr.unloadingVessel_ID Equals v.ml_vID Join
-                        sp In salesPrice On sr.salesReport_ID Equals sp.salesReport_ID Join
-                        sps In salesPriceSummary On sr.salesReport_ID Equals sps.salesReport_ID
+                        sp In salesPrice On sr.salesReport_ID Equals sp.salesReport_ID
                         Select sr.salesReport_ID,
                         SalesNo = sr.salesNum,
                         CoveredDate = sr.salesDate,
@@ -58,15 +56,15 @@ Public Class ucSales
                         SellingType = sr.sellingType,
                         Buyer = sr.buyer,
                         UnloadingVessel = v.vesselName,
-                        ActualQty = sps.actualQtyInKilos,
+                        ActualQty = "null",
                         Fishmeal = sp.fishmeal,
                         Total = "Unknown",
-                        Spoilage = sps.spoilageInAmount,
-                        NetQty = sps.actualQtyInAmount,
-                        SalesInUSD = sps.actualQtyInAmount * sr.usdRate,
+                        Spoilage = "Nan",
+                        NetQty = "Nan",
+                        SalesInUSD = "Nan",
                         USDRate = sr.usdRate,
-                        SalesInPHP = sps.actualQtyInAmount,
-                        AveragePrice = sps.actualQtyInAmount
+                        SalesInPHP = "Nan",
+                        AveragePrice = "Nan"
 
         gridView.GridControl.DataSource = salesData
         gridView.PopulateColumns()

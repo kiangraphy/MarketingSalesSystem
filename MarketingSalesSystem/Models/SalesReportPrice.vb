@@ -103,6 +103,43 @@
         fishmeal = i.fishmeal
     End Sub
 
+    Sub Add()
+        Dim srp As New trans_SalesReportPrice
+
+        With srp
+            .salesReport_ID = salesReport_ID
+            .skipjack0_300To0_499 = skipjack0_300To0_499
+            .skipjack0_500To0_999 = skipjack0_500To0_999
+            .skipjack1_0To1_39 = skipjack1_0To1_39
+            .skipjack1_4To1_79 = skipjack1_4To1_79
+            .skipjack1_8To2_49 = skipjack1_8To2_49
+            .skipjack2_5To3_49 = skipjack2_5To3_49
+            .skipjack3_5AndUP = skipjack3_5AndUP
+            .yellowfin0_300To0_499 = yellowfin0_300To0_499
+            .yellowfin0_500To0_999 = yellowfin0_500To0_999
+            .yellowfin1_0To1_49 = yellowfin1_0To1_49
+            .yellowfin1_5To2_49 = yellowfin1_5To2_49
+            .yellowfin2_5To3_49 = yellowfin2_5To3_49
+            .yellowfin3_5To4_99 = yellowfin3_5To4_99
+            .yellowfin5_0To9_99 = yellowfin5_0To9_99
+            .yellowfin10AndUpGood = yellowfin10AndUpGood
+            .yellowfin10AndUpDeformed = yellowfin10AndUpDeformed
+            .bigeye0_500To0_999 = bigeye0_500To0_999
+            .bigeye1_0To1_49 = bigeye1_0To1_49
+            .bigeye1_5To2_49 = bigeye1_5To2_49
+            .bigeye2_5To3_49 = bigeye2_5To3_49
+            .bigeye3_5To4_99 = bigeye3_5To4_99
+            .bigeye5_0To9_99 = bigeye5_0To9_99
+            .bigeye10AndUP = bigeye10AndUP
+            .bonito = bonito
+            .fishmeal = fishmeal
+        End With
+
+        dc.trans_SalesReportPrices.InsertOnSubmit(srp)
+        dc.SubmitChanges()
+        salesReportPrice_ID = srp.salesReportPrice_ID
+    End Sub
+
     Function getRows() As List(Of SalesReportPrice)
         Dim srpList As New List(Of SalesReportPrice)
 

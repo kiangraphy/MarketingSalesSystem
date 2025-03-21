@@ -38,4 +38,5 @@
             spoilageInAmount = i.spoilageInAmount
         Next
     End Sub
+
 End Class

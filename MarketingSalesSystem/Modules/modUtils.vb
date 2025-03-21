@@ -1,5 +1,6 @@
 ﻿Imports DevExpress.XtraTab
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraEditors
 
 Module modUtils
 
@@ -16,7 +17,7 @@ Module modUtils
         Return newTab
     End Function
 
-    Public Sub gridTransMode(ByRef grid As GridView, Optional editable As Boolean = False)
+    Sub gridTransMode(ByRef grid As GridView, Optional editable As Boolean = False)
         Try
             grid.BestFitColumns()
             grid.OptionsBehavior.Editable = editable
@@ -28,4 +29,23 @@ Module modUtils
         End Try
     End Sub
 
+    Function validateField(ByRef control As DateEdit) As Boolean
+        Return (Not control.EditValue Is Nothing)
+    End Function
+
+    Function validateField(ByRef control As TextEdit) As Boolean
+        Return (Not control.EditValue Is Nothing)
+    End Function
+
+    Function validateField(ByRef control As LookUpEdit) As Boolean
+        Return (Not control.EditValue Is Nothing)
+    End Function
+
+    Function validateField(ByRef control As ComboBoxEdit) As Boolean
+        Return (Not control.EditValue Is Nothing)
+    End Function
+
+    Sub requiredMessage(ByVal fields As String)
+        XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    End Sub
 End Module

@@ -67,6 +67,31 @@
         approvalStatus = i.approvalStatus
     End Sub
 
+    Sub Add()
+        Dim sr As New trans_SalesReport
+
+        With sr
+            sr.salesDate = salesDate
+            sr.salesNum = salesNum
+            sr.sellingType = sellingType
+            sr.unloadingType = unloadingType
+            sr.unloadingVessel_ID = unloadingVessel_ID
+            sr.unloadingForeignVessel = unloadingForeignVessel
+            sr.buyer = buyer
+            sr.catchtDeliveryNum = catchtDeliveryNum
+            sr.usdRate = usdRate
+            sr.contractNum = contractNum
+            sr.remarks = remarks
+            sr.encodedBy = encodedBy
+            sr.encodedOn = encodedOn
+            sr.approvalStatus = approvalStatus
+        End With
+
+        dc.trans_SalesReports.InsertOnSubmit(sr)
+        dc.SubmitChanges()
+        salesReport_ID = sr.salesReport_ID
+    End Sub
+
     Function getRows() As List(Of SalesReport)
         Dim srList As New List(Of SalesReport)
 

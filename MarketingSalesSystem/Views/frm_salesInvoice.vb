@@ -3,6 +3,8 @@ Imports DevExpress.XtraLayout
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.BandedGrid
+Imports DevExpress.XtraEditors
+Imports System.Text
 
 Public Class frm_salesInvoice
 
@@ -12,6 +14,10 @@ Public Class frm_salesInvoice
     Private txtNote As TextBox
 
     Private ctrlSales As ctrlSales
+
+    Public buyerName As String
+    Public checkBuyer As Boolean
+    Public buyerID As Integer
 
     Sub New(ByRef ctrlS As ctrlSales)
 
@@ -25,8 +31,8 @@ Public Class frm_salesInvoice
         ctrlSales.createCollectionVessel(CInt(cmbUVT.SelectedIndex) + 1)
     End Sub
 
-    Private Sub RadioGroup1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RadioGroup1.SelectedIndexChanged
-        If RadioGroup1.SelectedIndex = 1 Then
+    Private Sub RadioGroup1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rBT.SelectedIndexChanged
+        If rBT.SelectedIndex = 0 Then
             ctrlSales.changeBuyerInput()
         Else
             ctrlSales.changeBuyerCombo()
@@ -170,7 +176,6 @@ Public Class frm_salesInvoice
 
         Dim r As DataRowView = CType(view.GetRow(view.FocusedRowHandle), DataRowView)
         ctrlSales.updateTotal(r.Row)
-
     End Sub
 
     Private Sub GridControl2_Load(sender As Object, e As EventArgs) Handles GridControl2.Load
@@ -234,4 +239,51 @@ Public Class frm_salesInvoice
             .OptionsView.ShowColumnHeaders = False
         End With
     End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Dim dateCreated = validateField(dtCreated)
+        Dim sellType = validateField(cmbST)
+        Dim unloadingVesselType = validateField(cmbUVT)
+        Dim salesNum = validateField(txtSaleNum)
+        Dim catchDeliveryNum = validateField(txtCDNum)
+        Dim usdRate = validateField(txtUSD)
+        Dim contactNum = validateField(txtCNum)
+        Dim buyerExist = False
+
+        If CInt(rBT.EditValue) = 1 Then
+            If validateField(txtBuyer) Then buyerName = txtBuyer.Text
+            checkBuyer = validateField(txtBuyer)
+            buyerID = Nothing
+        ElseIf CInt(rBT.EditValue) = 2 Then
+            If validateField(cmbBuyer) Then buyerName = cmbBuyer.EditValue.ToString
+            If validateField(cmbBuyer) Then buyerID = CInt(cmbBuyer.GetColumnValue("ID"))
+            buyerExist = True
+        Else
+            XtraMessageBox.Show("Please select the type of buyer", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+
+
+        If dateCreated AndAlso sellType AndAlso unloadingVesselType AndAlso salesNum AndAlso catchDeliveryNum _
+            AndAlso usdRate AndAlso contactNum AndAlso checkBuyer Then
+            ctrlSales.savePost()
+            Debug.WriteLine("Post saved...")
+        Else
+            Dim builder As New StringBuilder
+            If Not dateCreated Then builder.Append("Date").AppendLine()
+            If Not sellType Then builder.Append("Sell Type").AppendLine()
+            If Not unloadingVesselType Then builder.Append("Unloading Vessel Type").AppendLine()
+            If Not salesNum Then builder.Append("Sales Number").AppendLine()
+            If Not catchDeliveryNum Then builder.Append("Catch Delivery Number").AppendLine()
+            If Not usdRate Then builder.Append("USD Rate").AppendLine()
+            If Not contactNum Then builder.Append("Contact Number").AppendLine()
+            If Not checkBuyer Then builder.Append("Buyer").AppendLine()
+            Dim fields As String = builder.ToString()
+            requiredMessage(fields)
+        End If
+
+        'ctrlSales.savePost()
+    End Sub
+
 End Class
