@@ -69,38 +69,77 @@ Public Class frm_salesInvoice
         Dim bandNACatcher2 = AddBand("Catcher 2", bandNAmount)
         Dim bandNATotal = AddBand("Total", bandNAmount)
 
-        BandedGridView1.PopulateColumns()
+        With BandedGridView1
+            .PopulateColumns()
 
-        BandedGridView1.Columns("Class").OwnerBand = bandClass
-        BandedGridView1.Columns("Size").OwnerBand = bandSize
-        BandedGridView1.Columns("Price").OwnerBand = bandPrice
-        BandedGridView1.Columns("AUK_Catcher1").OwnerBand = bandAUKCatcher1
-        BandedGridView1.Columns("AUK_Catcher2").OwnerBand = bandAUKCatcher2
-        BandedGridView1.Columns("AUK_Total").OwnerBand = bandAUKTotal
-        BandedGridView1.Columns("AUA_Catcher1").OwnerBand = bandAUACatcher1
-        BandedGridView1.Columns("AUA_Catcher2").OwnerBand = bandAUACatcher2
-        BandedGridView1.Columns("AUA_Total").OwnerBand = bandAUATotal
-        BandedGridView1.Columns("SK_Catcher1").OwnerBand = bandSKCatcher1
-        BandedGridView1.Columns("SK_Catcher2").OwnerBand = bandSKCatcher2
-        BandedGridView1.Columns("SK_Total").OwnerBand = bandSKTotal
-        BandedGridView1.Columns("SA_Catcher1").OwnerBand = bandSACatcher1
-        BandedGridView1.Columns("SA_Catcher2").OwnerBand = bandSACatcher2
-        BandedGridView1.Columns("SA_Total").OwnerBand = bandSATotal
-        BandedGridView1.Columns("NK_Catcher1").OwnerBand = bandNKCatcher1
-        BandedGridView1.Columns("NK_Catcher2").OwnerBand = bandNKCatcher2
-        BandedGridView1.Columns("NK_Total").OwnerBand = bandNKTotal
-        BandedGridView1.Columns("NA_Catcher1").OwnerBand = bandNACatcher1
-        BandedGridView1.Columns("NA_Catcher2").OwnerBand = bandNACatcher2
-        BandedGridView1.Columns("NA_Total").OwnerBand = bandNATotal
+            .Columns("Class").OwnerBand = bandClass
+            .Columns("Size").OwnerBand = bandSize
+            .Columns("Price").OwnerBand = bandPrice
+            .Columns("AUK_Catcher1").OwnerBand = bandAUKCatcher1
+            .Columns("AUK_Catcher2").OwnerBand = bandAUKCatcher2
+            .Columns("AUK_Total").OwnerBand = bandAUKTotal
+            .Columns("AUA_Catcher1").OwnerBand = bandAUACatcher1
+            .Columns("AUA_Catcher2").OwnerBand = bandAUACatcher2
+            .Columns("AUA_Total").OwnerBand = bandAUATotal
+            .Columns("SK_Catcher1").OwnerBand = bandSKCatcher1
+            .Columns("SK_Catcher2").OwnerBand = bandSKCatcher2
+            .Columns("SK_Total").OwnerBand = bandSKTotal
+            .Columns("SA_Catcher1").OwnerBand = bandSACatcher1
+            .Columns("SA_Catcher2").OwnerBand = bandSACatcher2
+            .Columns("SA_Total").OwnerBand = bandSATotal
+            .Columns("NK_Catcher1").OwnerBand = bandNKCatcher1
+            .Columns("NK_Catcher2").OwnerBand = bandNKCatcher2
+            .Columns("NK_Total").OwnerBand = bandNKTotal
+            .Columns("NA_Catcher1").OwnerBand = bandNACatcher1
+            .Columns("NA_Catcher2").OwnerBand = bandNACatcher2
+            .Columns("NA_Total").OwnerBand = bandNATotal
 
-        BandedGridView1.Columns("Class").OptionsColumn.ReadOnly = True
-        BandedGridView1.Columns("Size").OptionsColumn.ReadOnly = True
+            .Columns("Class").OptionsColumn.ReadOnly = True
+            .Columns("Size").OptionsColumn.ReadOnly = True
+            .Columns("AUK_Total").OptionsColumn.ReadOnly = True
+            .Columns("AUA_Catcher1").OptionsColumn.ReadOnly = True
+            .Columns("AUA_Catcher2").OptionsColumn.ReadOnly = True
+            .Columns("AUA_Total").OptionsColumn.ReadOnly = True
+            .Columns("SK_Total").OptionsColumn.ReadOnly = True
+            .Columns("SA_Catcher1").OptionsColumn.ReadOnly = True
+            .Columns("SA_Catcher2").OptionsColumn.ReadOnly = True
+            .Columns("SA_Total").OptionsColumn.ReadOnly = True
+            .Columns("NK_Total").OptionsColumn.ReadOnly = True
+            .Columns("NA_Catcher1").OptionsColumn.ReadOnly = True
+            .Columns("NA_Catcher2").OptionsColumn.ReadOnly = True
+            .Columns("NA_Total").OptionsColumn.ReadOnly = True
+        End With
+        
         bandClass.Fixed = Columns.FixedStyle.Left
         bandSize.Fixed = Columns.FixedStyle.Left
 
-        BandedGridView1.BestFitColumns()
-        BandedGridView1.OptionsView.ColumnAutoWidth = False
-        BandedGridView1.OptionsView.ShowColumnHeaders = False
+        BandedGridView1.OptionsView.ShowFooter = True
+
+        For Each band As DevExpress.XtraGrid.Views.BandedGrid.GridBand In BandedGridView1.Bands
+            SetHeaderAlignment(band)
+        Next
+
+        With BandedGridView1
+            .Columns("Price").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("AUK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("AUK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("SK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("SK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("NK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            .Columns("NK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+
+            .BestFitColumns()
+            .OptionsView.ColumnAutoWidth = False
+            .OptionsView.ShowColumnHeaders = False
+        End With
+    End Sub
+
+    Sub SetHeaderAlignment(ByVal band As DevExpress.XtraGrid.Views.BandedGrid.GridBand)
+        band.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+
+        For Each subBand As DevExpress.XtraGrid.Views.BandedGrid.GridBand In band.Children.Cast(Of DevExpress.XtraGrid.Views.BandedGrid.GridBand)()
+            SetHeaderAlignment(subBand)
+        Next
     End Sub
 
     Function AddBand(ByVal caption As String, ByRef parent As GridBand) As GridBand
@@ -114,4 +153,19 @@ Public Class frm_salesInvoice
         gridView.Bands.Add(band)
         Return band
     End Function
+
+    Private Sub BandedGridView1_CellValueChanged(sender As Object, e As Views.Base.CellValueChangedEventArgs) Handles BandedGridView1.CellValueChanged
+        Dim view As BandedGridView = TryCast(sender, DevExpress.XtraGrid.Views.BandedGrid.BandedGridView)
+        If view Is Nothing Then
+            Return
+        End If
+        If e.Column.FieldName = "AUK_Total" Or e.Column.FieldName = "AUA_Total" Or e.Column.FieldName = "SK_Total" _
+            Or e.Column.FieldName = "SA_Total" Or e.Column.FieldName = "NK_Total" Or e.Column.FieldName = "NA_Total" Then
+            Return
+        End If
+
+        Dim r As DataRowView = CType(view.GetRow(view.FocusedRowHandle), DataRowView)
+        ctrlSales.updateTotal(r.Row)
+
+    End Sub
 End Class

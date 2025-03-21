@@ -84,6 +84,7 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ctrlSales.vb" />
     <Compile Include="Data\mkdb.designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,6 +108,7 @@
     <Compile Include="Models\WeightSlip.vb" />
     <Compile Include="Models\WeightSlipDetail.vb" />
     <Compile Include="Modules\modUtils.vb" />
+    <Compile Include="Modules\modValues.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
