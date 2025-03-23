@@ -241,6 +241,7 @@ Public Class frm_salesInvoice
     End Sub
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+
         Dim dateCreated = validateField(dtCreated)
         Dim sellType = validateField(cmbST)
         Dim unloadingVesselType = validateField(cmbUVT)
@@ -248,42 +249,36 @@ Public Class frm_salesInvoice
         Dim catchDeliveryNum = validateField(txtCDNum)
         Dim usdRate = validateField(txtUSD)
         Dim contactNum = validateField(txtCNum)
-        Dim buyerExist = False
+        Dim remark = validateField(txtRemark)
+
+        Dim missingFields As New StringBuilder()
+        If Not dateCreated Then missingFields.AppendLine("Date Created")
+        If Not sellType Then missingFields.AppendLine("Sell Type")
+        If Not unloadingVesselType Then missingFields.AppendLine("Unloading Vessel Type")
+        If Not salesNum Then missingFields.AppendLine("Sales Number")
+        If Not catchDeliveryNum Then missingFields.AppendLine("Catch Delivery Number")
+        If Not usdRate Then missingFields.AppendLine("USD Rate")
+        If Not contactNum Then missingFields.AppendLine("Contact Number")
+        If Not remark Then missingFields.AppendLine("Remarks")
+
 
         If CInt(rBT.EditValue) = 1 Then
-            If validateField(txtBuyer) Then buyerName = txtBuyer.Text
-            checkBuyer = validateField(txtBuyer)
-            buyerID = Nothing
+            If validateField(txtBuyer) Then buyerName = txtBuyer.Text : buyerID = Nothing _
+                Else missingFields.AppendLine("Buyer")
         ElseIf CInt(rBT.EditValue) = 2 Then
-            If validateField(cmbBuyer) Then buyerName = cmbBuyer.EditValue.ToString
-            If validateField(cmbBuyer) Then buyerID = CInt(cmbBuyer.GetColumnValue("ID"))
-            buyerExist = True
+            If validateField(cmbBuyer) Then buyerName = cmbBuyer.Text : buyerID = CInt(cmbBuyer.GetColumnValue("ID")) _
+                Else missingFields.AppendLine("Buyer")
         Else
-            XtraMessageBox.Show("Please select the type of buyer", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            missingFields.AppendLine("Select Type of Buyer")
+        End If
+
+        If missingFields.Length > 0 Then
+            requiredMessage(missingFields.ToString())
             Return
         End If
 
-
-
-        If dateCreated AndAlso sellType AndAlso unloadingVesselType AndAlso salesNum AndAlso catchDeliveryNum _
-            AndAlso usdRate AndAlso contactNum AndAlso checkBuyer Then
-            ctrlSales.savePost()
-            Debug.WriteLine("Post saved...")
-        Else
-            Dim builder As New StringBuilder
-            If Not dateCreated Then builder.Append("Date").AppendLine()
-            If Not sellType Then builder.Append("Sell Type").AppendLine()
-            If Not unloadingVesselType Then builder.Append("Unloading Vessel Type").AppendLine()
-            If Not salesNum Then builder.Append("Sales Number").AppendLine()
-            If Not catchDeliveryNum Then builder.Append("Catch Delivery Number").AppendLine()
-            If Not usdRate Then builder.Append("USD Rate").AppendLine()
-            If Not contactNum Then builder.Append("Contact Number").AppendLine()
-            If Not checkBuyer Then builder.Append("Buyer").AppendLine()
-            Dim fields As String = builder.ToString()
-            requiredMessage(fields)
-        End If
-
-        'ctrlSales.savePost()
+        ctrlSales.savePost()
+        Debug.WriteLine("Post saved...")
     End Sub
 
 End Class

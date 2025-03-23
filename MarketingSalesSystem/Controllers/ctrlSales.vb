@@ -7,7 +7,6 @@ Public Class ctrlSales
     Private isNew As Boolean
     Private mdlSR As SalesReport
     Private mdlSRP As SalesReportPrice
-    Private mdlSRS As SalesReportSummary
 
     Private frmSI As frm_salesInvoice
 
@@ -22,7 +21,6 @@ Public Class ctrlSales
 
         mdlSR = New SalesReport(mkdb)
         mdlSRP = New SalesReportPrice(mkdb)
-        mdlSRS = New SalesReportSummary(mkdb)
 
         frmSI = New frm_salesInvoice(Me)
 
@@ -41,6 +39,51 @@ Public Class ctrlSales
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
             .cmbVessel.Enabled = False
             generateCombo()
+            .Show()
+        End With
+    End Sub
+
+    Sub New(ByVal salesID As Integer)
+        isNew = False
+
+        mkdb = New mkdbDataContext
+        tpmdb = New tpmdbDataContext
+
+        mdlSR = New SalesReport(salesID, mkdb)
+        mdlSRP = New SalesReportPrice(mdlSR.salesReport_ID, mkdb)
+
+        frmSI = New frm_salesInvoice(Me)
+
+        initSalesDataTable()
+        initSalesDataTableS()
+
+        frmSI.GridControl1.DataSource = frmSI.dt
+        frmSI.GridControl2.DataSource = frmSI.dts
+
+        With frmSI
+            .dtCreated.Properties.MaxValue = Date.Now
+            loadRows()
+            .cmbBuyer.Enabled = False
+            .txtBuyer.Enabled = False
+            .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
+            .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
+            .cmbVessel.Enabled = False
+            generateCombo()
+
+            'Fields
+            .dtCreated.EditValue = mdlSR.salesDate
+            .cmbST.EditValue = mdlSR.sellingType
+            .cmbUVT.EditValue = mdlSR.unloadingType
+            .txtSaleNum.EditValue = mdlSR.salesNum
+
+            If CInt(mdlSR.unloadingForeignVessel) = 0 Then .rBT.SelectedIndex = 0 Else .rBT.SelectedIndex = 1
+            If CInt(.rBT.EditValue) = 1 Then .txtBuyer.EditValue = mdlSR.buyer Else .cmbBuyer.EditValue = mdlSR.unloadingForeignVessel
+            .cmbVessel.EditValue = mdlSR.unloadingVessel_ID
+            .txtUSD.EditValue = mdlSR.usdRate
+            .txtCDNum.EditValue = mdlSR.catchtDeliveryNum
+            .txtCNum.EditValue = mdlSR.contractNum
+            .txtRemark.EditValue = mdlSR.remarks
+
             .Show()
         End With
     End Sub
@@ -187,6 +230,7 @@ Public Class ctrlSales
                     sr.catchtDeliveryNum = .txtCDNum.Text
                     sr.usdRate = CDec(.txtUSD.EditValue)
                     sr.contractNum = .txtCNum.Text
+                    sr.remarks = .txtRemark.Text
                     sr.encodedBy = 1
                     sr.encodedOn = Date.Now
                     sr.approvalStatus = 1
@@ -196,12 +240,8 @@ Public Class ctrlSales
                 setSalesPrice("Price", sr.salesReport_ID)
                 setSalesPrice("AUK_Catcher1", sr.salesReport_ID)
                 setSalesPrice("AUK_Catcher2", sr.salesReport_ID)
-                setSalesPrice("AUA_Catcher1", sr.salesReport_ID)
-                setSalesPrice("AUA_Catcher2", sr.salesReport_ID)
                 setSalesPrice("SK_Catcher1", sr.salesReport_ID)
                 setSalesPrice("SK_Catcher2", sr.salesReport_ID)
-                setSalesPrice("SA_Catcher1", sr.salesReport_ID)
-                setSalesPrice("SA_Catcher2", sr.salesReport_ID)
                 ts.Complete()
                 Debug.WriteLine("saved post...")
             Catch ex As Exception
@@ -247,41 +287,81 @@ Public Class ctrlSales
 
     Sub loadRows()
         Dim fishClasses As New Dictionary(Of String, String()) From {
-            {"SKIPJACK", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.39", "1.4 - 1.79", "1.8 - 2.49", "2.5 - 3.49", "3.5 - UP"}},
-            {"YELLOWFIN", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP GOOD", "10 - UP DEFORMED"}},
-            {"BIGEYE", New String() {"0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP"}},
-            {"BONITO", New String() {"ALL SIZES"}},
-            {"FISHMEAL", New String() {"ALL SIZES"}}
-        }
+               {"SKIPJACK", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.39", "1.4 - 1.79", "1.8 - 2.49", "2.5 - 3.49", "3.5 - UP"}},
+               {"YELLOWFIN", New String() {"0.300 - 0.499", "0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP GOOD", "10 - UP DEFORMED"}},
+               {"BIGEYE", New String() {"0.500 - 0.999", "1.0 - 1.49", "1.5 - 2.49", "2.5 - 3.49", "3.5 - 4.99", "5.0 - 9.99", "10 - UP"}},
+               {"BONITO", New String() {"ALL SIZES"}},
+               {"FISHMEAL", New String() {"ALL SIZES"}}
+           }
 
-        ' Loop through each fish class and sizes
-        For Each fishClass In fishClasses
-            For Each size In fishClass.Value
-                AddFishRow(fishClass.Key, size)
-            Next
-        Next
-    End Sub
-
-    Sub AddFishRow(fishClass As String, size As String)
-        Dim dr As DataRow = frmSI.dt.NewRow()
-        dr("Class") = fishClass
-        dr("Size") = size
-        dr("Price") = 0
-
-        ' Set all catcher and total columns to 0 dynamically
         Dim columns As String() = {"AUK_Catcher1", "AUK_Catcher2", "AUK_Total",
                                    "AUA_Catcher1", "AUA_Catcher2", "AUA_Total",
                                    "SK_Catcher1", "SK_Catcher2", "SK_Total",
                                    "SA_Catcher1", "SA_Catcher2", "SA_Total",
                                    "NK_Catcher1", "NK_Catcher2", "NK_Total",
                                    "NA_Catcher1", "NA_Catcher2", "NA_Total"}
+        If isNew Then
 
-        For Each col In columns
-            dr(col) = 0
-        Next
+            ' Loop through each fish class and sizes
+            For Each fishClass In fishClasses
+                For Each size In fishClass.Value
+                    Dim dr As DataRow = frmSI.dt.NewRow()
+                    dr("Price") = 0
+                    dr("Class") = fishClass.Key
+                    dr("Size") = size
 
-        frmSI.dt.Rows.Add(dr)
+                    For Each col In columns
+                        dr(col) = 0
+                    Next
+
+                    frmSI.dt.Rows.Add(dr)
+                Next
+            Next
+        Else
+
+            Dim columnNames As List(Of String) = GetType(trans_SalesReportPrice).GetProperties().Select(Function(t) t.Name).ToList()
+            columnNames.RemoveAll(Function(c) c = "salesReportPrice_ID" Or c = "salesReport_ID")
+            Dim srpList = mkdb.trans_SalesReportPrices.Where(Function(sp) sp.salesReport_ID = mdlSR.salesReport_ID).ToList()
+
+            Dim count = 0
+
+            For Each fishClass In fishClasses
+                For Each size In fishClass.Value
+
+                    Dim columnName As String = columnNames(count)
+
+                    Dim dr As DataRow = frmSI.dt.NewRow()
+                    dr("Class") = fishClass.Key
+                    dr("Size") = size
+
+                    ' Assign values if properties exist
+                    Dim propInfo = GetType(trans_SalesReportPrice).GetProperty(columnName)
+                    dr("Price") = CDec(propInfo.GetValue(srpList(0), Nothing))
+
+                    For Each col In columns
+
+                        Select Case col
+                            Case "AUK_Catcher1"
+                                dr("AUK_Catcher1") = CDec(propInfo.GetValue(srpList(1), Nothing))
+                            Case "AUK_Catcher2"
+                                dr("AUK_Catcher2") = CDec(propInfo.GetValue(srpList(2), Nothing))
+                            Case "SK_Catcher1"
+                                dr("SK_Catcher1") = CDec(propInfo.GetValue(srpList(3), Nothing))
+                            Case "SK_Catcher2"
+                                dr("SK_Catcher2") = CDec(propInfo.GetValue(srpList(4), Nothing))
+                            Case Else
+                                dr(col) = 0
+                        End Select
+                    Next
+
+                    frmSI.dt.Rows.Add(dr)
+                    count += 1 ' Move to the next column
+                Next
+            Next
+            updateAllTotals()
+        End If
     End Sub
+
 
     Sub generateCombo()
         Dim item = (From i In tpmdb.ml_SupplierCategories Select i.ml_supCat).ToArray

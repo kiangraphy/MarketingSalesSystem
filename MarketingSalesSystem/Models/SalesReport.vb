@@ -103,4 +103,23 @@
 
         Return srList
     End Function
+
+    Function getByDate(Optional ByVal startDate As Date = #1/1/1900#, Optional ByVal endDate As Date = Nothing) As List(Of SalesReport)
+        If endDate = Nothing Then
+            endDate = Date.Now
+        End If
+
+        Dim srList As New List(Of SalesReport)
+
+        Dim srs = From sr In dc.trans_SalesReports
+                   Where sr.salesDate >= startDate.Date AndAlso sr.salesDate <= endDate.Date
+                   Select sr
+
+        For Each sr In srs
+            srList.Add(New SalesReport(sr, dc))
+        Next
+
+        Return srList
+    End Function
+
 End Class
