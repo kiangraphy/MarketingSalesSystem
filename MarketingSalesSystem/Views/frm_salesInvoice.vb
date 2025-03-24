@@ -138,6 +138,20 @@ Public Class frm_salesInvoice
             .Columns("SK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
             .Columns("SK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
 
+            Dim AUKilo1 = .Columns.IndexOf(.Columns.Item("AUK_Catcher1"))
+            Dim AUKilo2 = .Columns.IndexOf(.Columns.Item("AUK_Catcher2"))
+            Dim SKilo1 = .Columns.IndexOf(.Columns.Item("SK_Catcher1"))
+            Dim SKilo2 = .Columns.IndexOf(.Columns.Item("SK_Catcher2"))
+            Dim NKilo1 = .Columns.IndexOf(.Columns.Item("NK_Catcher1"))
+            Dim NKilo2 = .Columns.IndexOf(.Columns.Item("NK_Catcher2"))
+
+            .Columns(AUKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "AUK_Catcher1", "Total: {0}")
+            .Columns(AUKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "AUK_Catcher2", "Total: {0}")
+            .Columns(SKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "SK_Catcher1", "Total: {0}")
+            .Columns(SKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "SK_Catcher2", "Total: {0}")
+            .Columns(NKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "NK_Catcher1", "Total: {0}")
+            .Columns(NKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "NK_Catcher2", "Total: {0}")
+
             .BestFitColumns()
             .OptionsView.ColumnAutoWidth = False
             .OptionsView.ShowColumnHeaders = False
@@ -240,7 +254,7 @@ Public Class frm_salesInvoice
         End With
     End Sub
 
-    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
 
         Dim dateCreated = validateField(dtCreated)
         Dim sellType = validateField(cmbST)
@@ -280,4 +294,8 @@ Public Class frm_salesInvoice
         ctrlSales.saveDraft()
     End Sub
 
+    Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPost.ItemClick
+        Dim message = XtraMessageBox.Show("Are you sure you want to post this report?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If message = Windows.Forms.DialogResult.Yes Then ctrlSales.postedDraft() Else Return
+    End Sub
 End Class
