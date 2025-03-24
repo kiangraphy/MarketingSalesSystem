@@ -1,5 +1,6 @@
 ﻿Public Class SalesReport
     Public salesReport_ID As Integer
+    Public referenceNum As String
     Public salesDate As Date
     Public salesNum As String
     Public sellingType As String
@@ -28,6 +29,7 @@
 
         For Each i In e
             Me.salesReport_ID = salesReportID
+            referenceNum = i.referenceNum
             salesDate = i.salesDate
             salesNum = i.salesNum
             sellingType = i.sellingType
@@ -51,6 +53,7 @@
         Dim i = sr
 
         Me.salesReport_ID = i.salesReport_ID
+        referenceNum = i.referenceNum
         salesDate = i.salesDate
         salesNum = i.salesNum
         sellingType = i.sellingType
@@ -72,6 +75,7 @@
 
         With sr
             sr.salesDate = salesDate
+            sr.referenceNum = "Draft"
             sr.salesNum = salesNum
             sr.sellingType = sellingType
             sr.unloadingType = unloadingType
@@ -90,6 +94,40 @@
         dc.trans_SalesReports.InsertOnSubmit(sr)
         dc.SubmitChanges()
         salesReport_ID = sr.salesReport_ID
+    End Sub
+
+    Sub Save()
+        Dim sr = From i In dc.trans_SalesReports Where i.salesReport_ID = salesReport_ID Select i
+
+        For Each i In sr
+            i.salesDate = salesDate
+            i.referenceNum = i.referenceNum
+            i.salesNum = salesNum
+            i.sellingType = sellingType
+            i.unloadingType = unloadingType
+            i.unloadingVessel_ID = unloadingVessel_ID
+            i.unloadingForeignVessel = unloadingForeignVessel
+            i.buyer = buyer
+            i.catchtDeliveryNum = catchtDeliveryNum
+            i.usdRate = usdRate
+            i.contractNum = contractNum
+            i.remarks = remarks
+            i.encodedBy = encodedBy
+            i.encodedOn = encodedOn
+            i.approvalStatus = approvalStatus
+            dc.SubmitChanges()
+        Next
+
+    End Sub
+
+    Sub Posted()
+        Dim sr = From i In dc.trans_SalesReports Where i.salesReport_ID = salesReport_ID Select i
+
+        For Each i In sr
+            i.referenceNum = GenerateRefNum()
+            i.approvalStatus = approvalStatus
+            dc.SubmitChanges()
+        Next
     End Sub
 
     Function getRows() As List(Of SalesReport)
@@ -120,6 +158,29 @@
         Next
 
         Return srList
+    End Function
+
+    Function GenerateRefNum() As String
+        Dim yearMonth = Date.Now.Year & Date.Now.Month
+
+        Dim prefix As String = "SR-" & yearMonth
+
+        Dim lastRef = (From sr In dc.trans_SalesReports
+                       Where sr.referenceNum.StartsWith(prefix)
+                       Order By sr.referenceNum Descending
+                       Select sr.referenceNum).FirstOrDefault()
+
+        Dim newNum As Integer
+
+        If lastRef IsNot Nothing Then
+            Dim lastNumStr As String = lastRef.Substring(9)
+            Dim lastNum As Integer
+            If Integer.TryParse(lastNumStr, lastNum) Then
+                newNum = lastNum + 1
+            End If
+        End If
+
+        Return String.Format("SR-{0}{1:D3}", yearMonth, newNum)
     End Function
 
 End Class

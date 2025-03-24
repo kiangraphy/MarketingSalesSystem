@@ -31,6 +31,9 @@ Public Class ctrlSales
         frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
+            .Text = "Create Sales Invoice"
+            .btnPost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            .btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .dtCreated.Properties.MaxValue = Date.Now
             loadRows()
             .cmbBuyer.Enabled = False
@@ -38,6 +41,7 @@ Public Class ctrlSales
             .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
             .cmbVessel.Enabled = False
+            .txt_refNum.Caption = "Draft"
             generateCombo()
             .Show()
         End With
@@ -61,6 +65,11 @@ Public Class ctrlSales
         frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
+            If mdlSR.approvalStatus = Approval_Status.Posted Then
+                .rbnTools.Visible = False
+            End If
+
+            .Text = "Sales Invoice"
             .dtCreated.Properties.MaxValue = Date.Now
             loadRows()
             .cmbBuyer.Enabled = False
@@ -83,6 +92,7 @@ Public Class ctrlSales
             .txtCDNum.EditValue = mdlSR.catchtDeliveryNum
             .txtCNum.EditValue = mdlSR.contractNum
             .txtRemark.EditValue = mdlSR.remarks
+            .txt_refNum.Caption = mdlSR.referenceNum
 
             .Show()
         End With
@@ -212,46 +222,83 @@ Public Class ctrlSales
         Next
     End Sub
 
-    Sub savePost()
-        Dim srs As New SalesReportSummary(mkdb)
-
+    Sub saveDraft()
         Using ts As New TransactionScope()
             Try
-                Dim sr As New SalesReport(mkdb)
 
                 With frmSI
-                    sr.salesDate = CDate(.dtCreated.EditValue)
-                    sr.salesNum = .txtSaleNum.Text
-                    sr.sellingType = .cmbST.EditValue.ToString
-                    sr.unloadingType = .cmbUVT.EditValue.ToString
-                    sr.unloadingVessel_ID = CInt(.cmbVessel.EditValue)
-                    sr.unloadingForeignVessel = .buyerID.ToString
-                    sr.buyer = .buyerName.ToString
-                    sr.catchtDeliveryNum = .txtCDNum.Text
-                    sr.usdRate = CDec(.txtUSD.EditValue)
-                    sr.contractNum = .txtCNum.Text
-                    sr.remarks = .txtRemark.Text
-                    sr.encodedBy = 1
-                    sr.encodedOn = Date.Now
-                    sr.approvalStatus = 1
-                    sr.Add()
+                    mdlSR.salesDate = CDate(.dtCreated.EditValue)
+                    mdlSR.salesNum = .txtSaleNum.Text
+                    mdlSR.sellingType = .cmbST.EditValue.ToString
+                    mdlSR.unloadingType = .cmbUVT.EditValue.ToString
+                    mdlSR.unloadingVessel_ID = CInt(.cmbVessel.EditValue)
+                    mdlSR.unloadingForeignVessel = .buyerID.ToString
+                    mdlSR.buyer = .buyerName.ToString
+                    mdlSR.catchtDeliveryNum = .txtCDNum.Text
+                    mdlSR.usdRate = CDec(.txtUSD.EditValue)
+                    mdlSR.contractNum = .txtCNum.Text
+                    mdlSR.remarks = .txtRemark.Text
+                    mdlSR.encodedBy = 1
+                    If Not isNew Then
+                        mdlSR.approvalStatus = Approval_Status.Submitted
+                        mdlSR.encodedOn = Date.Now
+                        mdlSR.Save()
+
+                        Debug.WriteLine("saved post...")
+                    Else
+                        mdlSR.approvalStatus = Approval_Status.Draft
+                        mdlSR.encodedOn = CDate(.dtCreated.EditValue)
+                        mdlSR.Add()
+
+                        Debug.WriteLine("add post...")
+                    End If
                 End With
 
-                setSalesPrice("Price", sr.salesReport_ID)
-                setSalesPrice("AUK_Catcher1", sr.salesReport_ID)
-                setSalesPrice("AUK_Catcher2", sr.salesReport_ID)
-                setSalesPrice("SK_Catcher1", sr.salesReport_ID)
-                setSalesPrice("SK_Catcher2", sr.salesReport_ID)
+                If Not isNew Then
+                    setSalesPrice("Price", mdlSR.salesReport_ID, 0)
+                    setSalesPrice("AUK_Catcher1", mdlSR.salesReport_ID, 1)
+                    setSalesPrice("AUK_Catcher2", mdlSR.salesReport_ID, 2)
+                    setSalesPrice("SK_Catcher1", mdlSR.salesReport_ID, 3)
+                    setSalesPrice("SK_Catcher2", mdlSR.salesReport_ID, 4)
+                Else
+                    setSalesPrice("Price", mdlSR.salesReport_ID, -1)
+                    setSalesPrice("AUK_Catcher1", mdlSR.salesReport_ID, -1)
+                    setSalesPrice("AUK_Catcher2", mdlSR.salesReport_ID, -1)
+                    setSalesPrice("SK_Catcher1", mdlSR.salesReport_ID, -1)
+                    setSalesPrice("SK_Catcher2", mdlSR.salesReport_ID, -1)
+                End If
                 ts.Complete()
-                Debug.WriteLine("saved post...")
             Catch ex As Exception
                 Debug.WriteLine(ex.Message)
             End Try
         End Using
+        frmSI.Close()
     End Sub
 
-    Sub setSalesPrice(rowName As String, ByVal salesReportID As Integer)
+    Sub postedDraft()
+        Using ts As New TransactionScope
+            Try
+                With mdlSR
+                    .approvalStatus = Approval_Status.Posted
+                    .Posted()
+                End With
+
+                ts.Complete()
+            Catch ex As Exception
+                Debug.WriteLine("Error: " & ex.Message)
+            End Try
+        End Using
+        frmSI.Close()
+    End Sub
+
+    Sub setSalesPrice(rowName As String, ByVal salesReportID As Integer, ByVal row As Integer)
         Dim srp As New SalesReportPrice(mkdb)
+
+        If Not row = -1 Then
+            Dim getID = (From i In mkdb.trans_SalesReportPrices Where i.salesReport_ID = salesReportID).ToList()(row)
+            Debug.WriteLine("Value: " & getID.salesReportPrice_ID)
+            srp = New SalesReportPrice(getID.salesReportPrice_ID, mkdb)
+        End If
 
         With srp
             .salesReport_ID = salesReportID
@@ -280,10 +327,13 @@ Public Class ctrlSales
             .bigeye10AndUP = CDec(frmSI.dt.Rows(22)(rowName))
             .bonito = CDec(frmSI.dt.Rows(23)(rowName))
             .fishmeal = CDec(frmSI.dt.Rows(24)(rowName))
-            .Add()
+            If Not isNew Then
+                .Save()
+            Else
+                .Add()
+            End If
         End With
     End Sub
-
 
     Sub loadRows()
         Dim fishClasses As New Dictionary(Of String, String()) From {

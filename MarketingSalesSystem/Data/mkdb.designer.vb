@@ -151,6 +151,8 @@ Partial Public Class trans_SalesReport
 	
 	Private _salesReport_ID As Integer
 	
+	Private _referenceNum As String
+	
 	Private _salesDate As Date
 	
 	Private _salesNum As String
@@ -189,6 +191,10 @@ Partial Public Class trans_SalesReport
     Partial Private Sub OnsalesReport_IDChanging(value As Integer)
     End Sub
     Partial Private Sub OnsalesReport_IDChanged()
+    End Sub
+    Partial Private Sub OnreferenceNumChanging(value As String)
+    End Sub
+    Partial Private Sub OnreferenceNumChanged()
     End Sub
     Partial Private Sub OnsalesDateChanging(value As Date)
     End Sub
@@ -266,6 +272,22 @@ Partial Public Class trans_SalesReport
 				Me._salesReport_ID = value
 				Me.SendPropertyChanged("salesReport_ID")
 				Me.OnsalesReport_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_referenceNum", DbType:="VarChar(12) NOT NULL", CanBeNull:=false)>  _
+	Public Property referenceNum() As String
+		Get
+			Return Me._referenceNum
+		End Get
+		Set
+			If (String.Equals(Me._referenceNum, value) = false) Then
+				Me.OnreferenceNumChanging(value)
+				Me.SendPropertyChanging
+				Me._referenceNum = value
+				Me.SendPropertyChanged("referenceNum")
+				Me.OnreferenceNumChanged
 			End If
 		End Set
 	End Property
