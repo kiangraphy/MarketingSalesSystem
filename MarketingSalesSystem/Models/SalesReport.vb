@@ -75,7 +75,7 @@
 
         With sr
             sr.salesDate = salesDate
-            sr.referenceNum = "############"
+            sr.referenceNum = "Draft"
             sr.salesNum = salesNum
             sr.sellingType = sellingType
             sr.unloadingType = unloadingType
@@ -124,6 +124,7 @@
         Dim sr = From i In dc.trans_SalesReports Where i.salesReport_ID = salesReport_ID Select i
 
         For Each i In sr
+            i.referenceNum = GenerateRefNum()
             i.approvalStatus = approvalStatus
             dc.SubmitChanges()
         Next
@@ -157,6 +158,29 @@
         Next
 
         Return srList
+    End Function
+
+    Function GenerateRefNum() As String
+        Dim yearMonth = Date.Now.Year & Date.Now.Month
+
+        Dim prefix As String = "SR-" & yearMonth
+
+        Dim lastRef = (From sr In dc.trans_SalesReports
+                       Where sr.referenceNum.StartsWith(prefix)
+                       Order By sr.referenceNum Descending
+                       Select sr.referenceNum).FirstOrDefault()
+
+        Dim newNum As Integer
+
+        If lastRef IsNot Nothing Then
+            Dim lastNumStr As String = lastRef.Substring(9)
+            Dim lastNum As Integer
+            If Integer.TryParse(lastNumStr, lastNum) Then
+                newNum = lastNum + 1
+            End If
+        End If
+
+        Return String.Format("SR-{0}{1:D3}", yearMonth, newNum)
     End Function
 
 End Class

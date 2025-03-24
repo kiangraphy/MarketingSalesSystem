@@ -66,9 +66,10 @@ Public Class ucSales
     Function transformData(ByRef salesPriceDict As List(Of trans_SalesReportPrice), ByRef vesselDict As Dictionary(Of Integer, String), sr As SalesReport) As Object
         Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
 
-        If spList.Count < 1 Then
+        If Not spList.Count > 4 Then
             Return Nothing
         End If
+
 
         Dim price = spList(0)
         Dim actualCatcher1 = spList(1)

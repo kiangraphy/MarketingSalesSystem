@@ -31,6 +31,9 @@ Public Class ctrlSales
         frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
+            .Text = "Create Sales Invoice"
+            .btnPost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            .btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .dtCreated.Properties.MaxValue = Date.Now
             loadRows()
             .cmbBuyer.Enabled = False
@@ -38,6 +41,7 @@ Public Class ctrlSales
             .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
             .cmbVessel.Enabled = False
+            .txt_refNum.Caption = "Draft"
             generateCombo()
             .Show()
         End With
@@ -61,6 +65,11 @@ Public Class ctrlSales
         frmSI.GridControl2.DataSource = frmSI.dts
 
         With frmSI
+            If mdlSR.approvalStatus = Approval_Status.Posted Then
+                .rbnTools.Visible = False
+            End If
+
+            .Text = "Sales Invoice"
             .dtCreated.Properties.MaxValue = Date.Now
             loadRows()
             .cmbBuyer.Enabled = False
@@ -263,6 +272,7 @@ Public Class ctrlSales
                 Debug.WriteLine(ex.Message)
             End Try
         End Using
+        frmSI.Close()
     End Sub
 
     Sub postedDraft()
@@ -278,15 +288,15 @@ Public Class ctrlSales
                 Debug.WriteLine("Error: " & ex.Message)
             End Try
         End Using
+        frmSI.Close()
     End Sub
 
     Sub setSalesPrice(rowName As String, ByVal salesReportID As Integer, ByVal row As Integer)
         Dim srp As New SalesReportPrice(mkdb)
 
         If Not row = -1 Then
-            Dim getID = mdlSRP.getRows()(row)
-            Debug.WriteLine(getID)
-            Debug.WriteLine("Saving")
+            Dim getID = (From i In mkdb.trans_SalesReportPrices Where i.salesReport_ID = salesReportID).ToList()(row)
+            Debug.WriteLine("Value: " & getID.salesReportPrice_ID)
             srp = New SalesReportPrice(getID.salesReportPrice_ID, mkdb)
         End If
 
