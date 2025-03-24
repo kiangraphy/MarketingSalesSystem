@@ -58,7 +58,7 @@ Public Class ucSales
         Dim salesData = sales.Select(Function(sr)
                                          Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
 
-                                         If spList.Count < 1 Then
+                                         If Not spList.Count > 4 Then
                                              Return Nothing
                                          End If
 

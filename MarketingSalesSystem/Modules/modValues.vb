@@ -1,17 +1,11 @@
 ﻿Module modValues
-    Enum SELL_TYPE As Integer
-        CORPORATE = 1
-        DAVAO = 2
-        IMPORTATION = 3
-        INTERNATION = 4
-        LOCAL = 5
-        MANILA = 6
-        PERSONAL = 7
-    End Enum
 
-    Enum VESSEL_TYPE As Integer
-        FISHINGVESSEL = 1
-        DEPARTMENT = 2
+    Enum Approval_Status As Integer
+        Posted = 1
+        Dropped = 2
+        CancelledDenied = 3
+        Submitted = 4
+        Draft = 5
     End Enum
 
 End Module
