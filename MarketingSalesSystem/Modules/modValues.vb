@@ -1,4 +1,5 @@
 ﻿Module modValues
+  
     Enum Approval_Status As Integer
         Posted = 1
         Dropped = 2
