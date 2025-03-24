@@ -55,51 +55,53 @@ Public Class ucSales
         Dim vesselDict = mdb.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
 
         ' Process sales data efficiently
-        Dim salesData = sales.Select(Function(sr)
-                                         Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
-
-                                         If spList.Count < 1 Then
-                                             Return Nothing
-                                         End If
-
-                                         Dim price = spList(0)
-                                         Dim actualCatcher1 = spList(1)
-                                         Dim actualCatcher2 = spList(2)
-                                         Dim spoilageCatcher1 = spList(3)
-                                         Dim spoilageCatcher2 = spList(4)
-
-                                         ' Compute all values before assigning them to avoid repeated calculations
-                                         Dim actualQty = sumFields(actualCatcher1) + sumFields(actualCatcher2)
-                                         Dim spoilage = sumFields(spoilageCatcher1) + sumFields(spoilageCatcher2)
-                                         Dim netQty = actualQty - spoilage
-                                         Dim totalAmount = calculateTotalAmount(actualCatcher1, spoilageCatcher1, price) + calculateTotalAmount(actualCatcher2, spoilageCatcher2, price)
-                                         Dim usdRate = sr.usdRate
-                                         Dim salesInUSD = If(usdRate > 0, Math.Round(totalAmount / usdRate, 2), 0)
-
-                                         Return New With {
-                                             .salesReport_ID = sr.salesReport_ID,
-                                             .SalesNo = sr.salesNum,
-                                             .CoveredDate = sr.salesDate,
-                                             .Catcher = sr.catchtDeliveryNum,
-                                             .SellingType = sr.sellingType,
-                                             .Buyer = sr.buyer,
-                                             .UnloadingVessel = If(vesselDict.ContainsKey(sr.unloadingVessel_ID.GetValueOrDefault()), vesselDict(sr.unloadingVessel_ID.GetValueOrDefault()), "Unknown"),
-                                             .ActualQty = actualQty,
-                                             .Fishmeal = actualCatcher1.fishmeal + actualCatcher2.fishmeal,
-                                             .Spoilage = spoilage,
-                                             .NetQty = netQty,
-                                             .SalesInUSD = salesInUSD,
-                                             .USDRate = usdRate,
-                                             .SalesInPHP = totalAmount,
-                                             .AveragePrice = totalAmount
-                                         }
-                                     End Function).Where(Function(x) x IsNot Nothing).ToList()
+        Dim salesData = sales.Select(Function(sr) transformData(salesPriceDict, vesselDict, sr)).Where(Function(x) x IsNot Nothing).ToList()
 
         gridView.GridControl.DataSource = salesData
         gridView.PopulateColumns()
 
         gridTransMode(gridView)
     End Sub
+
+    Function transformData(ByRef salesPriceDict As List(Of trans_SalesReportPrice), ByRef vesselDict As Dictionary(Of Integer, String), sr As SalesReport) As Object
+        Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
+
+        If spList.Count < 1 Then
+            Return Nothing
+        End If
+
+        Dim price = spList(0)
+        Dim actualCatcher1 = spList(1)
+        Dim actualCatcher2 = spList(2)
+        Dim spoilageCatcher1 = spList(3)
+        Dim spoilageCatcher2 = spList(4)
+
+        ' Compute all values before assigning them to avoid repeated calculations
+        Dim actualQty = sumFields(actualCatcher1) + sumFields(actualCatcher2)
+        Dim spoilage = sumFields(spoilageCatcher1) + sumFields(spoilageCatcher2)
+        Dim netQty = actualQty - spoilage
+        Dim totalAmount = calculateTotalAmount(actualCatcher1, spoilageCatcher1, price) + calculateTotalAmount(actualCatcher2, spoilageCatcher2, price)
+        Dim usdRate = sr.usdRate
+        Dim salesInUSD = If(usdRate > 0, Math.Round(totalAmount / usdRate, 2), 0)
+
+        Return New With {
+            .salesReport_ID = sr.salesReport_ID,
+            .SalesNo = sr.salesNum,
+            .CoveredDate = sr.salesDate,
+            .Catcher = sr.catchtDeliveryNum,
+            .SellingType = sr.sellingType,
+            .Buyer = sr.buyer,
+            .UnloadingVessel = If(vesselDict.ContainsKey(sr.unloadingVessel_ID.GetValueOrDefault()), vesselDict(sr.unloadingVessel_ID.GetValueOrDefault()), "Unknown"),
+            .ActualQty = actualQty,
+            .Fishmeal = actualCatcher1.fishmeal + actualCatcher2.fishmeal,
+            .Spoilage = spoilage,
+            .NetQty = netQty,
+            .SalesInUSD = salesInUSD,
+            .USDRate = usdRate,
+            .SalesInPHP = totalAmount,
+            .AveragePrice = totalAmount
+        }
+    End Function
     Function sumFields(record As trans_SalesReportPrice) As Decimal
         Return record.skipjack0_300To0_499 + record.skipjack0_500To0_999 +
                record.skipjack1_0To1_39 + record.skipjack1_4To1_79 +
@@ -178,45 +180,7 @@ Public Class ucSales
         Dim vesselDict = mdb.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
 
         ' Process sales data efficiently
-        Dim salesData = sales.Select(Function(sr)
-                                         Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
-
-                                         If spList.Count < 1 Then
-                                             Return Nothing
-                                         End If
-
-                                         Dim price = spList(0)
-                                         Dim actualCatcher1 = spList(1)
-                                         Dim actualCatcher2 = spList(2)
-                                         Dim spoilageCatcher1 = spList(3)
-                                         Dim spoilageCatcher2 = spList(4)
-
-                                         ' Compute all values before assigning them to avoid repeated calculations
-                                         Dim actualQty = sumFields(actualCatcher1) + sumFields(actualCatcher2)
-                                         Dim spoilage = sumFields(spoilageCatcher1) + sumFields(spoilageCatcher2)
-                                         Dim netQty = actualQty - spoilage
-                                         Dim totalAmount = calculateTotalAmount(actualCatcher1, spoilageCatcher1, price) + calculateTotalAmount(actualCatcher2, spoilageCatcher2, price)
-                                         Dim usdRate = sr.usdRate
-                                         Dim salesInUSD = If(usdRate > 0, Math.Round(totalAmount / usdRate, 2), 0)
-
-                                         Return New With {
-                                             .salesReport_ID = sr.salesReport_ID,
-                                             .SalesNo = sr.salesNum,
-                                             .CoveredDate = sr.salesDate,
-                                             .Catcher = sr.catchtDeliveryNum,
-                                             .SellingType = sr.sellingType,
-                                             .Buyer = sr.buyer,
-                                             .UnloadingVessel = If(vesselDict.ContainsKey(sr.unloadingVessel_ID.GetValueOrDefault()), vesselDict(sr.unloadingVessel_ID.GetValueOrDefault()), "Unknown"),
-                                             .ActualQty = actualQty,
-                                             .Fishmeal = actualCatcher1.fishmeal + actualCatcher2.fishmeal,
-                                             .Spoilage = spoilage,
-                                             .NetQty = netQty,
-                                             .SalesInUSD = salesInUSD,
-                                             .USDRate = usdRate,
-                                             .SalesInPHP = totalAmount,
-                                             .AveragePrice = totalAmount
-                                         }
-                                     End Function).Where(Function(x) x IsNot Nothing).ToList()
+        Dim salesData = sales.Select(Function(sr) transformData(salesPriceDict, vesselDict, sr)).Where(Function(x) x IsNot Nothing).ToList()
 
         gridView.GridControl.DataSource = salesData
         gridView.PopulateColumns()
