@@ -22,7 +22,7 @@ Partial Class frm_salesInvoice
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_salesInvoice))
         Me.RibbonControl = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.BarHeaderItem1 = New DevExpress.XtraBars.BarHeaderItem()
-        Me.BarStaticItem1 = New DevExpress.XtraBars.BarStaticItem()
+        Me.txt_refNum = New DevExpress.XtraBars.BarStaticItem()
         Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
@@ -59,6 +59,7 @@ Partial Class frm_salesInvoice
         Me.cmbVessel = New DevExpress.XtraEditors.LookUpEdit()
         Me.cmbBuyer = New DevExpress.XtraEditors.LookUpEdit()
         Me.txtCNum = New DevExpress.XtraEditors.TextEdit()
+        Me.txtRemark = New DevExpress.XtraEditors.TextEdit()
         Me.LayoutControlGroup1 = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LayoutControlItem2 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem3 = New DevExpress.XtraLayout.LayoutControlItem()
@@ -77,7 +78,6 @@ Partial Class frm_salesInvoice
         Me.ltxtBuyer = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem11 = New DevExpress.XtraLayout.LayoutControlItem()
         Me.LayoutControlItem14 = New DevExpress.XtraLayout.LayoutControlItem()
-        Me.txtRemark = New DevExpress.XtraEditors.TextEdit()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LayoutControl1.SuspendLayout()
@@ -114,6 +114,7 @@ Partial Class frm_salesInvoice
         CType(Me.cmbVessel.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbBuyer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCNum.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRemark.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,13 +133,12 @@ Partial Class frm_salesInvoice
         CType(Me.ltxtBuyer, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem11, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem14, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtRemark.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
         '
         Me.RibbonControl.ExpandCollapseItem.Id = 0
-        Me.RibbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl.ExpandCollapseItem, Me.BarHeaderItem1, Me.BarStaticItem1, Me.BarButtonItem1, Me.BarButtonItem2, Me.BarButtonItem3})
+        Me.RibbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl.ExpandCollapseItem, Me.BarHeaderItem1, Me.txt_refNum, Me.BarButtonItem1, Me.BarButtonItem2, Me.BarButtonItem3})
         Me.RibbonControl.Location = New System.Drawing.Point(0, 0)
         Me.RibbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.RibbonControl.MaxItemId = 6
@@ -153,11 +153,11 @@ Partial Class frm_salesInvoice
         Me.BarHeaderItem1.Id = 1
         Me.BarHeaderItem1.Name = "BarHeaderItem1"
         '
-        'BarStaticItem1
+        'txt_refNum
         '
-        Me.BarStaticItem1.Caption = "xxxxxxxxxx"
-        Me.BarStaticItem1.Id = 2
-        Me.BarStaticItem1.Name = "BarStaticItem1"
+        Me.txt_refNum.Caption = "xxxxxxxxxx"
+        Me.txt_refNum.Id = 2
+        Me.txt_refNum.Name = "txt_refNum"
         '
         'BarButtonItem1
         '
@@ -192,7 +192,7 @@ Partial Class frm_salesInvoice
         'RibbonPageGroup1
         '
         Me.RibbonPageGroup1.ItemLinks.Add(Me.BarHeaderItem1)
-        Me.RibbonPageGroup1.ItemLinks.Add(Me.BarStaticItem1)
+        Me.RibbonPageGroup1.ItemLinks.Add(Me.txt_refNum)
         Me.RibbonPageGroup1.Name = "RibbonPageGroup1"
         Me.RibbonPageGroup1.Text = "Information"
         '
@@ -351,7 +351,7 @@ Partial Class frm_salesInvoice
         Me.XtraTabPage2.Controls.Add(Me.LayoutControl4)
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
-        Me.XtraTabPage2.Size = New System.Drawing.Size(1200, 343)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(1200, 347)
         Me.XtraTabPage2.Text = "Summary"
         '
         'LayoutControl4
@@ -362,7 +362,7 @@ Partial Class frm_salesInvoice
         Me.LayoutControl4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LayoutControl4.Name = "LayoutControl4"
         Me.LayoutControl4.Root = Me.LayoutControlGroup3
-        Me.LayoutControl4.Size = New System.Drawing.Size(1200, 343)
+        Me.LayoutControl4.Size = New System.Drawing.Size(1200, 347)
         Me.LayoutControl4.TabIndex = 0
         Me.LayoutControl4.Text = "LayoutControl4"
         '
@@ -374,7 +374,7 @@ Partial Class frm_salesInvoice
         Me.GridControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl2.MenuManager = Me.RibbonControl
         Me.GridControl2.Name = "GridControl2"
-        Me.GridControl2.Size = New System.Drawing.Size(1176, 319)
+        Me.GridControl2.Size = New System.Drawing.Size(1176, 323)
         Me.GridControl2.TabIndex = 4
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.BandedGridView2})
         '
@@ -394,7 +394,7 @@ Partial Class frm_salesInvoice
         Me.LayoutControlGroup3.GroupBordersVisible = False
         Me.LayoutControlGroup3.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem13})
         Me.LayoutControlGroup3.Name = "LayoutControlGroup3"
-        Me.LayoutControlGroup3.Size = New System.Drawing.Size(1200, 343)
+        Me.LayoutControlGroup3.Size = New System.Drawing.Size(1200, 347)
         Me.LayoutControlGroup3.TextVisible = False
         '
         'LayoutControlItem13
@@ -402,7 +402,7 @@ Partial Class frm_salesInvoice
         Me.LayoutControlItem13.Control = Me.GridControl2
         Me.LayoutControlItem13.Location = New System.Drawing.Point(0, 0)
         Me.LayoutControlItem13.Name = "LayoutControlItem13"
-        Me.LayoutControlItem13.Size = New System.Drawing.Size(1180, 323)
+        Me.LayoutControlItem13.Size = New System.Drawing.Size(1180, 327)
         Me.LayoutControlItem13.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem13.TextVisible = False
         '
@@ -534,6 +534,15 @@ Partial Class frm_salesInvoice
         Me.txtCNum.Size = New System.Drawing.Size(194, 22)
         Me.txtCNum.StyleController = Me.LayoutControl1
         Me.txtCNum.TabIndex = 13
+        '
+        'txtRemark
+        '
+        Me.txtRemark.Location = New System.Drawing.Point(12, 572)
+        Me.txtRemark.MenuManager = Me.RibbonControl
+        Me.txtRemark.Name = "txtRemark"
+        Me.txtRemark.Size = New System.Drawing.Size(1231, 22)
+        Me.txtRemark.StyleController = Me.LayoutControl1
+        Me.txtRemark.TabIndex = 24
         '
         'LayoutControlGroup1
         '
@@ -694,15 +703,6 @@ Partial Class frm_salesInvoice
         Me.LayoutControlItem14.TextLocation = DevExpress.Utils.Locations.Top
         Me.LayoutControlItem14.TextSize = New System.Drawing.Size(134, 16)
         '
-        'txtRemark
-        '
-        Me.txtRemark.Location = New System.Drawing.Point(12, 572)
-        Me.txtRemark.MenuManager = Me.RibbonControl
-        Me.txtRemark.Name = "txtRemark"
-        Me.txtRemark.Size = New System.Drawing.Size(1231, 22)
-        Me.txtRemark.StyleController = Me.LayoutControl1
-        Me.txtRemark.TabIndex = 24
-        '
         'frm_salesInvoice
         '
         Me.AllowFormGlass = DevExpress.Utils.DefaultBoolean.[False]
@@ -754,6 +754,7 @@ Partial Class frm_salesInvoice
         CType(Me.cmbVessel.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmbBuyer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtCNum.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRemark.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -772,7 +773,6 @@ Partial Class frm_salesInvoice
         CType(Me.ltxtBuyer, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem11, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem14, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtRemark.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -783,7 +783,7 @@ Partial Class frm_salesInvoice
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents RibbonStatusBar As DevExpress.XtraBars.Ribbon.RibbonStatusBar
     Friend WithEvents BarHeaderItem1 As DevExpress.XtraBars.BarHeaderItem
-    Friend WithEvents BarStaticItem1 As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents txt_refNum As DevExpress.XtraBars.BarStaticItem
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem2 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem3 As DevExpress.XtraBars.BarButtonItem

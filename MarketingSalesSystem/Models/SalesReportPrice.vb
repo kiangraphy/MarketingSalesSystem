@@ -140,6 +140,40 @@
         salesReportPrice_ID = srp.salesReportPrice_ID
     End Sub
 
+    Sub Save()
+        Dim srp = From i In dc.trans_SalesReportPrices Where i.salesReportPrice_ID = salesReportPrice_ID Select i
+
+        For Each i In srp
+            i.salesReport_ID = salesReport_ID
+            i.skipjack0_300To0_499 = skipjack0_300To0_499
+            i.skipjack0_500To0_999 = skipjack0_500To0_999
+            i.skipjack1_0To1_39 = skipjack1_0To1_39
+            i.skipjack1_4To1_79 = skipjack1_4To1_79
+            i.skipjack1_8To2_49 = skipjack1_8To2_49
+            i.skipjack2_5To3_49 = skipjack2_5To3_49
+            i.skipjack3_5AndUP = skipjack3_5AndUP
+            i.yellowfin0_300To0_499 = yellowfin0_300To0_499
+            i.yellowfin0_500To0_999 = yellowfin0_500To0_999
+            i.yellowfin1_0To1_49 = yellowfin1_0To1_49
+            i.yellowfin1_5To2_49 = yellowfin1_5To2_49
+            i.yellowfin2_5To3_49 = yellowfin2_5To3_49
+            i.yellowfin3_5To4_99 = yellowfin3_5To4_99
+            i.yellowfin5_0To9_99 = yellowfin5_0To9_99
+            i.yellowfin10AndUpGood = yellowfin10AndUpGood
+            i.yellowfin10AndUpDeformed = yellowfin10AndUpDeformed
+            i.bigeye0_500To0_999 = bigeye0_500To0_999
+            i.bigeye1_0To1_49 = bigeye1_0To1_49
+            i.bigeye1_5To2_49 = bigeye1_5To2_49
+            i.bigeye2_5To3_49 = bigeye2_5To3_49
+            i.bigeye3_5To4_99 = bigeye3_5To4_99
+            i.bigeye5_0To9_99 = bigeye5_0To9_99
+            i.bigeye10AndUP = bigeye10AndUP
+            i.bonito = bonito
+            i.fishmeal = fishmeal
+            dc.SubmitChanges()
+        Next
+    End Sub
+
     Function getRows() As List(Of SalesReportPrice)
         Dim srpList As New List(Of SalesReportPrice)
 

@@ -277,8 +277,7 @@ Public Class frm_salesInvoice
             Return
         End If
 
-        ctrlSales.savePost()
-        Debug.WriteLine("Post saved...")
+        ctrlSales.saveDraft()
     End Sub
 
 End Class
