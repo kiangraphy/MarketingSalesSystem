@@ -85,9 +85,13 @@ Module modUtils
     End Sub
 
     '================================== MessageBox Methods =================================='
-    Sub requiredMessage(ByVal fields As String)
+    Sub RequiredMessage(ByVal fields As String)
         XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End Sub
+
+    Function ConfirmCloseMessage() As Boolean
+        Return XtraMessageBox.Show("Are you sure you close this form?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
+    End Function
 
     Function ConfirmCloseWithoutSaving() As Boolean
         Return XtraMessageBox.Show("Are you sure you want to close without saving?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
@@ -95,6 +99,10 @@ Module modUtils
 
     Function SuccessfullySavedMessage() As Integer
         Return XtraMessageBox.Show("Your record is successfully saved in the database.", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Function
+
+    Function ConfirmPostedData() As Boolean
+        Return XtraMessageBox.Show("Are you sure you want to post this report?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes
     End Function
 
     Function ConfirmDeleteMessage() As Boolean
