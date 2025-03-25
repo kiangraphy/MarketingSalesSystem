@@ -1,6 +1,7 @@
 ﻿Public Class CatchActivityDetail
     Public catchActivityDetail_ID As Integer
-    Public catcherID As Integer
+    Public catcherActivity_ID As Integer
+    Public vessel_ID As Integer
 
     Private dc As mkdbDataContext
 
@@ -15,7 +16,8 @@
 
         For Each i In e
             Me.catchActivityDetail_ID = catchActivityDetailID
-            catcherID = i.catcherID
+            catcherActivity_ID = i.catcherActivity_ID
+            vessel_ID = i.vessel_ID
         Next
     End Sub
 End Class
