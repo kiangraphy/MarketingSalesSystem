@@ -141,6 +141,24 @@ Partial Public Class mkdbDataContext
 			Return Me.GetTable(Of vWeigthSlipBuyer)
 		End Get
 	End Property
+	
+	Public ReadOnly Property trans_SalesReportCatchers() As System.Data.Linq.Table(Of trans_SalesReportCatcher)
+		Get
+			Return Me.GetTable(Of trans_SalesReportCatcher)
+		End Get
+	End Property
+	
+	Public ReadOnly Property trans_CatchActivityDetails() As System.Data.Linq.Table(Of trans_CatchActivityDetail)
+		Get
+			Return Me.GetTable(Of trans_CatchActivityDetail)
+		End Get
+	End Property
+	
+	Public ReadOnly Property trans_CatchActivities() As System.Data.Linq.Table(Of trans_CatchActivity)
+		Get
+			Return Me.GetTable(Of trans_CatchActivity)
+		End Get
+	End Property
 End Class
 
 <Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_SalesReport")>  _
@@ -2847,6 +2865,568 @@ Partial Public Class vWeigthSlipBuyer
 		Set
 			If (String.Equals(Me._buyer, value) = false) Then
 				Me._buyer = value
+			End If
+		End Set
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_SalesReportCatcher")>  _
+Partial Public Class trans_SalesReportCatcher
+	
+	Private _salesReportCatcher_ID As Integer
+	
+	Private _salesReport_ID As Integer
+	
+	Private _catchActivityDetail_ID As Integer
+	
+	Private _skipjack0_300To0_499 As Decimal
+	
+	Private _skipjack0_500To0_999 As Decimal
+	
+	Private _skipjack1_0To1_39 As Decimal
+	
+	Private _skipjack1_4To1_79 As Decimal
+	
+	Private _skipjack1_8To2_49 As Decimal
+	
+	Private _skipjack2_5To3_49 As Decimal
+	
+	Private _skipjack3_5AndUP As Decimal
+	
+	Private _yellowfin0_300To0_499 As Decimal
+	
+	Private _yellowfin0_500To0_999 As Decimal
+	
+	Private _yellowfin1_0To1_49 As Decimal
+	
+	Private _yellowfin1_5To2_49 As Decimal
+	
+	Private _yellowfin2_5To3_49 As Decimal
+	
+	Private _yellowfin3_5To4_99 As Decimal
+	
+	Private _yellowfin5_0To9_99 As Decimal
+	
+	Private _yellowfin10AndUpGood As Decimal
+	
+	Private _yellowfin10AndUpDeformed As Decimal
+	
+	Private _bigeye0_500To0_999 As Decimal
+	
+	Private _bigeye1_0To1_49 As Decimal
+	
+	Private _bigeye1_5To2_49 As Decimal
+	
+	Private _bigeye2_5To3_49 As Decimal
+	
+	Private _bigeye3_5To4_99 As Decimal
+	
+	Private _bigeye5_0To9_99 As Decimal
+	
+	Private _bigeye10AndUP As Decimal
+	
+	Private _bonito As Decimal
+	
+	Private _fishmeal As Decimal
+	
+	Public Sub New()
+		MyBase.New
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReportCatcher_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	Public Property salesReportCatcher_ID() As Integer
+		Get
+			Return Me._salesReportCatcher_ID
+		End Get
+		Set
+			If ((Me._salesReportCatcher_ID = value)  _
+						= false) Then
+				Me._salesReportCatcher_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReport_ID", DbType:="Int NOT NULL")>  _
+	Public Property salesReport_ID() As Integer
+		Get
+			Return Me._salesReport_ID
+		End Get
+		Set
+			If ((Me._salesReport_ID = value)  _
+						= false) Then
+				Me._salesReport_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", DbType:="Int NOT NULL")>  _
+	Public Property catchActivityDetail_ID() As Integer
+		Get
+			Return Me._catchActivityDetail_ID
+		End Get
+		Set
+			If ((Me._catchActivityDetail_ID = value)  _
+						= false) Then
+				Me._catchActivityDetail_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_300To0_499", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack0_300To0_499() As Decimal
+		Get
+			Return Me._skipjack0_300To0_499
+		End Get
+		Set
+			If ((Me._skipjack0_300To0_499 = value)  _
+						= false) Then
+				Me._skipjack0_300To0_499 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack0_500To0_999() As Decimal
+		Get
+			Return Me._skipjack0_500To0_999
+		End Get
+		Set
+			If ((Me._skipjack0_500To0_999 = value)  _
+						= false) Then
+				Me._skipjack0_500To0_999 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_0To1_39", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_0To1_39() As Decimal
+		Get
+			Return Me._skipjack1_0To1_39
+		End Get
+		Set
+			If ((Me._skipjack1_0To1_39 = value)  _
+						= false) Then
+				Me._skipjack1_0To1_39 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_4To1_79", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_4To1_79() As Decimal
+		Get
+			Return Me._skipjack1_4To1_79
+		End Get
+		Set
+			If ((Me._skipjack1_4To1_79 = value)  _
+						= false) Then
+				Me._skipjack1_4To1_79 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack1_8To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack1_8To2_49() As Decimal
+		Get
+			Return Me._skipjack1_8To2_49
+		End Get
+		Set
+			If ((Me._skipjack1_8To2_49 = value)  _
+						= false) Then
+				Me._skipjack1_8To2_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack2_5To3_49() As Decimal
+		Get
+			Return Me._skipjack2_5To3_49
+		End Get
+		Set
+			If ((Me._skipjack2_5To3_49 = value)  _
+						= false) Then
+				Me._skipjack2_5To3_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_skipjack3_5AndUP", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property skipjack3_5AndUP() As Decimal
+		Get
+			Return Me._skipjack3_5AndUP
+		End Get
+		Set
+			If ((Me._skipjack3_5AndUP = value)  _
+						= false) Then
+				Me._skipjack3_5AndUP = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_300To0_499", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin0_300To0_499() As Decimal
+		Get
+			Return Me._yellowfin0_300To0_499
+		End Get
+		Set
+			If ((Me._yellowfin0_300To0_499 = value)  _
+						= false) Then
+				Me._yellowfin0_300To0_499 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin0_500To0_999() As Decimal
+		Get
+			Return Me._yellowfin0_500To0_999
+		End Get
+		Set
+			If ((Me._yellowfin0_500To0_999 = value)  _
+						= false) Then
+				Me._yellowfin0_500To0_999 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_0To1_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin1_0To1_49() As Decimal
+		Get
+			Return Me._yellowfin1_0To1_49
+		End Get
+		Set
+			If ((Me._yellowfin1_0To1_49 = value)  _
+						= false) Then
+				Me._yellowfin1_0To1_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin1_5To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin1_5To2_49() As Decimal
+		Get
+			Return Me._yellowfin1_5To2_49
+		End Get
+		Set
+			If ((Me._yellowfin1_5To2_49 = value)  _
+						= false) Then
+				Me._yellowfin1_5To2_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin2_5To3_49() As Decimal
+		Get
+			Return Me._yellowfin2_5To3_49
+		End Get
+		Set
+			If ((Me._yellowfin2_5To3_49 = value)  _
+						= false) Then
+				Me._yellowfin2_5To3_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin3_5To4_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin3_5To4_99() As Decimal
+		Get
+			Return Me._yellowfin3_5To4_99
+		End Get
+		Set
+			If ((Me._yellowfin3_5To4_99 = value)  _
+						= false) Then
+				Me._yellowfin3_5To4_99 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin5_0To9_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin5_0To9_99() As Decimal
+		Get
+			Return Me._yellowfin5_0To9_99
+		End Get
+		Set
+			If ((Me._yellowfin5_0To9_99 = value)  _
+						= false) Then
+				Me._yellowfin5_0To9_99 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpGood", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin10AndUpGood() As Decimal
+		Get
+			Return Me._yellowfin10AndUpGood
+		End Get
+		Set
+			If ((Me._yellowfin10AndUpGood = value)  _
+						= false) Then
+				Me._yellowfin10AndUpGood = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_yellowfin10AndUpDeformed", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property yellowfin10AndUpDeformed() As Decimal
+		Get
+			Return Me._yellowfin10AndUpDeformed
+		End Get
+		Set
+			If ((Me._yellowfin10AndUpDeformed = value)  _
+						= false) Then
+				Me._yellowfin10AndUpDeformed = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye0_500To0_999", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye0_500To0_999() As Decimal
+		Get
+			Return Me._bigeye0_500To0_999
+		End Get
+		Set
+			If ((Me._bigeye0_500To0_999 = value)  _
+						= false) Then
+				Me._bigeye0_500To0_999 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_0To1_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye1_0To1_49() As Decimal
+		Get
+			Return Me._bigeye1_0To1_49
+		End Get
+		Set
+			If ((Me._bigeye1_0To1_49 = value)  _
+						= false) Then
+				Me._bigeye1_0To1_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye1_5To2_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye1_5To2_49() As Decimal
+		Get
+			Return Me._bigeye1_5To2_49
+		End Get
+		Set
+			If ((Me._bigeye1_5To2_49 = value)  _
+						= false) Then
+				Me._bigeye1_5To2_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye2_5To3_49", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye2_5To3_49() As Decimal
+		Get
+			Return Me._bigeye2_5To3_49
+		End Get
+		Set
+			If ((Me._bigeye2_5To3_49 = value)  _
+						= false) Then
+				Me._bigeye2_5To3_49 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye3_5To4_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye3_5To4_99() As Decimal
+		Get
+			Return Me._bigeye3_5To4_99
+		End Get
+		Set
+			If ((Me._bigeye3_5To4_99 = value)  _
+						= false) Then
+				Me._bigeye3_5To4_99 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye5_0To9_99", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye5_0To9_99() As Decimal
+		Get
+			Return Me._bigeye5_0To9_99
+		End Get
+		Set
+			If ((Me._bigeye5_0To9_99 = value)  _
+						= false) Then
+				Me._bigeye5_0To9_99 = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bigeye10AndUP", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bigeye10AndUP() As Decimal
+		Get
+			Return Me._bigeye10AndUP
+		End Get
+		Set
+			If ((Me._bigeye10AndUP = value)  _
+						= false) Then
+				Me._bigeye10AndUP = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_bonito", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property bonito() As Decimal
+		Get
+			Return Me._bonito
+		End Get
+		Set
+			If ((Me._bonito = value)  _
+						= false) Then
+				Me._bonito = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_fishmeal", DbType:="Decimal(10,2) NOT NULL")>  _
+	Public Property fishmeal() As Decimal
+		Get
+			Return Me._fishmeal
+		End Get
+		Set
+			If ((Me._fishmeal = value)  _
+						= false) Then
+				Me._fishmeal = value
+			End If
+		End Set
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivityDetails")>  _
+Partial Public Class trans_CatchActivityDetail
+	
+	Private _catchActivityDetail_ID As Integer
+	
+	Private _catcherID As Integer
+	
+	Public Sub New()
+		MyBase.New
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	Public Property catchActivityDetail_ID() As Integer
+		Get
+			Return Me._catchActivityDetail_ID
+		End Get
+		Set
+			If ((Me._catchActivityDetail_ID = value)  _
+						= false) Then
+				Me._catchActivityDetail_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catcherID", DbType:="Int NOT NULL")>  _
+	Public Property catcherID() As Integer
+		Get
+			Return Me._catcherID
+		End Get
+		Set
+			If ((Me._catcherID = value)  _
+						= false) Then
+				Me._catcherID = value
+			End If
+		End Set
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivities")>  _
+Partial Public Class trans_CatchActivity
+	
+	Private _catchActivity_ID As Integer
+	
+	Private _catchDate As Date
+	
+	Private _method As String
+	
+	Private _longitude As Decimal
+	
+	Private _latitude As Decimal
+	
+	Private _catchReferenceNum As String
+	
+	Public Sub New()
+		MyBase.New
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivity_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	Public Property catchActivity_ID() As Integer
+		Get
+			Return Me._catchActivity_ID
+		End Get
+		Set
+			If ((Me._catchActivity_ID = value)  _
+						= false) Then
+				Me._catchActivity_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchDate", DbType:="DateTime NOT NULL")>  _
+	Public Property catchDate() As Date
+		Get
+			Return Me._catchDate
+		End Get
+		Set
+			If ((Me._catchDate = value)  _
+						= false) Then
+				Me._catchDate = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_method", DbType:="VarChar(100) NOT NULL", CanBeNull:=false)>  _
+	Public Property method() As String
+		Get
+			Return Me._method
+		End Get
+		Set
+			If (String.Equals(Me._method, value) = false) Then
+				Me._method = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_longitude", DbType:="Decimal(9,6) NOT NULL")>  _
+	Public Property longitude() As Decimal
+		Get
+			Return Me._longitude
+		End Get
+		Set
+			If ((Me._longitude = value)  _
+						= false) Then
+				Me._longitude = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_latitude", DbType:="Decimal(9,6) NOT NULL")>  _
+	Public Property latitude() As Decimal
+		Get
+			Return Me._latitude
+		End Get
+		Set
+			If ((Me._latitude = value)  _
+						= false) Then
+				Me._latitude = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchReferenceNum", DbType:="VarChar(12) NOT NULL", CanBeNull:=false)>  _
+	Public Property catchReferenceNum() As String
+		Get
+			Return Me._catchReferenceNum
+		End Get
+		Set
+			If (String.Equals(Me._catchReferenceNum, value) = false) Then
+				Me._catchReferenceNum = value
 			End If
 		End Set
 	End Property

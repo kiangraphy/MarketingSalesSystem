@@ -18,6 +18,7 @@ Public Class frm_salesInvoice
     Public buyerName As String
     Public checkBuyer As Boolean
     Public buyerID As Integer
+    Public isPosted As Boolean = False
 
     Sub New(ByRef ctrlS As ctrlSales)
 
@@ -117,6 +118,12 @@ Public Class frm_salesInvoice
             .Columns("NA_Catcher1").OptionsColumn.ReadOnly = True
             .Columns("NA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("NA_Total").OptionsColumn.ReadOnly = True
+
+            If isPosted Then
+                For Each col As DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn In .Columns
+                    col.OptionsColumn.ReadOnly = True
+                Next
+            End If
         End With
 
         bandClass.Fixed = Columns.FixedStyle.Left

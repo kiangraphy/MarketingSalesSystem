@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 13.75" name="mkdb">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.25, 13.75" name="mkdb">
   <DataContextMoniker Name="/mkdbDataContext" />
   <nestedChildShapes>
     <classShape Id="d3bb7c09-f48c-45e8-8e12-0c41df38b284" absoluteBounds="0.75, 0.75, 2, 3.8862125651041666">
@@ -48,6 +48,24 @@
       <DataClassMoniker Name="/mkdbDataContext/vWeigthSlipBuyer" />
       <nestedChildShapes>
         <elementListCompartment Id="6d1e9fa7-6f19-4967-89f1-2a3c6227fa64" absoluteBounds="9.765, 4.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ca804d1b-e1b5-4be3-bb90-064a79e5c938" absoluteBounds="11, 6.75, 2, 6.1938297526041657">
+      <DataClassMoniker Name="/mkdbDataContext/trans_SalesReportCatcher" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8f9ef297-1381-4be6-9c2f-51cab6fec72c" absoluteBounds="11.015, 7.21, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4dd2d71d-46fc-46a4-8960-04d9665590c8" absoluteBounds="3.375, 9.75, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/mkdbDataContext/trans_CatchActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fb8b27a3-aacb-4743-b1dd-09b4d73451c3" absoluteBounds="3.39, 10.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="61094c07-0444-45f6-a391-6c91851c5947" absoluteBounds="6.375, 11.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/mkdbDataContext/trans_CatchActivityDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="05e64bab-4acc-44af-af92-6604d09604cc" absoluteBounds="6.39, 12.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
