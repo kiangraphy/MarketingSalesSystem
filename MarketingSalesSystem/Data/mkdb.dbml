@@ -143,9 +143,35 @@
       <Column Name="buyer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.trans_CatchActivities" Member="trans_CatchActivities">
+    <Type Name="trans_CatchActivity">
+      <Column Name="catchActivity_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="catchDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="method_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="longitude" Type="System.Decimal" DbType="Decimal(9,6) NOT NULL" CanBeNull="false" />
+      <Column Name="latitude" Type="System.Decimal" DbType="Decimal(9,6) NOT NULL" CanBeNull="false" />
+      <Column Name="catchReferenceNum" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.trans_CatchMethod" Member="trans_CatchMethods">
+    <Type Name="trans_CatchMethod">
+      <Column Name="catchMethod_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="catchMethod" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="modifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.trans_CatchActivityDetails" Member="trans_CatchActivityDetails">
+    <Type Name="trans_CatchActivityDetail">
+      <Column Name="catchActivityDetail_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="catchActivity_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vessel_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.trans_SalesReportCatcher" Member="trans_SalesReportCatchers">
     <Type Name="trans_SalesReportCatcher">
-      <Column Name="salesReportCatcher_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="salesReportCatcher_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="salesReport_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="catchActivityDetail_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="skipjack0_300To0_499" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
@@ -173,32 +199,6 @@
       <Column Name="bigeye10AndUP" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Column Name="bonito" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Column Name="fishmeal" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.trans_CatchActivities" Member="trans_CatchActivities">
-    <Type Name="trans_CatchActivity">
-      <Column Name="catchActivity_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="catchDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="method" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="longitude" Type="System.Decimal" DbType="Decimal(9,6) NOT NULL" CanBeNull="false" />
-      <Column Name="latitude" Type="System.Decimal" DbType="Decimal(9,6) NOT NULL" CanBeNull="false" />
-      <Column Name="catchReferenceNum" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.trans_CatchActivityDetails" Member="trans_CatchActivityDetails">
-    <Type Name="trans_CatchActivityDetail">
-      <Column Name="catchActivityDetail_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="catcherActivity_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="vessel_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.trans_CatchMethod" Member="trans_CatchMethods">
-    <Type Name="trans_CatchMethod">
-      <Column Name="catchMethod_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="catchMethod" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="modifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="modifiedBy" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

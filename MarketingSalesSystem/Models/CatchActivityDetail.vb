@@ -1,6 +1,6 @@
 ﻿Public Class CatchActivityDetail
     Public catchActivityDetail_ID As Integer
-    Public catcherActivity_ID As Integer
+    Public catchActivity_ID As Integer
     Public vessel_ID As Integer
 
     Private dc As mkdbDataContext
@@ -16,8 +16,43 @@
 
         For Each i In e
             Me.catchActivityDetail_ID = catchActivityDetailID
-            catcherActivity_ID = i.catcherActivity_ID
+            catchActivity_ID = i.catchActivity_ID
             vessel_ID = i.vessel_ID
         Next
     End Sub
+
+    Sub New(ByRef cad As trans_CatchActivityDetail, ByRef dc_ As mkdbDataContext)
+        dc = dc_
+
+        Dim i = cad
+
+        Me.catchActivityDetail_ID = i.catchActivityDetail_ID
+        catchActivity_ID = i.catchActivity_ID
+        vessel_ID = i.vessel_ID
+    End Sub
+
+    Sub Add()
+        Dim cad As New trans_CatchActivityDetail
+
+        With cad
+            .catchActivity_ID = catchActivity_ID
+            .vessel_ID = vessel_ID
+        End With
+
+        dc.trans_CatchActivityDetails.InsertOnSubmit(cad)
+        dc.SubmitChanges()
+        Me.catchActivityDetail_ID = cad.catchActivityDetail_ID
+    End Sub
+
+    Function getRows() As List(Of CatchActivityDetail)
+        Dim cadList As New List(Of CatchActivityDetail)
+
+        Dim cads = From item In dc.trans_CatchActivityDetails Select item
+
+        For Each cad In cads
+            cadList.Add(New CatchActivityDetail(cad, dc))
+        Next
+
+        Return cadList
+    End Function
 End Class

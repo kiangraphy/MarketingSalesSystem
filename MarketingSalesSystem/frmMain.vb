@@ -80,4 +80,15 @@ Partial Public Class frmMain
             xtraTab.TabPages(intab).Show()
         End If
     End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Dim title = "Catcher Activities"
+        Dim intab = InTabs("ucCatcher")
+        If intab = -1 Then
+            Dim uc As New ucCatcher(title)
+            addTab(uc, title)
+        Else
+            xtraTab.TabPages(intab).Show()
+        End If
+    End Sub
 End Class
