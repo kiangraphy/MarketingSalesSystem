@@ -1,6 +1,7 @@
-﻿Imports DevExpress.XtraTab
+Imports DevExpress.XtraTab
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraEditors.Repository
 
 Module modUtils
     Function getServerDate() As Date
@@ -28,6 +29,34 @@ Module modUtils
         End Try
     End Sub
 
+    Sub lookUpTransMode(ByVal dataSource As Object, ByRef lookUpEdit As LookUpEdit, valueName As String, idName As String, defaultValue As String)
+        With lookUpEdit.Properties
+            .DataSource = dataSource
+            .DisplayMember = valueName
+            .ValueMember = idName
+            .NullText = defaultValue
+            .ShowHeader = False
+            .ShowFooter = False
+            .Columns.Clear()
+            .Columns.Add(New DevExpress.XtraEditors.Controls.LookUpColumnInfo(valueName, ""))
+            .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
+        End With
+    End Sub
+
+    Sub lookUpTransMode(ByVal dataSource As Object, ByRef lookUpEdit As RepositoryItemLookUpEdit, valueName As String, idName As String, defaultValue As String)
+        With lookUpEdit
+            .DataSource = dataSource
+            .DisplayMember = valueName
+            .ValueMember = idName
+            .NullText = defaultValue
+            .ShowHeader = False
+            .ShowFooter = False
+            .Columns.Clear()
+            .Columns.Add(New DevExpress.XtraEditors.Controls.LookUpColumnInfo(valueName, ""))
+            .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
+        End With
+    End Sub
+
     Function validateField(ByRef control As DateEdit) As Boolean
         Return (Not control.EditValue Is Nothing)
     End Function
@@ -43,7 +72,11 @@ Module modUtils
     Function validateField(ByRef control As ComboBoxEdit) As Boolean
         Return (Not control.EditValue Is Nothing)
     End Function
-    
+
+    Sub requiredMessage(ByVal fields As String)
+        XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    End Sub
+
     Public Sub gvCount(ByRef gridview As GridView)
         If gridview.RowCount > 0 Then
             Dim col = gridview.Columns(1)

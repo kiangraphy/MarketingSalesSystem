@@ -74,21 +74,21 @@
         Dim sr As New trans_SalesReport
 
         With sr
-            sr.salesDate = salesDate
-            sr.referenceNum = "Draft"
-            sr.salesNum = salesNum
-            sr.sellingType = sellingType
-            sr.unloadingType = unloadingType
-            sr.unloadingVessel_ID = unloadingVessel_ID
-            sr.unloadingForeignVessel = unloadingForeignVessel
-            sr.buyer = buyer
-            sr.catchtDeliveryNum = catchtDeliveryNum
-            sr.usdRate = usdRate
-            sr.contractNum = contractNum
-            sr.remarks = remarks
-            sr.encodedBy = encodedBy
-            sr.encodedOn = encodedOn
-            sr.approvalStatus = approvalStatus
+            .salesDate = salesDate
+            .referenceNum = "Draft"
+            .salesNum = salesNum
+            .sellingType = sellingType
+            .unloadingType = unloadingType
+            .unloadingVessel_ID = unloadingVessel_ID
+            .unloadingForeignVessel = unloadingForeignVessel
+            .buyer = buyer
+            .catchtDeliveryNum = catchtDeliveryNum
+            .usdRate = usdRate
+            .contractNum = contractNum
+            .remarks = remarks
+            .encodedBy = encodedBy
+            .encodedOn = encodedOn
+            .approvalStatus = approvalStatus
         End With
 
         dc.trans_SalesReports.InsertOnSubmit(sr)

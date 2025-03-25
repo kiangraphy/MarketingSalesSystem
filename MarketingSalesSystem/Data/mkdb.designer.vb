@@ -67,6 +67,30 @@ Partial Public Class mkdbDataContext
     End Sub
   Partial Private Sub Deletetrans_WeightSlip(instance As trans_WeightSlip)
     End Sub
+  Partial Private Sub Inserttrans_CatchActivity(instance As trans_CatchActivity)
+    End Sub
+  Partial Private Sub Updatetrans_CatchActivity(instance As trans_CatchActivity)
+    End Sub
+  Partial Private Sub Deletetrans_CatchActivity(instance As trans_CatchActivity)
+    End Sub
+  Partial Private Sub Inserttrans_CatchMethod(instance As trans_CatchMethod)
+    End Sub
+  Partial Private Sub Updatetrans_CatchMethod(instance As trans_CatchMethod)
+    End Sub
+  Partial Private Sub Deletetrans_CatchMethod(instance As trans_CatchMethod)
+    End Sub
+  Partial Private Sub Inserttrans_CatchActivityDetail(instance As trans_CatchActivityDetail)
+    End Sub
+  Partial Private Sub Updatetrans_CatchActivityDetail(instance As trans_CatchActivityDetail)
+    End Sub
+  Partial Private Sub Deletetrans_CatchActivityDetail(instance As trans_CatchActivityDetail)
+    End Sub
+  Partial Private Sub Inserttrans_SalesReportCatcher(instance As trans_SalesReportCatcher)
+    End Sub
+  Partial Private Sub Updatetrans_SalesReportCatcher(instance As trans_SalesReportCatcher)
+    End Sub
+  Partial Private Sub Deletetrans_SalesReportCatcher(instance As trans_SalesReportCatcher)
+    End Sub
   #End Region
 	
 	Public Sub New()
@@ -142,15 +166,15 @@ Partial Public Class mkdbDataContext
 		End Get
 	End Property
 	
-	Public ReadOnly Property trans_SalesReportCatchers() As System.Data.Linq.Table(Of trans_SalesReportCatcher)
-		Get
-			Return Me.GetTable(Of trans_SalesReportCatcher)
-		End Get
-	End Property
-	
 	Public ReadOnly Property trans_CatchActivities() As System.Data.Linq.Table(Of trans_CatchActivity)
 		Get
 			Return Me.GetTable(Of trans_CatchActivity)
+		End Get
+	End Property
+	
+	Public ReadOnly Property trans_CatchMethods() As System.Data.Linq.Table(Of trans_CatchMethod)
+		Get
+			Return Me.GetTable(Of trans_CatchMethod)
 		End Get
 	End Property
 	
@@ -160,9 +184,9 @@ Partial Public Class mkdbDataContext
 		End Get
 	End Property
 	
-	Public ReadOnly Property trans_CatchMethods() As System.Data.Linq.Table(Of trans_CatchMethod)
+	Public ReadOnly Property trans_SalesReportCatchers() As System.Data.Linq.Table(Of trans_SalesReportCatcher)
 		Get
-			Return Me.GetTable(Of trans_CatchMethod)
+			Return Me.GetTable(Of trans_SalesReportCatcher)
 		End Get
 	End Property
 End Class
@@ -2876,8 +2900,445 @@ Partial Public Class vWeigthSlipBuyer
 	End Property
 End Class
 
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivities")>  _
+Partial Public Class trans_CatchActivity
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _catchActivity_ID As Integer
+	
+	Private _catchDate As Date
+	
+	Private _method_ID As Integer
+	
+	Private _longitude As Decimal
+	
+	Private _latitude As Decimal
+	
+	Private _catchReferenceNum As String
+	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OncatchActivity_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OncatchActivity_IDChanged()
+    End Sub
+    Partial Private Sub OncatchDateChanging(value As Date)
+    End Sub
+    Partial Private Sub OncatchDateChanged()
+    End Sub
+    Partial Private Sub Onmethod_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onmethod_IDChanged()
+    End Sub
+    Partial Private Sub OnlongitudeChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnlongitudeChanged()
+    End Sub
+    Partial Private Sub OnlatitudeChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnlatitudeChanged()
+    End Sub
+    Partial Private Sub OncatchReferenceNumChanging(value As String)
+    End Sub
+    Partial Private Sub OncatchReferenceNumChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivity_ID", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property catchActivity_ID() As Integer
+		Get
+			Return Me._catchActivity_ID
+		End Get
+		Set
+			If ((Me._catchActivity_ID = value)  _
+						= false) Then
+				Me.OncatchActivity_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._catchActivity_ID = value
+				Me.SendPropertyChanged("catchActivity_ID")
+				Me.OncatchActivity_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchDate", DbType:="DateTime NOT NULL")>  _
+	Public Property catchDate() As Date
+		Get
+			Return Me._catchDate
+		End Get
+		Set
+			If ((Me._catchDate = value)  _
+						= false) Then
+				Me.OncatchDateChanging(value)
+				Me.SendPropertyChanging
+				Me._catchDate = value
+				Me.SendPropertyChanged("catchDate")
+				Me.OncatchDateChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_method_ID", DbType:="Int NOT NULL")>  _
+	Public Property method_ID() As Integer
+		Get
+			Return Me._method_ID
+		End Get
+		Set
+			If ((Me._method_ID = value)  _
+						= false) Then
+				Me.Onmethod_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._method_ID = value
+				Me.SendPropertyChanged("method_ID")
+				Me.Onmethod_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_longitude", DbType:="Decimal(9,6) NOT NULL")>  _
+	Public Property longitude() As Decimal
+		Get
+			Return Me._longitude
+		End Get
+		Set
+			If ((Me._longitude = value)  _
+						= false) Then
+				Me.OnlongitudeChanging(value)
+				Me.SendPropertyChanging
+				Me._longitude = value
+				Me.SendPropertyChanged("longitude")
+				Me.OnlongitudeChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_latitude", DbType:="Decimal(9,6) NOT NULL")>  _
+	Public Property latitude() As Decimal
+		Get
+			Return Me._latitude
+		End Get
+		Set
+			If ((Me._latitude = value)  _
+						= false) Then
+				Me.OnlatitudeChanging(value)
+				Me.SendPropertyChanging
+				Me._latitude = value
+				Me.SendPropertyChanged("latitude")
+				Me.OnlatitudeChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchReferenceNum", DbType:="VarChar(12) NOT NULL", CanBeNull:=false)>  _
+	Public Property catchReferenceNum() As String
+		Get
+			Return Me._catchReferenceNum
+		End Get
+		Set
+			If (String.Equals(Me._catchReferenceNum, value) = false) Then
+				Me.OncatchReferenceNumChanging(value)
+				Me.SendPropertyChanging
+				Me._catchReferenceNum = value
+				Me.SendPropertyChanged("catchReferenceNum")
+				Me.OncatchReferenceNumChanged
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchMethod")>  _
+Partial Public Class trans_CatchMethod
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _catchMethod_ID As Integer
+	
+	Private _catchMethod As String
+	
+	Private _active As System.Nullable(Of Boolean)
+	
+	Private _modifiedDate As System.Nullable(Of Date)
+	
+	Private _modifiedBy As System.Nullable(Of Date)
+	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OncatchMethod_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OncatchMethod_IDChanged()
+    End Sub
+    Partial Private Sub OncatchMethodChanging(value As String)
+    End Sub
+    Partial Private Sub OncatchMethodChanged()
+    End Sub
+    Partial Private Sub OnactiveChanging(value As System.Nullable(Of Boolean))
+    End Sub
+    Partial Private Sub OnactiveChanged()
+    End Sub
+    Partial Private Sub OnmodifiedDateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnmodifiedDateChanged()
+    End Sub
+    Partial Private Sub OnmodifiedByChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnmodifiedByChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod_ID", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property catchMethod_ID() As Integer
+		Get
+			Return Me._catchMethod_ID
+		End Get
+		Set
+			If ((Me._catchMethod_ID = value)  _
+						= false) Then
+				Me.OncatchMethod_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._catchMethod_ID = value
+				Me.SendPropertyChanged("catchMethod_ID")
+				Me.OncatchMethod_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod", DbType:="VarChar(255) NOT NULL", CanBeNull:=false)>  _
+	Public Property catchMethod() As String
+		Get
+			Return Me._catchMethod
+		End Get
+		Set
+			If (String.Equals(Me._catchMethod, value) = false) Then
+				Me.OncatchMethodChanging(value)
+				Me.SendPropertyChanging
+				Me._catchMethod = value
+				Me.SendPropertyChanged("catchMethod")
+				Me.OncatchMethodChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_active", DbType:="Bit")>  _
+	Public Property active() As System.Nullable(Of Boolean)
+		Get
+			Return Me._active
+		End Get
+		Set
+			If (Me._active.Equals(value) = false) Then
+				Me.OnactiveChanging(value)
+				Me.SendPropertyChanging
+				Me._active = value
+				Me.SendPropertyChanged("active")
+				Me.OnactiveChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedDate", DbType:="DateTime")>  _
+	Public Property modifiedDate() As System.Nullable(Of Date)
+		Get
+			Return Me._modifiedDate
+		End Get
+		Set
+			If (Me._modifiedDate.Equals(value) = false) Then
+				Me.OnmodifiedDateChanging(value)
+				Me.SendPropertyChanging
+				Me._modifiedDate = value
+				Me.SendPropertyChanged("modifiedDate")
+				Me.OnmodifiedDateChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedBy", DbType:="DateTime")>  _
+	Public Property modifiedBy() As System.Nullable(Of Date)
+		Get
+			Return Me._modifiedBy
+		End Get
+		Set
+			If (Me._modifiedBy.Equals(value) = false) Then
+				Me.OnmodifiedByChanging(value)
+				Me.SendPropertyChanging
+				Me._modifiedBy = value
+				Me.SendPropertyChanged("modifiedBy")
+				Me.OnmodifiedByChanged
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivityDetails")>  _
+Partial Public Class trans_CatchActivityDetail
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _catchActivityDetail_ID As Integer
+	
+	Private _catchActivity_ID As Integer
+	
+	Private _vessel_ID As Integer
+	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OncatchActivityDetail_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OncatchActivityDetail_IDChanged()
+    End Sub
+    Partial Private Sub OncatchActivity_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OncatchActivity_IDChanged()
+    End Sub
+    Partial Private Sub Onvessel_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onvessel_IDChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property catchActivityDetail_ID() As Integer
+		Get
+			Return Me._catchActivityDetail_ID
+		End Get
+		Set
+			If ((Me._catchActivityDetail_ID = value)  _
+						= false) Then
+				Me.OncatchActivityDetail_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._catchActivityDetail_ID = value
+				Me.SendPropertyChanged("catchActivityDetail_ID")
+				Me.OncatchActivityDetail_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivity_ID", DbType:="Int NOT NULL")>  _
+	Public Property catchActivity_ID() As Integer
+		Get
+			Return Me._catchActivity_ID
+		End Get
+		Set
+			If ((Me._catchActivity_ID = value)  _
+						= false) Then
+				Me.OncatchActivity_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._catchActivity_ID = value
+				Me.SendPropertyChanged("catchActivity_ID")
+				Me.OncatchActivity_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_vessel_ID", DbType:="Int NOT NULL")>  _
+	Public Property vessel_ID() As Integer
+		Get
+			Return Me._vessel_ID
+		End Get
+		Set
+			If ((Me._vessel_ID = value)  _
+						= false) Then
+				Me.Onvessel_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._vessel_ID = value
+				Me.SendPropertyChanged("vessel_ID")
+				Me.Onvessel_IDChanged
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+End Class
+
 <Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_SalesReportCatcher")>  _
 Partial Public Class trans_SalesReportCatcher
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
 	
 	Private _salesReportCatcher_ID As Integer
 	
@@ -2935,11 +3396,133 @@ Partial Public Class trans_SalesReportCatcher
 	
 	Private _fishmeal As Decimal
 	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnsalesReportCatcher_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnsalesReportCatcher_IDChanged()
+    End Sub
+    Partial Private Sub OnsalesReport_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnsalesReport_IDChanged()
+    End Sub
+    Partial Private Sub OncatchActivityDetail_IDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OncatchActivityDetail_IDChanged()
+    End Sub
+    Partial Private Sub Onskipjack0_300To0_499Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack0_300To0_499Changed()
+    End Sub
+    Partial Private Sub Onskipjack0_500To0_999Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack0_500To0_999Changed()
+    End Sub
+    Partial Private Sub Onskipjack1_0To1_39Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack1_0To1_39Changed()
+    End Sub
+    Partial Private Sub Onskipjack1_4To1_79Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack1_4To1_79Changed()
+    End Sub
+    Partial Private Sub Onskipjack1_8To2_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack1_8To2_49Changed()
+    End Sub
+    Partial Private Sub Onskipjack2_5To3_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack2_5To3_49Changed()
+    End Sub
+    Partial Private Sub Onskipjack3_5AndUPChanging(value As Decimal)
+    End Sub
+    Partial Private Sub Onskipjack3_5AndUPChanged()
+    End Sub
+    Partial Private Sub Onyellowfin0_300To0_499Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin0_300To0_499Changed()
+    End Sub
+    Partial Private Sub Onyellowfin0_500To0_999Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin0_500To0_999Changed()
+    End Sub
+    Partial Private Sub Onyellowfin1_0To1_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin1_0To1_49Changed()
+    End Sub
+    Partial Private Sub Onyellowfin1_5To2_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin1_5To2_49Changed()
+    End Sub
+    Partial Private Sub Onyellowfin2_5To3_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin2_5To3_49Changed()
+    End Sub
+    Partial Private Sub Onyellowfin3_5To4_99Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin3_5To4_99Changed()
+    End Sub
+    Partial Private Sub Onyellowfin5_0To9_99Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin5_0To9_99Changed()
+    End Sub
+    Partial Private Sub Onyellowfin10AndUpGoodChanging(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin10AndUpGoodChanged()
+    End Sub
+    Partial Private Sub Onyellowfin10AndUpDeformedChanging(value As Decimal)
+    End Sub
+    Partial Private Sub Onyellowfin10AndUpDeformedChanged()
+    End Sub
+    Partial Private Sub Onbigeye0_500To0_999Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye0_500To0_999Changed()
+    End Sub
+    Partial Private Sub Onbigeye1_0To1_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye1_0To1_49Changed()
+    End Sub
+    Partial Private Sub Onbigeye1_5To2_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye1_5To2_49Changed()
+    End Sub
+    Partial Private Sub Onbigeye2_5To3_49Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye2_5To3_49Changed()
+    End Sub
+    Partial Private Sub Onbigeye3_5To4_99Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye3_5To4_99Changed()
+    End Sub
+    Partial Private Sub Onbigeye5_0To9_99Changing(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye5_0To9_99Changed()
+    End Sub
+    Partial Private Sub Onbigeye10AndUPChanging(value As Decimal)
+    End Sub
+    Partial Private Sub Onbigeye10AndUPChanged()
+    End Sub
+    Partial Private Sub OnbonitoChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnbonitoChanged()
+    End Sub
+    Partial Private Sub OnfishmealChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnfishmealChanged()
+    End Sub
+    #End Region
+	
 	Public Sub New()
 		MyBase.New
+		OnCreated
 	End Sub
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReportCatcher_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_salesReportCatcher_ID", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
 	Public Property salesReportCatcher_ID() As Integer
 		Get
 			Return Me._salesReportCatcher_ID
@@ -2947,7 +3530,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._salesReportCatcher_ID = value)  _
 						= false) Then
+				Me.OnsalesReportCatcher_IDChanging(value)
+				Me.SendPropertyChanging
 				Me._salesReportCatcher_ID = value
+				Me.SendPropertyChanged("salesReportCatcher_ID")
+				Me.OnsalesReportCatcher_IDChanged
 			End If
 		End Set
 	End Property
@@ -2960,7 +3547,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._salesReport_ID = value)  _
 						= false) Then
+				Me.OnsalesReport_IDChanging(value)
+				Me.SendPropertyChanging
 				Me._salesReport_ID = value
+				Me.SendPropertyChanged("salesReport_ID")
+				Me.OnsalesReport_IDChanged
 			End If
 		End Set
 	End Property
@@ -2973,7 +3564,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._catchActivityDetail_ID = value)  _
 						= false) Then
+				Me.OncatchActivityDetail_IDChanging(value)
+				Me.SendPropertyChanging
 				Me._catchActivityDetail_ID = value
+				Me.SendPropertyChanged("catchActivityDetail_ID")
+				Me.OncatchActivityDetail_IDChanged
 			End If
 		End Set
 	End Property
@@ -2986,7 +3581,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack0_300To0_499 = value)  _
 						= false) Then
+				Me.Onskipjack0_300To0_499Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack0_300To0_499 = value
+				Me.SendPropertyChanged("skipjack0_300To0_499")
+				Me.Onskipjack0_300To0_499Changed
 			End If
 		End Set
 	End Property
@@ -2999,7 +3598,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack0_500To0_999 = value)  _
 						= false) Then
+				Me.Onskipjack0_500To0_999Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack0_500To0_999 = value
+				Me.SendPropertyChanged("skipjack0_500To0_999")
+				Me.Onskipjack0_500To0_999Changed
 			End If
 		End Set
 	End Property
@@ -3012,7 +3615,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack1_0To1_39 = value)  _
 						= false) Then
+				Me.Onskipjack1_0To1_39Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack1_0To1_39 = value
+				Me.SendPropertyChanged("skipjack1_0To1_39")
+				Me.Onskipjack1_0To1_39Changed
 			End If
 		End Set
 	End Property
@@ -3025,7 +3632,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack1_4To1_79 = value)  _
 						= false) Then
+				Me.Onskipjack1_4To1_79Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack1_4To1_79 = value
+				Me.SendPropertyChanged("skipjack1_4To1_79")
+				Me.Onskipjack1_4To1_79Changed
 			End If
 		End Set
 	End Property
@@ -3038,7 +3649,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack1_8To2_49 = value)  _
 						= false) Then
+				Me.Onskipjack1_8To2_49Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack1_8To2_49 = value
+				Me.SendPropertyChanged("skipjack1_8To2_49")
+				Me.Onskipjack1_8To2_49Changed
 			End If
 		End Set
 	End Property
@@ -3051,7 +3666,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack2_5To3_49 = value)  _
 						= false) Then
+				Me.Onskipjack2_5To3_49Changing(value)
+				Me.SendPropertyChanging
 				Me._skipjack2_5To3_49 = value
+				Me.SendPropertyChanged("skipjack2_5To3_49")
+				Me.Onskipjack2_5To3_49Changed
 			End If
 		End Set
 	End Property
@@ -3064,7 +3683,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._skipjack3_5AndUP = value)  _
 						= false) Then
+				Me.Onskipjack3_5AndUPChanging(value)
+				Me.SendPropertyChanging
 				Me._skipjack3_5AndUP = value
+				Me.SendPropertyChanged("skipjack3_5AndUP")
+				Me.Onskipjack3_5AndUPChanged
 			End If
 		End Set
 	End Property
@@ -3077,7 +3700,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin0_300To0_499 = value)  _
 						= false) Then
+				Me.Onyellowfin0_300To0_499Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin0_300To0_499 = value
+				Me.SendPropertyChanged("yellowfin0_300To0_499")
+				Me.Onyellowfin0_300To0_499Changed
 			End If
 		End Set
 	End Property
@@ -3090,7 +3717,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin0_500To0_999 = value)  _
 						= false) Then
+				Me.Onyellowfin0_500To0_999Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin0_500To0_999 = value
+				Me.SendPropertyChanged("yellowfin0_500To0_999")
+				Me.Onyellowfin0_500To0_999Changed
 			End If
 		End Set
 	End Property
@@ -3103,7 +3734,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin1_0To1_49 = value)  _
 						= false) Then
+				Me.Onyellowfin1_0To1_49Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin1_0To1_49 = value
+				Me.SendPropertyChanged("yellowfin1_0To1_49")
+				Me.Onyellowfin1_0To1_49Changed
 			End If
 		End Set
 	End Property
@@ -3116,7 +3751,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin1_5To2_49 = value)  _
 						= false) Then
+				Me.Onyellowfin1_5To2_49Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin1_5To2_49 = value
+				Me.SendPropertyChanged("yellowfin1_5To2_49")
+				Me.Onyellowfin1_5To2_49Changed
 			End If
 		End Set
 	End Property
@@ -3129,7 +3768,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin2_5To3_49 = value)  _
 						= false) Then
+				Me.Onyellowfin2_5To3_49Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin2_5To3_49 = value
+				Me.SendPropertyChanged("yellowfin2_5To3_49")
+				Me.Onyellowfin2_5To3_49Changed
 			End If
 		End Set
 	End Property
@@ -3142,7 +3785,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin3_5To4_99 = value)  _
 						= false) Then
+				Me.Onyellowfin3_5To4_99Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin3_5To4_99 = value
+				Me.SendPropertyChanged("yellowfin3_5To4_99")
+				Me.Onyellowfin3_5To4_99Changed
 			End If
 		End Set
 	End Property
@@ -3155,7 +3802,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin5_0To9_99 = value)  _
 						= false) Then
+				Me.Onyellowfin5_0To9_99Changing(value)
+				Me.SendPropertyChanging
 				Me._yellowfin5_0To9_99 = value
+				Me.SendPropertyChanged("yellowfin5_0To9_99")
+				Me.Onyellowfin5_0To9_99Changed
 			End If
 		End Set
 	End Property
@@ -3168,7 +3819,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin10AndUpGood = value)  _
 						= false) Then
+				Me.Onyellowfin10AndUpGoodChanging(value)
+				Me.SendPropertyChanging
 				Me._yellowfin10AndUpGood = value
+				Me.SendPropertyChanged("yellowfin10AndUpGood")
+				Me.Onyellowfin10AndUpGoodChanged
 			End If
 		End Set
 	End Property
@@ -3181,7 +3836,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._yellowfin10AndUpDeformed = value)  _
 						= false) Then
+				Me.Onyellowfin10AndUpDeformedChanging(value)
+				Me.SendPropertyChanging
 				Me._yellowfin10AndUpDeformed = value
+				Me.SendPropertyChanged("yellowfin10AndUpDeformed")
+				Me.Onyellowfin10AndUpDeformedChanged
 			End If
 		End Set
 	End Property
@@ -3194,7 +3853,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye0_500To0_999 = value)  _
 						= false) Then
+				Me.Onbigeye0_500To0_999Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye0_500To0_999 = value
+				Me.SendPropertyChanged("bigeye0_500To0_999")
+				Me.Onbigeye0_500To0_999Changed
 			End If
 		End Set
 	End Property
@@ -3207,7 +3870,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye1_0To1_49 = value)  _
 						= false) Then
+				Me.Onbigeye1_0To1_49Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye1_0To1_49 = value
+				Me.SendPropertyChanged("bigeye1_0To1_49")
+				Me.Onbigeye1_0To1_49Changed
 			End If
 		End Set
 	End Property
@@ -3220,7 +3887,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye1_5To2_49 = value)  _
 						= false) Then
+				Me.Onbigeye1_5To2_49Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye1_5To2_49 = value
+				Me.SendPropertyChanged("bigeye1_5To2_49")
+				Me.Onbigeye1_5To2_49Changed
 			End If
 		End Set
 	End Property
@@ -3233,7 +3904,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye2_5To3_49 = value)  _
 						= false) Then
+				Me.Onbigeye2_5To3_49Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye2_5To3_49 = value
+				Me.SendPropertyChanged("bigeye2_5To3_49")
+				Me.Onbigeye2_5To3_49Changed
 			End If
 		End Set
 	End Property
@@ -3246,7 +3921,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye3_5To4_99 = value)  _
 						= false) Then
+				Me.Onbigeye3_5To4_99Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye3_5To4_99 = value
+				Me.SendPropertyChanged("bigeye3_5To4_99")
+				Me.Onbigeye3_5To4_99Changed
 			End If
 		End Set
 	End Property
@@ -3259,7 +3938,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye5_0To9_99 = value)  _
 						= false) Then
+				Me.Onbigeye5_0To9_99Changing(value)
+				Me.SendPropertyChanging
 				Me._bigeye5_0To9_99 = value
+				Me.SendPropertyChanged("bigeye5_0To9_99")
+				Me.Onbigeye5_0To9_99Changed
 			End If
 		End Set
 	End Property
@@ -3272,7 +3955,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bigeye10AndUP = value)  _
 						= false) Then
+				Me.Onbigeye10AndUPChanging(value)
+				Me.SendPropertyChanging
 				Me._bigeye10AndUP = value
+				Me.SendPropertyChanged("bigeye10AndUP")
+				Me.Onbigeye10AndUPChanged
 			End If
 		End Set
 	End Property
@@ -3285,7 +3972,11 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._bonito = value)  _
 						= false) Then
+				Me.OnbonitoChanging(value)
+				Me.SendPropertyChanging
 				Me._bonito = value
+				Me.SendPropertyChanged("bonito")
+				Me.OnbonitoChanged
 			End If
 		End Set
 	End Property
@@ -3298,236 +3989,30 @@ Partial Public Class trans_SalesReportCatcher
 		Set
 			If ((Me._fishmeal = value)  _
 						= false) Then
+				Me.OnfishmealChanging(value)
+				Me.SendPropertyChanging
 				Me._fishmeal = value
+				Me.SendPropertyChanged("fishmeal")
+				Me.OnfishmealChanged
 			End If
 		End Set
 	End Property
-End Class
-
-<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivities")>  _
-Partial Public Class trans_CatchActivity
 	
-	Private _catchActivity_ID As Integer
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
 	
-	Private _catchDate As Date
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
 	
-	Private _method As String
-	
-	Private _longitude As Decimal
-	
-	Private _latitude As Decimal
-	
-	Private _catchReferenceNum As String
-	
-	Public Sub New()
-		MyBase.New
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
 	End Sub
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivity_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
-	Public Property catchActivity_ID() As Integer
-		Get
-			Return Me._catchActivity_ID
-		End Get
-		Set
-			If ((Me._catchActivity_ID = value)  _
-						= false) Then
-				Me._catchActivity_ID = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchDate", DbType:="DateTime NOT NULL")>  _
-	Public Property catchDate() As Date
-		Get
-			Return Me._catchDate
-		End Get
-		Set
-			If ((Me._catchDate = value)  _
-						= false) Then
-				Me._catchDate = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_method", DbType:="VarChar(100) NOT NULL", CanBeNull:=false)>  _
-	Public Property method() As String
-		Get
-			Return Me._method
-		End Get
-		Set
-			If (String.Equals(Me._method, value) = false) Then
-				Me._method = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_longitude", DbType:="Decimal(9,6) NOT NULL")>  _
-	Public Property longitude() As Decimal
-		Get
-			Return Me._longitude
-		End Get
-		Set
-			If ((Me._longitude = value)  _
-						= false) Then
-				Me._longitude = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_latitude", DbType:="Decimal(9,6) NOT NULL")>  _
-	Public Property latitude() As Decimal
-		Get
-			Return Me._latitude
-		End Get
-		Set
-			If ((Me._latitude = value)  _
-						= false) Then
-				Me._latitude = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchReferenceNum", DbType:="VarChar(12) NOT NULL", CanBeNull:=false)>  _
-	Public Property catchReferenceNum() As String
-		Get
-			Return Me._catchReferenceNum
-		End Get
-		Set
-			If (String.Equals(Me._catchReferenceNum, value) = false) Then
-				Me._catchReferenceNum = value
-			End If
-		End Set
-	End Property
-End Class
-
-<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivityDetails")>  _
-Partial Public Class trans_CatchActivityDetail
-	
-	Private _catchActivityDetail_ID As Integer
-	
-	Private _catcherActivity_ID As Integer
-	
-	Private _vessel_ID As Integer
-	
-	Public Sub New()
-		MyBase.New
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
 	End Sub
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
-	Public Property catchActivityDetail_ID() As Integer
-		Get
-			Return Me._catchActivityDetail_ID
-		End Get
-		Set
-			If ((Me._catchActivityDetail_ID = value)  _
-						= false) Then
-				Me._catchActivityDetail_ID = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catcherActivity_ID", DbType:="Int NOT NULL")>  _
-	Public Property catcherActivity_ID() As Integer
-		Get
-			Return Me._catcherActivity_ID
-		End Get
-		Set
-			If ((Me._catcherActivity_ID = value)  _
-						= false) Then
-				Me._catcherActivity_ID = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_vessel_ID", DbType:="Int NOT NULL")>  _
-	Public Property vessel_ID() As Integer
-		Get
-			Return Me._vessel_ID
-		End Get
-		Set
-			If ((Me._vessel_ID = value)  _
-						= false) Then
-				Me._vessel_ID = value
-			End If
-		End Set
-	End Property
-End Class
-
-<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchMethod")>  _
-Partial Public Class trans_CatchMethod
-	
-	Private _catchMethod_ID As Integer
-	
-	Private _catchMethod As String
-	
-	Private _active As System.Nullable(Of Boolean)
-	
-	Private _modifiedDate As System.Nullable(Of Date)
-	
-	Private _modifiedBy As System.Nullable(Of Date)
-	
-	Public Sub New()
-		MyBase.New
-	End Sub
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
-	Public Property catchMethod_ID() As Integer
-		Get
-			Return Me._catchMethod_ID
-		End Get
-		Set
-			If ((Me._catchMethod_ID = value)  _
-						= false) Then
-				Me._catchMethod_ID = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod", DbType:="VarChar(255) NOT NULL", CanBeNull:=false)>  _
-	Public Property catchMethod() As String
-		Get
-			Return Me._catchMethod
-		End Get
-		Set
-			If (String.Equals(Me._catchMethod, value) = false) Then
-				Me._catchMethod = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_active", DbType:="Bit")>  _
-	Public Property active() As System.Nullable(Of Boolean)
-		Get
-			Return Me._active
-		End Get
-		Set
-			If (Me._active.Equals(value) = false) Then
-				Me._active = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedDate", DbType:="DateTime")>  _
-	Public Property modifiedDate() As System.Nullable(Of Date)
-		Get
-			Return Me._modifiedDate
-		End Get
-		Set
-			If (Me._modifiedDate.Equals(value) = false) Then
-				Me._modifiedDate = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedBy", DbType:="DateTime")>  _
-	Public Property modifiedBy() As System.Nullable(Of Date)
-		Get
-			Return Me._modifiedBy
-		End Get
-		Set
-			If (Me._modifiedBy.Equals(value) = false) Then
-				Me._modifiedBy = value
-			End If
-		End Set
-	End Property
 End Class
