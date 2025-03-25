@@ -19,12 +19,11 @@ Public Class frm_salesInvoice
     Public checkBuyer As Boolean
     Public buyerID As Integer
 
+    Private hasUnsavedChanges As Boolean = False
+
     Sub New(ByRef ctrlS As ctrlSales)
-
         InitializeComponent()
-
         ctrlSales = ctrlS
-
     End Sub
 
     Private Sub cmbUVT_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUVT.SelectedIndexChanged
@@ -255,7 +254,7 @@ Public Class frm_salesInvoice
     End Sub
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
-
+        ' Validate fields
         Dim dateCreated = validateField(dtCreated)
         Dim sellType = validateField(cmbST)
         Dim unloadingVesselType = validateField(cmbUVT)
@@ -275,7 +274,6 @@ Public Class frm_salesInvoice
         If Not contactNum Then missingFields.AppendLine("Contact Number")
         If Not remark Then missingFields.AppendLine("Remarks")
 
-
         If CInt(rBT.EditValue) = 1 Then
             If validateField(txtBuyer) Then buyerName = txtBuyer.Text : buyerID = Nothing _
                 Else missingFields.AppendLine("Buyer")
@@ -291,7 +289,16 @@ Public Class frm_salesInvoice
             Return
         End If
 
+        ' Save the draft
         ctrlSales.saveDraft()
+        SuccessfullySavedMessage() ' Show success message
+
+        ' Set unsaved changes to false after saving
+        hasUnsavedChanges = False
+    End Sub
+
+    Private Sub txtSaleNum_TextChanged(sender As Object, e As EventArgs) Handles txtSaleNum.TextChanged
+        hasUnsavedChanges = True ' Set to true when the user modifies a field
     End Sub
 
     Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPost.ItemClick
@@ -302,4 +309,15 @@ Public Class frm_salesInvoice
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         ctrlSales.deleteSales()
     End Sub
+
+    Private Sub frm_salesInvoice_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If hasUnsavedChanges Then
+            If Not ConfirmCloseWithoutSaving() Then
+                e.Cancel = True ' Cancel the closing event
+            End If
+        End If
+    End Sub
+
+
+
 End Class

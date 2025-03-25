@@ -20,7 +20,9 @@ Public Class ucSales
         AddHandler grid.Load, AddressOf gridLoaded
 
         dtFrom.EditValue = Nothing
+        dtFrom.Properties.MaxValue = Date.Now
         dtTo.EditValue = Nothing
+        dtTo.Properties.MaxValue = Date.Now.AddDays(1)
 
     End Sub
 
