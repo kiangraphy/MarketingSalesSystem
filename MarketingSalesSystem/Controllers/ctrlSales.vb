@@ -285,18 +285,21 @@ Public Class ctrlSales
 
 
     Sub deleteSales()
-        Using ts As New TransactionScope
-            Try
-                mdlSRP.salesReport_ID = mdlSR.salesReport_ID
-                mdlSRP.Delete()
-                mdlSR.Delete()
+        ' Confirm deletion with the user
+        If ConfirmDeleteMessage() = True Then
+            Using ts As New TransactionScope
+                Try
+                    mdlSRP.salesReport_ID = mdlSR.salesReport_ID
+                    mdlSRP.Delete()
+                    mdlSR.Delete()
 
-                ts.Complete()
-            Catch ex As Exception
-                Debug.WriteLine("Error: " & ex.Message)
-            End Try
-        End Using
-        ucS.loadGrid()
+                    ts.Complete()
+                    ucS.loadGrid() ' Reload the grid after successful deletion
+                Catch ex As Exception
+                    Debug.WriteLine("Error: " & ex.Message)
+                End Try
+            End Using
+        End If
         frmSI.Close()
     End Sub
 
