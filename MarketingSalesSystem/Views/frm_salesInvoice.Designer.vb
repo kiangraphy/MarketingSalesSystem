@@ -163,24 +163,24 @@ Partial Class frm_salesInvoice
         '
         Me.btnSave.Caption = "Save"
         Me.btnSave.Id = 3
-        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
         Me.btnDelete.Id = 4
-        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("BarButtonItem2.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem2.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         '
         'btnPost
         '
         Me.btnPost.Caption = "Post"
         Me.btnPost.Id = 5
-        Me.btnPost.ImageOptions.Image = CType(resources.GetObject("BarButtonItem3.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnPost.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem3.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnPost.ImageOptions.Image = CType(resources.GetObject("btnPost.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPost.ImageOptions.LargeImage = CType(resources.GetObject("btnPost.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPost.Name = "btnPost"
         '
         'RibbonPage1

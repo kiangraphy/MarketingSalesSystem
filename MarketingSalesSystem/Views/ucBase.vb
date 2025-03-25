@@ -8,8 +8,8 @@ Public Class ucBase
         InitializeComponent()
 
         Dim dateNow = getServerDate()
-        dtFrom.EditValue = dateNow.AddDays(-30)
-        dtTo.EditValue = dateNow
+        dtFrom.Properties.MaxValue = Date.Now
+        dtTo.Properties.MaxValue = Date.Now
     End Sub
 
     Sub hideDate()
@@ -24,7 +24,7 @@ Public Class ucBase
     End Sub
 
     Private Sub SimpleButton3_Click(sender As Object, e As EventArgs) Handles SimpleButton3.Click
-        Dim ctrl = New ctrlSales()
+        openForm()
     End Sub
 
     Protected Overridable Function GetGridControl() As GridControl
@@ -51,6 +51,10 @@ Public Class ucBase
 
     Private Sub btn_filter_Click(sender As Object, e As EventArgs) Handles btn_filter.Click
         refreshData()
+    End Sub
+
+    Overridable Sub openForm()
+
     End Sub
 
     Overridable Sub refreshData()
