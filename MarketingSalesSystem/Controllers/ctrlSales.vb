@@ -46,7 +46,7 @@ Public Class ctrlSales
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
             .cmbVessel.Enabled = False
             .txt_refNum.Caption = "Draft"
-            generateCombo()
+            loadCombo()
             .Show()
         End With
     End Sub
@@ -73,6 +73,7 @@ Public Class ctrlSales
         With frmSI
             If mdlSR.approvalStatus = Approval_Status.Posted Then
                 .rbnTools.Visible = False
+                .isPosted = True
             End If
 
             .Text = "Sales Invoice"
@@ -83,7 +84,7 @@ Public Class ctrlSales
             .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
             .cmbVessel.Enabled = False
-            generateCombo()
+            loadCombo()
 
             'Fields
             .dtCreated.EditValue = mdlSR.salesDate
@@ -169,8 +170,8 @@ Public Class ctrlSales
             Price = Price + CDec(.Item("Price"))
 
             'Actual Unloading Kilos
-            AUK_Catcher1 = AUK_Catcher1 + CDec(.Item("AUK_Catcher1"))
-            AUK_Catcher2 = AUK_Catcher2 + CDec(.Item("AUK_Catcher2"))
+            AUK_Catcher1 = AUK_Catcher1 + CDec(If(IsDBNull(.Item("AUK_Catcher1")), 0, .Item("AUK_Catcher1")))
+            AUK_Catcher2 = AUK_Catcher2 + CDec(If(IsDBNull(.Item("AUK_Catcher2")), 0, .Item("AUK_Catcher2")))
             AUK_Total = AUK_Total + AUK_Catcher1 + AUK_Catcher2
 
             'Actual Unloading Amount
@@ -179,8 +180,8 @@ Public Class ctrlSales
             AUA_Total = AUA_Total + AUA_Catcher1 + AUA_Catcher2
 
             'Spoilage Kilos
-            SK_Catcher1 = SK_Catcher1 + CDec(.Item("SK_Catcher1"))
-            SK_Catcher2 = SK_Catcher2 + CDec(.Item("SK_Catcher2"))
+            SK_Catcher1 = SK_Catcher1 + CDec(If(IsDBNull(.Item("SK_Catcher1")), 0, .Item("SK_Catcher1")))
+            SK_Catcher2 = SK_Catcher2 + CDec(If(IsDBNull(.Item("SK_Catcher2")), 0, .Item("SK_Catcher2")))
             SK_Total = SK_Total + SK_Catcher1 + SK_Catcher2
 
             'Spoilage Amount
@@ -437,7 +438,7 @@ Public Class ctrlSales
     End Sub
 
 
-    Sub generateCombo()
+    Sub loadCombo()
         Dim item = (From i In tpmdb.ml_SupplierCategories Select i.ml_supCat).ToArray
         frmSI.cmbST.Properties.Items.AddRange(item)
 
