@@ -148,15 +148,21 @@ Partial Public Class mkdbDataContext
 		End Get
 	End Property
 	
+	Public ReadOnly Property trans_CatchActivities() As System.Data.Linq.Table(Of trans_CatchActivity)
+		Get
+			Return Me.GetTable(Of trans_CatchActivity)
+		End Get
+	End Property
+	
 	Public ReadOnly Property trans_CatchActivityDetails() As System.Data.Linq.Table(Of trans_CatchActivityDetail)
 		Get
 			Return Me.GetTable(Of trans_CatchActivityDetail)
 		End Get
 	End Property
 	
-	Public ReadOnly Property trans_CatchActivities() As System.Data.Linq.Table(Of trans_CatchActivity)
+	Public ReadOnly Property trans_CatchMethods() As System.Data.Linq.Table(Of trans_CatchMethod)
 		Get
-			Return Me.GetTable(Of trans_CatchActivity)
+			Return Me.GetTable(Of trans_CatchMethod)
 		End Get
 	End Property
 End Class
@@ -3298,44 +3304,6 @@ Partial Public Class trans_SalesReportCatcher
 	End Property
 End Class
 
-<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivityDetails")>  _
-Partial Public Class trans_CatchActivityDetail
-	
-	Private _catchActivityDetail_ID As Integer
-	
-	Private _catcherID As Integer
-	
-	Public Sub New()
-		MyBase.New
-	End Sub
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
-	Public Property catchActivityDetail_ID() As Integer
-		Get
-			Return Me._catchActivityDetail_ID
-		End Get
-		Set
-			If ((Me._catchActivityDetail_ID = value)  _
-						= false) Then
-				Me._catchActivityDetail_ID = value
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catcherID", DbType:="Int NOT NULL")>  _
-	Public Property catcherID() As Integer
-		Get
-			Return Me._catcherID
-		End Get
-		Set
-			If ((Me._catcherID = value)  _
-						= false) Then
-				Me._catcherID = value
-			End If
-		End Set
-	End Property
-End Class
-
 <Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivities")>  _
 Partial Public Class trans_CatchActivity
 	
@@ -3427,6 +3395,138 @@ Partial Public Class trans_CatchActivity
 		Set
 			If (String.Equals(Me._catchReferenceNum, value) = false) Then
 				Me._catchReferenceNum = value
+			End If
+		End Set
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchActivityDetails")>  _
+Partial Public Class trans_CatchActivityDetail
+	
+	Private _catchActivityDetail_ID As Integer
+	
+	Private _catcherActivity_ID As Integer
+	
+	Private _vessel_ID As Integer
+	
+	Public Sub New()
+		MyBase.New
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchActivityDetail_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	Public Property catchActivityDetail_ID() As Integer
+		Get
+			Return Me._catchActivityDetail_ID
+		End Get
+		Set
+			If ((Me._catchActivityDetail_ID = value)  _
+						= false) Then
+				Me._catchActivityDetail_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catcherActivity_ID", DbType:="Int NOT NULL")>  _
+	Public Property catcherActivity_ID() As Integer
+		Get
+			Return Me._catcherActivity_ID
+		End Get
+		Set
+			If ((Me._catcherActivity_ID = value)  _
+						= false) Then
+				Me._catcherActivity_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_vessel_ID", DbType:="Int NOT NULL")>  _
+	Public Property vessel_ID() As Integer
+		Get
+			Return Me._vessel_ID
+		End Get
+		Set
+			If ((Me._vessel_ID = value)  _
+						= false) Then
+				Me._vessel_ID = value
+			End If
+		End Set
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.trans_CatchMethod")>  _
+Partial Public Class trans_CatchMethod
+	
+	Private _catchMethod_ID As Integer
+	
+	Private _catchMethod As String
+	
+	Private _active As System.Nullable(Of Boolean)
+	
+	Private _modifiedDate As System.Nullable(Of Date)
+	
+	Private _modifiedBy As System.Nullable(Of Date)
+	
+	Public Sub New()
+		MyBase.New
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod_ID", AutoSync:=AutoSync.Always, DbType:="Int NOT NULL IDENTITY", IsDbGenerated:=true)>  _
+	Public Property catchMethod_ID() As Integer
+		Get
+			Return Me._catchMethod_ID
+		End Get
+		Set
+			If ((Me._catchMethod_ID = value)  _
+						= false) Then
+				Me._catchMethod_ID = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_catchMethod", DbType:="VarChar(255) NOT NULL", CanBeNull:=false)>  _
+	Public Property catchMethod() As String
+		Get
+			Return Me._catchMethod
+		End Get
+		Set
+			If (String.Equals(Me._catchMethod, value) = false) Then
+				Me._catchMethod = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_active", DbType:="Bit")>  _
+	Public Property active() As System.Nullable(Of Boolean)
+		Get
+			Return Me._active
+		End Get
+		Set
+			If (Me._active.Equals(value) = false) Then
+				Me._active = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedDate", DbType:="DateTime")>  _
+	Public Property modifiedDate() As System.Nullable(Of Date)
+		Get
+			Return Me._modifiedDate
+		End Get
+		Set
+			If (Me._modifiedDate.Equals(value) = false) Then
+				Me._modifiedDate = value
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_modifiedBy", DbType:="DateTime")>  _
+	Public Property modifiedBy() As System.Nullable(Of Date)
+		Get
+			Return Me._modifiedBy
+		End Get
+		Set
+			If (Me._modifiedBy.Equals(value) = false) Then
+				Me._modifiedBy = value
 			End If
 		End Set
 	End Property
