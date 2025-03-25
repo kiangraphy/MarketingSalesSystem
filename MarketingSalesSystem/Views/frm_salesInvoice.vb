@@ -298,4 +298,8 @@ Public Class frm_salesInvoice
         Dim message = XtraMessageBox.Show("Are you sure you want to post this report?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
         If message = Windows.Forms.DialogResult.Yes Then ctrlSales.postedDraft() Else Return
     End Sub
+
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+        ctrlSales.deleteSales()
+    End Sub
 End Class

@@ -36,6 +36,10 @@ Public Class ucSales
     End Sub
 
     Private Sub gridLoaded(sender As Object, e As EventArgs)
+        loadGrid()
+    End Sub
+
+    Sub loadGrid()
         Dim gridView = New GridView()
         gridView.GridControl = grid
 
@@ -47,8 +51,11 @@ Public Class ucSales
         Dim dc = New mkdbDataContext()
         Dim mdb = New tpmdbDataContext()
 
+        ' Debug.WriteLine(CDate(dtFrom.EditValue))
+        ' Debug.WriteLine(CDate(dtTo.EditValue))
+
         ' Fetch all sales reports in one query
-        Dim sales = New SalesReport(dc).getRows().ToList()
+        Dim sales = New SalesReport(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
 
         ' Fetch only necessary columns for sales price and vessel
         Dim salesPriceDict = dc.trans_SalesReportPrices.Where(Function(sp) sales.Select(Function(s) s.salesReport_ID).Contains(sp.salesReport_ID)).ToList()
@@ -153,7 +160,7 @@ Public Class ucSales
     Private Sub HandleGridDoubleClick(sender As Object, e As EventArgs)
         Dim gridView As DevExpress.XtraGrid.Views.Grid.GridView = TryCast(sender, DevExpress.XtraGrid.Views.Grid.GridView)
         Dim value = gridView.GetRowCellValue(gridView.FocusedRowHandle, "salesReport_ID")
-        Dim ctrlSI = New ctrlSales(CInt(value))
+        Dim ctrlSI = New ctrlSales(Me, CInt(value))
     End Sub
 
 
@@ -161,32 +168,12 @@ Public Class ucSales
         Return If(grid IsNot Nothing, grid, Nothing)
     End Function
 
-    Public Overrides Sub refreshData()
-        Dim gridView = New GridView()
-        gridView.GridControl = grid
+    Overrides Sub refreshData()
+        loadGrid()
+    End Sub
 
-        AddHandler gridView.DoubleClick, AddressOf HandleGridDoubleClick
-
-        grid.MainView = gridView
-        grid.ViewCollection.Add(gridView)
-
-        Dim dc = New mkdbDataContext()
-        Dim mdb = New tpmdbDataContext()
-
-        ' Fetch all sales reports in one query
-        Dim sales = New SalesReport(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
-
-        ' Fetch only necessary columns for sales price and vessel
-        Dim salesPriceDict = dc.trans_SalesReportPrices.Where(Function(sp) sales.Select(Function(s) s.salesReport_ID).Contains(sp.salesReport_ID)).ToList()
-        Dim vesselDict = mdb.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
-
-        ' Process sales data efficiently
-        Dim salesData = sales.Select(Function(sr) transformData(salesPriceDict, vesselDict, sr)).Where(Function(x) x IsNot Nothing).ToList()
-
-        gridView.GridControl.DataSource = salesData
-        gridView.PopulateColumns()
-
-        gridTransMode(gridView)
+    Public Overrides Sub openForm()
+        Dim ctrl = New ctrlSales(Me)
     End Sub
 
 

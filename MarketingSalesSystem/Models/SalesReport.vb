@@ -120,6 +120,16 @@
 
     End Sub
 
+    Sub Delete()
+        Dim sr = From i In dc.trans_SalesReports Where i.salesReport_ID = salesReport_ID Select i
+
+        For Each i In sr
+            dc.trans_SalesReports.DeleteOnSubmit(i)
+            dc.SubmitChanges()
+        Next
+
+    End Sub
+
     Sub Posted()
         Dim sr = From i In dc.trans_SalesReports Where i.salesReport_ID = salesReport_ID Select i
 

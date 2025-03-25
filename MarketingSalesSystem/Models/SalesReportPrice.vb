@@ -174,6 +174,16 @@
         Next
     End Sub
 
+    Sub Delete()
+        Dim sr = From i In dc.trans_SalesReportPrices Where i.salesReport_ID = salesReport_ID Select i
+
+        For Each i In sr
+            dc.trans_SalesReportPrices.DeleteOnSubmit(i)
+            dc.SubmitChanges()
+        Next
+
+    End Sub
+
     Function getRows() As List(Of SalesReportPrice)
         Dim srpList As New List(Of SalesReportPrice)
 

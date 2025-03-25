@@ -10,10 +10,12 @@ Public Class ctrlSales
 
     Private frmSI As frm_salesInvoice
 
+    Private ucS As ucSales
+
     Private mkdb As mkdbDataContext
     Private tpmdb As tpmdbDataContext
 
-    Sub New()
+    Sub New(ByRef uc As ucSales)
         isNew = True
 
         mkdb = New mkdbDataContext
@@ -29,6 +31,8 @@ Public Class ctrlSales
 
         frmSI.GridControl1.DataSource = frmSI.dt
         frmSI.GridControl2.DataSource = frmSI.dts
+
+        ucS = uc
 
         With frmSI
             .Text = "Create Sales Invoice"
@@ -47,7 +51,7 @@ Public Class ctrlSales
         End With
     End Sub
 
-    Sub New(ByVal salesID As Integer)
+    Sub New(ByRef uc As ucSales, ByVal salesID As Integer)
         isNew = False
 
         mkdb = New mkdbDataContext
@@ -63,6 +67,8 @@ Public Class ctrlSales
 
         frmSI.GridControl1.DataSource = frmSI.dt
         frmSI.GridControl2.DataSource = frmSI.dts
+
+        ucS = uc
 
         With frmSI
             If mdlSR.approvalStatus = Approval_Status.Posted Then
@@ -272,6 +278,24 @@ Public Class ctrlSales
                 Debug.WriteLine(ex.Message)
             End Try
         End Using
+        ucS.loadGrid()
+        frmSI.Close()
+    End Sub
+
+
+    Sub deleteSales()
+        Using ts As New TransactionScope
+            Try
+                mdlSRP.salesReport_ID = mdlSR.salesReport_ID
+                mdlSRP.Delete()
+                mdlSR.Delete()
+
+                ts.Complete()
+            Catch ex As Exception
+                Debug.WriteLine("Error: " & ex.Message)
+            End Try
+        End Using
+        ucS.loadGrid()
         frmSI.Close()
     End Sub
 
