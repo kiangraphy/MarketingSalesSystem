@@ -21,7 +21,7 @@ Public Class frm_salesInvoice
     Public isPosted As Boolean = False
     Public rowCount As Integer
 
-    Private hasUnsavedChanges As Boolean = False
+    Public confirmClose As Boolean = True
 
     Sub New(ByRef ctrlS As ctrlSales)
         InitializeComponent()
@@ -257,8 +257,8 @@ Public Class frm_salesInvoice
         End With
     End Sub
 
-    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
-        ' Validate fields
+    Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
+        confirmClose = False ' Prevent FormClosing interference
         Dim dateCreated = validateField(dtCreated)
         Dim sellType = validateField(cmbST)
         Dim unloadingVessel = validateField(cmbUV)
@@ -289,40 +289,36 @@ Public Class frm_salesInvoice
         End If
 
         If missingFields.Length > 0 Then
-            requiredMessage(missingFields.ToString())
+            RequiredMessage(missingFields.ToString())
             Return
         End If
 
-        ' Save the draft
         ctrlSales.saveDraft()
-        SuccessfullySavedMessage() ' Show success message
+        SuccessfullySavedMessage()
 
-        ' Set unsaved changes to false after saving
-        hasUnsavedChanges = False
-    End Sub
-
-    Private Sub txtSaleNum_TextChanged(sender As Object, e As EventArgs) Handles txtSaleNum.TextChanged
-        hasUnsavedChanges = True ' Set to true when the user modifies a field
-    End Sub
-
-    Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPost.ItemClick
-        Dim message = XtraMessageBox.Show("Are you sure you want to post this report?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-        If message = Windows.Forms.DialogResult.Yes Then ctrlSales.postedDraft() Else Return
+        confirmClose = False
     End Sub
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+        confirmClose = False
         ctrlSales.deleteSales()
     End Sub
 
-    Private Sub frm_salesInvoice_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If hasUnsavedChanges Then
-            If Not ConfirmCloseWithoutSaving() Then
-                e.Cancel = True ' Cancel the closing event
-            End If
+    Private Sub btnPost_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPost.ItemClick
+        confirmClose = False
+        If ConfirmPostedData() Then
+            ctrlSales.postedDraft()
         End If
     End Sub
 
 
+    Private Sub frm_salesInvoice_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If confirmClose Then
+            If Not ConfirmCloseMessage() Then
+                e.Cancel = True
+            End If
+        End If
+    End Sub
 
     Private Sub cmbUV_EditValueChanged(sender As Object, e As EventArgs) Handles cmbUV.EditValueChanged
         BandedGridView1.Bands.Clear()
@@ -341,4 +337,5 @@ Public Class frm_salesInvoice
                         Select j.catchReferenceNum).Distinct().FirstOrDefault
         txtCDNum.EditValue = getValue
     End Sub
+                        
 End Class

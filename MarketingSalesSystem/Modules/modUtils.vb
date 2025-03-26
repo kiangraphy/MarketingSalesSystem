@@ -84,12 +84,20 @@ Module modUtils
         End If
     End Sub
 
+    Function ConfirmCloseMessage() As Boolean
+        Return XtraMessageBox.Show("Are you sure you close this form?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
+    End Function
+
     Function ConfirmCloseWithoutSaving() As Boolean
         Return XtraMessageBox.Show("Are you sure you want to close without saving?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
     End Function
 
     Function SuccessfullySavedMessage() As Integer
         Return XtraMessageBox.Show("Your record is successfully saved in the database.", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Function
+
+    Function ConfirmPostedData() As Boolean
+        Return XtraMessageBox.Show("Are you sure you want to post this report?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes
     End Function
 
     Function ConfirmDeleteMessage() As Boolean
