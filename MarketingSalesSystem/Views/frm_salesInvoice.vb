@@ -331,10 +331,11 @@ Public Class frm_salesInvoice
 
         ' Get reference number
         Dim dc As New mkdbDataContext
-        Dim getValue = (From i In dc.trans_CatchActivityDetails
-                        Join j In dc.trans_CatchActivities On j.catchActivity_ID Equals i.catchActivity_ID
-                        Where i.catchActivityDetail_ID = CInt(catcher.EditValue)
-                        Select j.catchReferenceNum).Distinct().FirstOrDefault
+        Dim getValue = (From i In dc.trans_CatchActivities
+                        Where i.catchActivity_ID = CInt(catcher.EditValue)
+                        Select i.catchReferenceNum).Distinct().FirstOrDefault
+
+        Debug.WriteLine(CInt(catcher.EditValue))
         txtCDNum.EditValue = getValue
     End Sub
                         

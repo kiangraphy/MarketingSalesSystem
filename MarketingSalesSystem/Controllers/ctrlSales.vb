@@ -518,6 +518,7 @@ Public Class ctrlSales
             .catchActivity_ID = item.catchActivity_ID,
             .catchReferenceNum = item.catchReferenceNum & " - " & String.Join(", ", item.VesselIDs.Select(Function(id) If(vesselDict.ContainsKey(id), vesselDict(id), "Unknown")))
         }).ToList()
+
         lookUpTransMode(uvWithVessels, frmSI.cmbUV, "catchReferenceNum", "catchActivity_ID", "Select unloading vessel")
     End Sub
 
