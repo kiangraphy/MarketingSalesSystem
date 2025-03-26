@@ -63,6 +63,7 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,6 +85,7 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ctrlCatchers.vb" />
     <Compile Include="Controllers\ctrlSales.vb" />
     <Compile Include="Data\mkdb.designer.vb">
       <AutoGen>True</AutoGen>
@@ -101,12 +103,17 @@
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
+    <Compile Include="Models\CatchActivity.vb" />
+    <Compile Include="Models\CatchActivityDetail.vb" />
+    <Compile Include="Models\CatchMethod.vb" />
+    <Compile Include="Models\SalesReportCatcher.vb" />
     <Compile Include="Models\SalesReportWeightSlip.vb" />
     <Compile Include="Models\SalesReport.vb" />
     <Compile Include="Models\SalesReportPrice.vb" />
     <Compile Include="Models\SalesReportSummary.vb" />
     <Compile Include="Models\WeightSlip.vb" />
     <Compile Include="Models\WeightSlipDetail.vb" />
+    <Compile Include="Modules\modString.vb" />
     <Compile Include="Modules\modUtils.vb" />
     <Compile Include="Modules\modValues.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -114,6 +121,12 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Views\frm_catchActivity.Designer.vb">
+      <DependentUpon>frm_catchActivity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frm_catchActivity.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\frm_salesInvoice.Designer.vb">
       <DependentUpon>frm_salesInvoice.vb</DependentUpon>
     </Compile>
@@ -124,6 +137,12 @@
       <DependentUpon>ucBase.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\ucBase.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucCatcher.Designer.vb">
+      <DependentUpon>ucCatcher.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucCatcher.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ucSales.Designer.vb">
@@ -141,6 +160,12 @@
     <None Include="Data\tpmdb.dbml.layout">
       <DependentUpon>tpmdb.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="Views\frm_catchActivity.resx">
+      <DependentUpon>frm_catchActivity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucCatcher.resx">
+      <DependentUpon>ucCatcher.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucSales.resx">
       <DependentUpon>ucSales.vb</DependentUpon>
     </EmbeddedResource>

@@ -84,11 +84,6 @@ Module modUtils
         End If
     End Sub
 
-    '================================== MessageBox Methods =================================='
-    Sub RequiredMessage(ByVal fields As String)
-        XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-    End Sub
-
     Function ConfirmCloseMessage() As Boolean
         Return XtraMessageBox.Show("Are you sure you close this form?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
     End Function
