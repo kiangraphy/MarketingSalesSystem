@@ -89,7 +89,7 @@ Public Class ctrlCatchers
             Try
                 With mdlCA
                     .catchDate = CDate(frmCA.dtCreated.EditValue)
-                    .catchReferenceNum = "##########"
+                    .catchReferenceNum = .GenerateRefNum()
                     .latitude = CDec(frmCA.txtLat.EditValue)
                     .longitude = CDec(frmCA.txtLong.EditValue)
                     .method_ID = CInt(frmCA.cmbMethod.EditValue)

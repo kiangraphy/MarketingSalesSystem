@@ -39,7 +39,6 @@ Module modUtils
             .ShowFooter = False
             .Columns.Clear()
             .Columns.Add(New DevExpress.XtraEditors.Controls.LookUpColumnInfo(valueName, ""))
-            .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
         End With
     End Sub
 
