@@ -43,4 +43,28 @@
         dc.SubmitChanges()
         Me.catchActivity_ID = ca.catchActivity_ID
     End Sub
+
+
+    Function GenerateRefNum() As String
+        Dim yearMonth = Date.Now.Year & Date.Now.Month
+
+        Dim prefix As String = "CA-" & yearMonth
+
+        Dim lastRef = (From sr In dc.trans_CatchActivities
+                       Where sr.catchReferenceNum.StartsWith(prefix)
+                       Order By sr.catchReferenceNum Descending
+                       Select sr.catchReferenceNum).FirstOrDefault()
+
+        Dim newNum As Integer
+
+        If lastRef IsNot Nothing Then
+            Dim lastNumStr As String = lastRef.Substring(9)
+            Dim lastNum As Integer
+            If Integer.TryParse(lastNumStr, lastNum) Then
+                newNum = lastNum + 1
+            End If
+        End If
+
+        Return String.Format("CA-{0}{1:D3}", yearMonth, newNum)
+    End Function
 End Class

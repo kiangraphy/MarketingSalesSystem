@@ -18,6 +18,14 @@ Public Class frm_catchActivity
         GridView1.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect
 
         dtCreated.Properties.MaxValue = Date.Now
+
+        txtLat.Properties.Mask.MaskType = Mask.MaskType.Numeric
+        txtLat.Properties.Mask.EditMask = "000.000000"
+        txtLat.Properties.Mask.UseMaskAsDisplayFormat = True
+
+        txtLong.Properties.Mask.MaskType = Mask.MaskType.Numeric
+        txtLong.Properties.Mask.EditMask = "000.000000"
+        txtLong.Properties.Mask.UseMaskAsDisplayFormat = True
     End Sub
 
 
@@ -89,8 +97,10 @@ Public Class frm_catchActivity
         If confirmation = Windows.Forms.DialogResult.Yes Then
             Dim selectedRows As Integer() = GridView1.GetSelectedRows()
 
-            For Each rowHandle As Integer In selectedRows
+            For i As Integer = selectedRows.Length - 1 To 0 Step -1
+                Dim rowHandle As Integer = selectedRows(i)
                 Dim row As DataRow = GridView1.GetDataRow(rowHandle)
+
                 If row IsNot Nothing Then dt.Rows.Remove(row)
             Next
 
