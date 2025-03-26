@@ -7,6 +7,7 @@ Public Class ctrlSales
     Private isNew As Boolean
     Private mdlSR As SalesReport
     Private mdlSRP As SalesReportPrice
+    Private mdlSRC As SalesReportCatcher
 
     Private frmSI As frm_salesInvoice
 
@@ -26,7 +27,7 @@ Public Class ctrlSales
 
         frmSI = New frm_salesInvoice(Me)
 
-        initSalesDataTable()
+        'initSalesDataTable()
         initSalesDataTableS()
 
         frmSI.GridControl1.DataSource = frmSI.dt
@@ -39,12 +40,11 @@ Public Class ctrlSales
             .btnPost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .dtCreated.Properties.MaxValue = Date.Now
-            loadRows()
+            .txtCDNum.Properties.ReadOnly = True
             .cmbBuyer.Enabled = False
             .txtBuyer.Enabled = False
             .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
-            .cmbVessel.Enabled = False
             .txt_refNum.Caption = "Draft"
             loadCombo()
             .Show()
@@ -58,12 +58,13 @@ Public Class ctrlSales
         tpmdb = New tpmdbDataContext
 
         mdlSR = New SalesReport(salesID, mkdb)
-        mdlSRP = New SalesReportPrice(mdlSR.salesReport_ID, mkdb)
+        mdlSRP = New SalesReportPrice(mkdb)
+        mdlSRC = New SalesReportCatcher(mkdb)
 
         frmSI = New frm_salesInvoice(Me)
 
-        initSalesDataTable()
-        initSalesDataTableS()
+        'initSalesDataTable()
+        'initSalesDataTableS()
 
         frmSI.GridControl1.DataSource = frmSI.dt
         frmSI.GridControl2.DataSource = frmSI.dts
@@ -78,25 +79,23 @@ Public Class ctrlSales
 
             .Text = "Sales Invoice"
             .dtCreated.Properties.MaxValue = Date.Now
-            loadRows()
             .cmbBuyer.Enabled = False
             .txtBuyer.Enabled = False
             .lcmbBuyer.Visibility = Utils.LayoutVisibility.Never
             .ltxtBuyer.Visibility = Utils.LayoutVisibility.Never
-            .cmbVessel.Enabled = False
             loadCombo()
+            .cmbUV.Properties.ReadOnly = True
+            .txtCDNum.Properties.ReadOnly = True
 
             'Fields
             .dtCreated.EditValue = mdlSR.salesDate
             .cmbST.EditValue = mdlSR.sellingType
-            .cmbUVT.EditValue = mdlSR.unloadingType
             .txtSaleNum.EditValue = mdlSR.salesNum
+            .cmbUV.EditValue = mdlSR.catchtDeliveryNum
 
             If CInt(mdlSR.unloadingForeignVessel) = 0 Then .rBT.SelectedIndex = 0 Else .rBT.SelectedIndex = 1
             If CInt(.rBT.EditValue) = 1 Then .txtBuyer.EditValue = mdlSR.buyer Else .cmbBuyer.EditValue = mdlSR.unloadingForeignVessel
-            .cmbVessel.EditValue = mdlSR.unloadingVessel_ID
             .txtUSD.EditValue = mdlSR.usdRate
-            .txtCDNum.EditValue = mdlSR.catchtDeliveryNum
             .txtCNum.EditValue = mdlSR.contractNum
             .txtRemark.EditValue = mdlSR.remarks
             .txt_refNum.Caption = mdlSR.referenceNum
@@ -105,123 +104,110 @@ Public Class ctrlSales
         End With
     End Sub
 
-    Sub initSalesDataTable()
+    Sub initSalesDataTable(ByVal catchID As Integer)
+        Dim ca = (From i In mkdb.trans_CatchActivityDetails Where i.catchActivity_ID = catchID Select i).ToList()
+
         With frmSI
             .dt = New DataTable()
 
             .dt.Columns.Add("Class", GetType(String))
             .dt.Columns.Add("Size", GetType(String))
             .dt.Columns.Add("Price", GetType(Double))
-            .dt.Columns.Add("AUK_Catcher1", GetType(Double))
-            .dt.Columns.Add("AUK_Catcher2", GetType(Double))
+            addColumnDT(.dt, "AUK_Catcher", ca.Count)
             .dt.Columns.Add("AUK_Total", GetType(Double))
-            .dt.Columns.Add("AUA_Catcher1", GetType(Double))
-            .dt.Columns.Add("AUA_Catcher2", GetType(Double))
+            addColumnDT(.dt, "AUA_Catcher", ca.Count)
             .dt.Columns.Add("AUA_Total", GetType(Double))
-            .dt.Columns.Add("SK_Catcher1", GetType(Double))
-            .dt.Columns.Add("SK_Catcher2", GetType(Double))
+            addColumnDT(.dt, "SK_Catcher", ca.Count)
             .dt.Columns.Add("SK_Total", GetType(Double))
-            .dt.Columns.Add("SA_Catcher1", GetType(Double))
-            .dt.Columns.Add("SA_Catcher2", GetType(Double))
+            addColumnDT(.dt, "SA_Catcher", ca.Count)
             .dt.Columns.Add("SA_Total", GetType(Double))
-            .dt.Columns.Add("NK_Catcher1", GetType(Double))
-            .dt.Columns.Add("NK_Catcher2", GetType(Double))
+            addColumnDT(.dt, "NK_Catcher", ca.Count)
             .dt.Columns.Add("NK_Total", GetType(Double))
-            .dt.Columns.Add("NA_Catcher1", GetType(Double))
-            .dt.Columns.Add("NA_Catcher2", GetType(Double))
+            addColumnDT(.dt, "NA_Catcher", ca.Count)
             .dt.Columns.Add("NA_Total", GetType(Double))
+            .rowCount = ca.Count
         End With
+    End Sub
+
+    Sub addColumnDT(dt As DataTable, caption As String, count As Integer)
+        For i As Integer = 1 To count
+            dt.Columns.Add(caption & i, GetType(Double))
+        Next
     End Sub
 
     Sub updateTotal(ByRef r As DataRow)
-        Dim Price As Decimal = 0
+        Dim Price As Decimal = CDec(If(IsDBNull(r("Price")), 0, r("Price")))
 
-        'Actual Unloading Kilos
-        Dim AUK_Catcher1 As Decimal = 0
-        Dim AUK_Catcher2 As Decimal = 0
         Dim AUK_Total As Decimal = 0
-
-        'Actual Unloading Amount
-        Dim AUA_Catcher1 As Decimal = 0
-        Dim AUA_Catcher2 As Decimal = 0
         Dim AUA_Total As Decimal = 0
-
-        'Spoilage Kilos
-        Dim SK_Catcher1 As Decimal = 0
-        Dim SK_Catcher2 As Decimal = 0
         Dim SK_Total As Decimal = 0
-
-        'Spoilage Amount
-        Dim SA_Catcher1 As Decimal = 0
-        Dim SA_Catcher2 As Decimal = 0
         Dim SA_Total As Decimal = 0
-
-        'Net Kilos
-        Dim NK_Catcher1 As Decimal = 0
-        Dim NK_Catcher2 As Decimal = 0
         Dim NK_Total As Decimal = 0
-
-        'Net Amount
-        Dim NA_Catcher1 As Decimal = 0
-        Dim NA_Catcher2 As Decimal = 0
         Dim NA_Total As Decimal = 0
+        
+        For Each col As DataColumn In r.Table.Columns
+            Dim colName As String = col.ColumnName
 
-        With r
-            Price = Price + CDec(.Item("Price"))
+            If colName.StartsWith("AUK_Catcher") Then
+                Dim catcherValue As Decimal = CDec(If(IsDBNull(r(colName)), 0, r(colName)))
+                AUK_Total += catcherValue
 
-            'Actual Unloading Kilos
-            AUK_Catcher1 = AUK_Catcher1 + CDec(If(IsDBNull(.Item("AUK_Catcher1")), 0, .Item("AUK_Catcher1")))
-            AUK_Catcher2 = AUK_Catcher2 + CDec(If(IsDBNull(.Item("AUK_Catcher2")), 0, .Item("AUK_Catcher2")))
-            AUK_Total = AUK_Total + AUK_Catcher1 + AUK_Catcher2
+                ' Calculate Actual Unloading Amount dynamically
+                Dim auaColumn As String = colName.Replace("AUK", "AUA")
+                If r.Table.Columns.Contains(auaColumn) Then
+                    r(auaColumn) = catcherValue * Price
+                    AUA_Total += CDec(r(auaColumn))
+                End If
+            ElseIf colName.StartsWith("SK_Catcher") Then
+                Dim catcherValue As Decimal = CDec(If(IsDBNull(r(colName)), 0, r(colName)))
+                SK_Total += catcherValue
 
-            'Actual Unloading Amount
-            AUA_Catcher1 = AUA_Catcher1 + (AUK_Catcher1 * Price)
-            AUA_Catcher2 = AUA_Catcher2 + (AUK_Catcher2 * Price)
-            AUA_Total = AUA_Total + AUA_Catcher1 + AUA_Catcher2
+                ' Calculate Spoilage Amount dynamically
+                Dim saColumn As String = colName.Replace("SK", "SA")
+                If r.Table.Columns.Contains(saColumn) Then
+                    r(saColumn) = catcherValue * Price
+                    SA_Total += CDec(r(saColumn))
+                End If
+            End If
+        Next
 
-            'Spoilage Kilos
-            SK_Catcher1 = SK_Catcher1 + CDec(If(IsDBNull(.Item("SK_Catcher1")), 0, .Item("SK_Catcher1")))
-            SK_Catcher2 = SK_Catcher2 + CDec(If(IsDBNull(.Item("SK_Catcher2")), 0, .Item("SK_Catcher2")))
-            SK_Total = SK_Total + SK_Catcher1 + SK_Catcher2
+        ' Compute Net Kilos and Net Amount dynamically
+        For Each col As DataColumn In r.Table.Columns
+            Dim colName As String = col.ColumnName
 
-            'Spoilage Amount
-            SA_Catcher1 = SA_Catcher1 + (SK_Catcher1 * Price)
-            SA_Catcher2 = SA_Catcher2 + (SK_Catcher2 * Price)
-            SA_Total = SA_Total + SA_Catcher1 + SA_Catcher2
+            If colName.StartsWith("AUK_Catcher") Then
+                Dim skColumn As String = colName.Replace("AUK", "SK")
+                Dim nkColumn As String = colName.Replace("AUK", "NK")
 
-            'Net Kilos
-            NK_Catcher1 = NK_Catcher1 + (AUK_Catcher1 - SK_Catcher1)
-            NK_Catcher2 = NK_Catcher2 + (AUK_Catcher2 - SK_Catcher2)
-            NK_Total = NK_Total + NK_Catcher1 + NK_Catcher2
+                Dim aukValue As Decimal = CDec(If(IsDBNull(r(colName)), 0, r(colName)))
+                Dim skValue As Decimal = CDec(If(IsDBNull(r(skColumn)), 0, r(skColumn)))
 
-            'Net Amount
-            NA_Catcher1 = NA_Catcher1 + (AUA_Catcher1 - SA_Catcher1)
-            NA_Catcher2 = NA_Catcher2 + (AUA_Catcher2 - SA_Catcher2)
-            NA_Total = NA_Total + NA_Catcher1 + NA_Catcher2
-        End With
+                If r.Table.Columns.Contains(nkColumn) Then
+                    r(nkColumn) = aukValue - skValue
+                    NK_Total += CDec(r(nkColumn))
+                End If
+            ElseIf colName.StartsWith("AUA_Catcher") Then
+                Dim saColumn As String = colName.Replace("AUA", "SA")
+                Dim naColumn As String = colName.Replace("AUA", "NA")
 
-        'Set Row Value
+                Dim auaValue As Decimal = CDec(If(IsDBNull(r(colName)), 0, r(colName)))
+                Dim saValue As Decimal = CDec(If(IsDBNull(r(saColumn)), 0, r(saColumn)))
 
-        'Actual Unloading
+                If r.Table.Columns.Contains(naColumn) Then
+                    r(naColumn) = auaValue - saValue
+                    NA_Total += CDec(r(naColumn))
+                End If
+            End If
+        Next
+
         r("AUK_Total") = AUK_Total
-        r("AUA_Catcher1") = AUA_Catcher1
-        r("AUA_Catcher2") = AUA_Catcher2
         r("AUA_Total") = AUA_Total
-
-        'Spoilage
         r("SK_Total") = SK_Total
-        r("SA_Catcher1") = SA_Catcher1
-        r("SA_Catcher2") = SA_Catcher2
         r("SA_Total") = SA_Total
-
-        'Net
-        r("NK_Catcher1") = NK_Catcher1
-        r("NK_Catcher2") = NK_Catcher2
         r("NK_Total") = NK_Total
-        r("NA_Catcher1") = NA_Catcher1
-        r("NA_Catcher2") = NA_Catcher2
         r("NA_Total") = NA_Total
     End Sub
+
 
     Sub updateAllTotals()
         For Each r As DataRow In frmSI.dt.Rows
@@ -237,11 +223,10 @@ Public Class ctrlSales
                     mdlSR.salesDate = CDate(.dtCreated.EditValue)
                     mdlSR.salesNum = .txtSaleNum.Text
                     mdlSR.sellingType = .cmbST.EditValue.ToString
-                    mdlSR.unloadingType = .cmbUVT.EditValue.ToString
-                    mdlSR.unloadingVessel_ID = CInt(.cmbVessel.EditValue)
+                    mdlSR.unloadingType = "###"
                     mdlSR.unloadingForeignVessel = .buyerID.ToString
                     mdlSR.buyer = .buyerName.ToString
-                    mdlSR.catchtDeliveryNum = .txtCDNum.Text
+                    mdlSR.catchtDeliveryNum = .cmbUV.EditValue.ToString
                     mdlSR.usdRate = CDec(.txtUSD.EditValue)
                     mdlSR.contractNum = .txtCNum.Text
                     mdlSR.remarks = .txtRemark.Text
@@ -261,19 +246,10 @@ Public Class ctrlSales
                     End If
                 End With
 
-                If Not isNew Then
-                    setSalesPrice("Price", mdlSR.salesReport_ID, 0)
-                    setSalesPrice("AUK_Catcher1", mdlSR.salesReport_ID, 1)
-                    setSalesPrice("AUK_Catcher2", mdlSR.salesReport_ID, 2)
-                    setSalesPrice("SK_Catcher1", mdlSR.salesReport_ID, 3)
-                    setSalesPrice("SK_Catcher2", mdlSR.salesReport_ID, 4)
-                Else
-                    setSalesPrice("Price", mdlSR.salesReport_ID, -1)
-                    setSalesPrice("AUK_Catcher1", mdlSR.salesReport_ID, -1)
-                    setSalesPrice("AUK_Catcher2", mdlSR.salesReport_ID, -1)
-                    setSalesPrice("SK_Catcher1", mdlSR.salesReport_ID, -1)
-                    setSalesPrice("SK_Catcher2", mdlSR.salesReport_ID, -1)
-                End If
+                setSalesPrice(mdlSR.salesReport_ID)
+                setCatcherPrice("AUK_Catcher", mdlSR.salesReport_ID)
+                setCatcherPrice("SK_Catcher", mdlSR.salesReport_ID)
+
                 ts.Complete()
             Catch ex As Exception
                 Debug.WriteLine(ex.Message)
@@ -290,16 +266,18 @@ Public Class ctrlSales
             Using ts As New TransactionScope
                 Try
                     mdlSRP.salesReport_ID = mdlSR.salesReport_ID
+                    mdlSRC.salesReport_ID = mdlSR.salesReport_ID
+                    mdlSRC.Delete()
                     mdlSRP.Delete()
                     mdlSR.Delete()
 
                     ts.Complete()
-                    ucS.loadGrid() ' Reload the grid after successful deletion
                 Catch ex As Exception
                     Debug.WriteLine("Error: " & ex.Message)
                 End Try
             End Using
         End If
+        ucS.loadGrid()
         frmSI.Close()
     End Sub
 
@@ -319,48 +297,111 @@ Public Class ctrlSales
         frmSI.Close()
     End Sub
 
-    Sub setSalesPrice(rowName As String, ByVal salesReportID As Integer, ByVal row As Integer)
+    Sub setSalesPrice(ByVal salesReportID As Integer)
         Dim srp As New SalesReportPrice(mkdb)
 
-        If Not row = -1 Then
-            Dim getID = (From i In mkdb.trans_SalesReportPrices Where i.salesReport_ID = salesReportID).ToList()(row)
-            Debug.WriteLine("Value: " & getID.salesReportPrice_ID)
-            srp = New SalesReportPrice(getID.salesReportPrice_ID, mkdb)
+        If Not isNew Then
+            Dim getSrp = (From i In mkdb.trans_SalesReportPrices Where i.salesReport_ID = salesReportID Select i.salesReportPrice_ID).FirstOrDefault
+            srp = New SalesReportPrice(getSrp, mkdb)
         End If
 
         With srp
             .salesReport_ID = salesReportID
-            .skipjack0_300To0_499 = CDec(frmSI.dt.Rows(0)(rowName))
-            .skipjack0_500To0_999 = CDec(frmSI.dt.Rows(1)(rowName))
-            .skipjack1_0To1_39 = CDec(frmSI.dt.Rows(2)(rowName))
-            .skipjack1_4To1_79 = CDec(frmSI.dt.Rows(3)(rowName))
-            .skipjack1_8To2_49 = CDec(frmSI.dt.Rows(4)(rowName))
-            .skipjack2_5To3_49 = CDec(frmSI.dt.Rows(5)(rowName))
-            .skipjack3_5AndUP = CDec(frmSI.dt.Rows(6)(rowName))
-            .yellowfin0_300To0_499 = CDec(frmSI.dt.Rows(7)(rowName))
-            .yellowfin0_500To0_999 = CDec(frmSI.dt.Rows(8)(rowName))
-            .yellowfin1_0To1_49 = CDec(frmSI.dt.Rows(9)(rowName))
-            .yellowfin1_5To2_49 = CDec(frmSI.dt.Rows(10)(rowName))
-            .yellowfin2_5To3_49 = CDec(frmSI.dt.Rows(11)(rowName))
-            .yellowfin3_5To4_99 = CDec(frmSI.dt.Rows(12)(rowName))
-            .yellowfin5_0To9_99 = CDec(frmSI.dt.Rows(13)(rowName))
-            .yellowfin10AndUpGood = CDec(frmSI.dt.Rows(14)(rowName))
-            .yellowfin10AndUpDeformed = CDec(frmSI.dt.Rows(15)(rowName))
-            .bigeye0_500To0_999 = CDec(frmSI.dt.Rows(16)(rowName))
-            .bigeye1_0To1_49 = CDec(frmSI.dt.Rows(17)(rowName))
-            .bigeye1_5To2_49 = CDec(frmSI.dt.Rows(18)(rowName))
-            .bigeye2_5To3_49 = CDec(frmSI.dt.Rows(19)(rowName))
-            .bigeye3_5To4_99 = CDec(frmSI.dt.Rows(20)(rowName))
-            .bigeye5_0To9_99 = CDec(frmSI.dt.Rows(21)(rowName))
-            .bigeye10AndUP = CDec(frmSI.dt.Rows(22)(rowName))
-            .bonito = CDec(frmSI.dt.Rows(23)(rowName))
-            .fishmeal = CDec(frmSI.dt.Rows(24)(rowName))
-            If Not isNew Then
-                .Save()
-            Else
+            .skipjack0_300To0_499 = CDec(frmSI.dt.Rows(0)("Price"))
+            .skipjack0_500To0_999 = CDec(frmSI.dt.Rows(1)("Price"))
+            .skipjack1_0To1_39 = CDec(frmSI.dt.Rows(2)("Price"))
+            .skipjack1_4To1_79 = CDec(frmSI.dt.Rows(3)("Price"))
+            .skipjack1_8To2_49 = CDec(frmSI.dt.Rows(4)("Price"))
+            .skipjack2_5To3_49 = CDec(frmSI.dt.Rows(5)("Price"))
+            .skipjack3_5AndUP = CDec(frmSI.dt.Rows(6)("Price"))
+            .yellowfin0_300To0_499 = CDec(frmSI.dt.Rows(7)("Price"))
+            .yellowfin0_500To0_999 = CDec(frmSI.dt.Rows(8)("Price"))
+            .yellowfin1_0To1_49 = CDec(frmSI.dt.Rows(9)("Price"))
+            .yellowfin1_5To2_49 = CDec(frmSI.dt.Rows(10)("Price"))
+            .yellowfin2_5To3_49 = CDec(frmSI.dt.Rows(11)("Price"))
+            .yellowfin3_5To4_99 = CDec(frmSI.dt.Rows(12)("Price"))
+            .yellowfin5_0To9_99 = CDec(frmSI.dt.Rows(13)("Price"))
+            .yellowfin10AndUpGood = CDec(frmSI.dt.Rows(14)("Price"))
+            .yellowfin10AndUpDeformed = CDec(frmSI.dt.Rows(15)("Price"))
+            .bigeye0_500To0_999 = CDec(frmSI.dt.Rows(16)("Price"))
+            .bigeye1_0To1_49 = CDec(frmSI.dt.Rows(17)("Price"))
+            .bigeye1_5To2_49 = CDec(frmSI.dt.Rows(18)("Price"))
+            .bigeye2_5To3_49 = CDec(frmSI.dt.Rows(19)("Price"))
+            .bigeye3_5To4_99 = CDec(frmSI.dt.Rows(20)("Price"))
+            .bigeye5_0To9_99 = CDec(frmSI.dt.Rows(21)("Price"))
+            .bigeye10AndUP = CDec(frmSI.dt.Rows(22)("Price"))
+            .bonito = CDec(frmSI.dt.Rows(23)("Price"))
+            .fishmeal = CDec(frmSI.dt.Rows(24)("Price"))
+            If isNew Then
                 .Add()
+            Else
+                .Save()
             End If
         End With
+    End Sub
+
+    Sub setCatcherPrice(rowName As String, ByVal salesReportID As Integer)
+        Dim ca = (From i In mkdb.trans_CatchActivities
+                  Join j In mkdb.trans_CatchActivityDetails On i.catchActivity_ID Equals j.catchActivity_ID
+                  Where i.catchActivity_ID = CInt(frmSI.cmbUV.EditValue)
+                  Select j).ToList()
+
+        Dim count = 1
+
+        For Each item In ca
+
+            Dim src As New SalesReportCatcher(mkdb)
+
+            If Not isNew Then
+                Dim getAllSrc = (From i In mkdb.trans_SalesReportCatchers Where i.salesReport_ID = salesReportID Select i.catchActivityDetail_ID).Distinct.ToList
+                Dim getID As trans_SalesReportCatcher = Nothing
+                Dim getSrc = (From i In mkdb.trans_SalesReportCatchers Where i.salesReport_ID = salesReportID AndAlso i.catchActivityDetail_ID = getAllSrc(count - 1) Select i).ToList
+
+                If rowName Is "AUK_Catcher" Then
+                    getID = getSrc.FirstOrDefault
+                Else
+                    getID = getSrc(1)
+                End If
+                src = New SalesReportCatcher(getID.salesReportCatcher_ID, mkdb)
+            End If
+
+            With src
+                .catchActivityDetail_ID = item.catchActivityDetail_ID
+                .salesReport_ID = salesReportID
+                .skipjack0_300To0_499 = CDec(frmSI.dt.Rows(0)(rowName & count))
+                .skipjack0_500To0_999 = CDec(frmSI.dt.Rows(1)(rowName & count))
+                .skipjack1_0To1_39 = CDec(frmSI.dt.Rows(2)(rowName & count))
+                .skipjack1_4To1_79 = CDec(frmSI.dt.Rows(3)(rowName & count))
+                .skipjack1_8To2_49 = CDec(frmSI.dt.Rows(4)(rowName & count))
+                .skipjack2_5To3_49 = CDec(frmSI.dt.Rows(5)(rowName & count))
+                .skipjack3_5AndUP = CDec(frmSI.dt.Rows(6)(rowName & count))
+                .yellowfin0_300To0_499 = CDec(frmSI.dt.Rows(7)(rowName & count))
+                .yellowfin0_500To0_999 = CDec(frmSI.dt.Rows(8)(rowName & count))
+                .yellowfin1_0To1_49 = CDec(frmSI.dt.Rows(9)(rowName & count))
+                .yellowfin1_5To2_49 = CDec(frmSI.dt.Rows(10)(rowName & count))
+                .yellowfin2_5To3_49 = CDec(frmSI.dt.Rows(11)(rowName & count))
+                .yellowfin3_5To4_99 = CDec(frmSI.dt.Rows(12)(rowName & count))
+                .yellowfin5_0To9_99 = CDec(frmSI.dt.Rows(13)(rowName & count))
+                .yellowfin10AndUpGood = CDec(frmSI.dt.Rows(14)(rowName & count))
+                .yellowfin10AndUpDeformed = CDec(frmSI.dt.Rows(15)(rowName & count))
+                .bigeye0_500To0_999 = CDec(frmSI.dt.Rows(16)(rowName & count))
+                .bigeye1_0To1_49 = CDec(frmSI.dt.Rows(17)(rowName & count))
+                .bigeye1_5To2_49 = CDec(frmSI.dt.Rows(18)(rowName & count))
+                .bigeye2_5To3_49 = CDec(frmSI.dt.Rows(19)(rowName & count))
+                .bigeye3_5To4_99 = CDec(frmSI.dt.Rows(20)(rowName & count))
+                .bigeye5_0To9_99 = CDec(frmSI.dt.Rows(21)(rowName & count))
+                .bigeye10AndUP = CDec(frmSI.dt.Rows(22)(rowName & count))
+                .bonito = CDec(frmSI.dt.Rows(23)(rowName & count))
+                .fishmeal = CDec(frmSI.dt.Rows(24)(rowName & count))
+                If isNew Then
+                    .Add()
+                Else
+                    .Save()
+                End If
+            End With
+
+            count = count + 1
+        Next
     End Sub
 
     Sub loadRows()
@@ -372,81 +413,112 @@ Public Class ctrlSales
                {"FISHMEAL", New String() {"ALL SIZES"}}
            }
 
-        Dim columns As String() = {"AUK_Catcher1", "AUK_Catcher2", "AUK_Total",
-                                   "AUA_Catcher1", "AUA_Catcher2", "AUA_Total",
-                                   "SK_Catcher1", "SK_Catcher2", "SK_Total",
-                                   "SA_Catcher1", "SA_Catcher2", "SA_Total",
-                                   "NK_Catcher1", "NK_Catcher2", "NK_Total",
-                                   "NA_Catcher1", "NA_Catcher2", "NA_Total"}
-        If isNew Then
+        Dim columns = frmSI.dt.Columns
 
-            ' Loop through each fish class and sizes
+        If isNew Then
             For Each fishClass In fishClasses
                 For Each size In fishClass.Value
                     Dim dr As DataRow = frmSI.dt.NewRow()
-                    dr("Price") = 0
                     dr("Class") = fishClass.Key
                     dr("Size") = size
 
-                    For Each col In columns
-                        dr(col) = 0
+                    For Each col As DataColumn In columns
+                        If col.ColumnName <> "Class" AndAlso col.ColumnName <> "Size" Then dr(col) = 0
                     Next
 
                     frmSI.dt.Rows.Add(dr)
                 Next
             Next
         Else
+            Dim priceColumns As List(Of String) = GetType(trans_SalesReportPrice).GetProperties().Select(Function(t) t.Name).ToList()
+            priceColumns.RemoveAll(Function(c) c = "salesReportPrice_ID" OrElse c = "salesReport_ID")
 
-            Dim columnNames As List(Of String) = GetType(trans_SalesReportPrice).GetProperties().Select(Function(t) t.Name).ToList()
-            columnNames.RemoveAll(Function(c) c = "salesReportPrice_ID" Or c = "salesReport_ID")
-            Dim srpList = mkdb.trans_SalesReportPrices.Where(Function(sp) sp.salesReport_ID = mdlSR.salesReport_ID).ToList()
+            Dim srp = mkdb.trans_SalesReportPrices.
+                Where(Function(sp) sp.salesReport_ID = mdlSR.salesReport_ID).
+                FirstOrDefault()
 
-            Dim count = 0
+            Dim srcList = mkdb.trans_SalesReportCatchers.
+                Where(Function(i) i.salesReport_ID = mdlSR.salesReport_ID).
+                Select(Function(i) i.catchActivityDetail_ID).
+                Distinct().ToList()
+
+            ' Preload Catch Data for faster lookup
+            Dim catchDataDict = mkdb.trans_SalesReportCatchers.
+                Where(Function(i) i.salesReport_ID = mdlSR.salesReport_ID).
+                GroupBy(Function(i) i.catchActivityDetail_ID).
+                ToDictionary(Function(g) g.Key, Function(g) g.ToList())
+
+            Dim priceCount As Integer = 0
 
             For Each fishClass In fishClasses
                 For Each size In fishClass.Value
-
-                    Dim columnName As String = columnNames(count)
+                    If priceCount >= priceColumns.Count Then Exit For
+                    Dim priceColumn As String = priceColumns(priceCount)
+                    Dim propInfo = GetType(trans_SalesReportPrice).GetProperty(priceColumn)
 
                     Dim dr As DataRow = frmSI.dt.NewRow()
                     dr("Class") = fishClass.Key
                     dr("Size") = size
 
-                    ' Assign values if properties exist
-                    Dim propInfo = GetType(trans_SalesReportPrice).GetProperty(columnName)
-                    dr("Price") = CDec(propInfo.GetValue(srpList(0), Nothing))
+                    ' Fetch Price
+                    dr("Price") = CDec(propInfo.GetValue(srp, Nothing))
 
-                    For Each col In columns
+                    Dim countKiloCatcher As Integer = 0
+                    Dim countSpoilageCatcher As Integer = 0
+                    Dim propCatch = GetType(trans_SalesReportCatcher).GetProperty(priceColumn)
 
-                        Select Case col
-                            Case "AUK_Catcher1"
-                                dr("AUK_Catcher1") = CDec(propInfo.GetValue(srpList(1), Nothing))
-                            Case "AUK_Catcher2"
-                                dr("AUK_Catcher2") = CDec(propInfo.GetValue(srpList(2), Nothing))
-                            Case "SK_Catcher1"
-                                dr("SK_Catcher1") = CDec(propInfo.GetValue(srpList(3), Nothing))
-                            Case "SK_Catcher2"
-                                dr("SK_Catcher2") = CDec(propInfo.GetValue(srpList(4), Nothing))
-                            Case Else
-                                dr(col) = 0
-                        End Select
+                    ' Assign values to columns without querying inside loops
+                    For Each col As DataColumn In columns
+                        If col.ColumnName.Contains("AUK_Catcher") Then
+                            If countKiloCatcher < srcList.Count AndAlso catchDataDict.ContainsKey(srcList(countKiloCatcher)) Then
+                                Dim catchList = catchDataDict(srcList(countKiloCatcher))
+                                dr("AUK_Catcher" & (countKiloCatcher + 1)) = CDec(propCatch.GetValue(catchList(0), Nothing))
+                            End If
+                            countKiloCatcher += 1
+                        ElseIf col.ColumnName.Contains("SK_Catcher") Then
+                            If countSpoilageCatcher < srcList.Count AndAlso catchDataDict.ContainsKey(srcList(countSpoilageCatcher)) Then
+                                Dim catchList = catchDataDict(srcList(countSpoilageCatcher))
+                                dr("SK_Catcher" & (countSpoilageCatcher + 1)) = CDec(propCatch.GetValue(catchList(1), Nothing))
+                            End If
+                            countSpoilageCatcher += 1
+                        ElseIf col.ColumnName <> "Class" AndAlso col.ColumnName <> "Size" AndAlso col.ColumnName <> "Price" Then
+                            dr(col) = 0
+                        End If
                     Next
 
                     frmSI.dt.Rows.Add(dr)
-                    count += 1 ' Move to the next column
+                    priceCount += 1
                 Next
             Next
+
             updateAllTotals()
         End If
+
     End Sub
 
-
     Sub loadCombo()
-        Dim item = (From i In tpmdb.ml_SupplierCategories Select i.ml_supCat).ToArray
-        frmSI.cmbST.Properties.Items.AddRange(item)
+        Dim sc = (From i In tpmdb.ml_SupplierCategories Select i.ml_supCat).ToArray
+        frmSI.cmbST.Properties.Items.AddRange(sc)
 
-        item = (From i In tpmdb.ml_VesselTypes Select i.ml_vesType).ToArray
-        frmSI.cmbUVT.Properties.Items.AddRange(item)
+        ' Query catch activities first (from mkdb)
+        Dim uv = (From ca In mkdb.trans_CatchActivities
+                  Join cad In mkdb.trans_CatchActivityDetails On ca.catchActivity_ID Equals cad.catchActivity_ID
+                  Group By ca.catchActivity_ID, ca.catchReferenceNum Into VesselIDs = Group
+                  Select New With {
+                      .catchActivity_ID = catchActivity_ID,
+                      .catchReferenceNum = catchReferenceNum,
+                      .VesselIDs = VesselIDs.Select(Function(x) x.cad.vessel_ID).Distinct().ToList()
+                  }).ToList()
+
+        ' Query vessels separately (from tpmdb) and store in a dictionary
+        Dim vesselDict = tpmdb.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
+
+        ' Map vessel names to each catchReferenceNum
+        Dim uvWithVessels = uv.Select(Function(item) New With {
+            .catchActivity_ID = item.catchActivity_ID,
+            .catchReferenceNum = item.catchReferenceNum & " - " & String.Join(", ", item.VesselIDs.Select(Function(id) If(vesselDict.ContainsKey(id), vesselDict(id), "Unknown")))
+        }).ToList()
+        lookUpTransMode(uvWithVessels, frmSI.cmbUV, "catchReferenceNum", "catchActivity_ID", "Select unloading vessel")
     End Sub
 
     Sub changeBuyerInput()
@@ -481,27 +553,6 @@ Public Class ctrlSales
             .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
         End With
         frmSI.cmbBuyer.Enabled = True
-    End Sub
-
-
-    Sub createCollectionVessel(ByVal vt As Integer)
-        Dim vessels = (From i In tpmdb.ml_Vessels
-                       Where i.ml_vtID = vt
-                       Select
-                       ID = i.ml_vID,
-                       VesselName = i.vesselName).ToList()
-        With frmSI.cmbVessel.Properties
-            .DataSource = vessels
-            .DisplayMember = "VesselName"
-            .ValueMember = "ID"
-            .NullText = "Select a vessel"
-            .ShowHeader = False
-            .ShowFooter = False
-            .Columns.Clear()
-            .Columns.Add(New DevExpress.XtraEditors.Controls.LookUpColumnInfo("VesselName", "Vessel Name"))
-            .BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup
-        End With
-        frmSI.cmbVessel.Enabled = True
     End Sub
 
     Sub initSalesDataTableS()

@@ -19,16 +19,13 @@ Public Class frm_salesInvoice
     Public checkBuyer As Boolean
     Public buyerID As Integer
     Public isPosted As Boolean = False
+    Public rowCount As Integer
 
     Private hasUnsavedChanges As Boolean = False
 
     Sub New(ByRef ctrlS As ctrlSales)
         InitializeComponent()
         ctrlSales = ctrlS
-    End Sub
-
-    Private Sub cmbUVT_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUVT.SelectedIndexChanged
-        ctrlSales.createCollectionVessel(CInt(cmbUVT.SelectedIndex) + 1)
     End Sub
 
     Private Sub RadioGroup1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rBT.SelectedIndexChanged
@@ -42,6 +39,9 @@ Public Class frm_salesInvoice
 
     Private Sub GridControl1_Load(sender As Object, e As EventArgs) Handles GridControl1.Load
 
+    End Sub
+
+    Sub createBands(count As Integer, catcherID As Integer)
         Dim bandClass = AddBand("Class", BandedGridView1)
         Dim bandSize = AddBand("Size", BandedGridView1)
         Dim bandPrice = AddBand("Price", BandedGridView1)
@@ -51,117 +51,96 @@ Public Class frm_salesInvoice
 
         Dim bandAUKilos = AddBand("Kilos", bandAU)
         Dim bandAUAmount = AddBand("Amount", bandAU)
-        Dim bandAUKCatcher1 = AddBand("Catcher 1", bandAUKilos)
-        Dim bandAUKCatcher2 = AddBand("Catcher 2", bandAUKilos)
+        populateBand("Catcher", bandAUKilos, count, catcherID)
         Dim bandAUKTotal = AddBand("Total", bandAUKilos)
-        Dim bandAUACatcher1 = AddBand("Catcher 1", bandAUAmount)
-        Dim bandAUACatcher2 = AddBand("Catcher 2", bandAUAmount)
+        populateBand("Catcher", bandAUAmount, count, catcherID)
         Dim bandAUATotal = AddBand("Total", bandAUAmount)
 
         Dim bandSKilos = AddBand("Kilos", bandSpoilage)
         Dim bandSAmount = AddBand("Amount", bandSpoilage)
-        Dim bandSKCatcher1 = AddBand("Catcher 1", bandSKilos)
-        Dim bandSKCatcher2 = AddBand("Catcher 2", bandSKilos)
+        populateBand("Catcher", bandSKilos, count, catcherID)
         Dim bandSKTotal = AddBand("Total", bandSKilos)
-        Dim bandSACatcher1 = AddBand("Catcher 1", bandSAmount)
-        Dim bandSACatcher2 = AddBand("Catcher 2", bandSAmount)
+        populateBand("Catcher", bandSAmount, count, catcherID)
         Dim bandSATotal = AddBand("Total", bandSAmount)
 
         Dim bandNKilos = AddBand("Kilos", bandNet)
         Dim bandNAmount = AddBand("Amount", bandNet)
-        Dim bandNKCatcher1 = AddBand("Catcher 1", bandNKilos)
-        Dim bandNKCatcher2 = AddBand("Catcher 2", bandNKilos)
+        populateBand("Catcher", bandNKilos, count, catcherID)
         Dim bandNKTotal = AddBand("Total", bandNKilos)
-        Dim bandNACatcher1 = AddBand("Catcher 1", bandNAmount)
-        Dim bandNACatcher2 = AddBand("Catcher 2", bandNAmount)
+        populateBand("Catcher", bandNAmount, count, catcherID)
         Dim bandNATotal = AddBand("Total", bandNAmount)
 
         With BandedGridView1
+
             .PopulateColumns()
 
             .Columns("Class").OwnerBand = bandClass
             .Columns("Size").OwnerBand = bandSize
             .Columns("Price").OwnerBand = bandPrice
-            .Columns("AUK_Catcher1").OwnerBand = bandAUKCatcher1
-            .Columns("AUK_Catcher2").OwnerBand = bandAUKCatcher2
+            setOwnerBand("AUK_Catcher", bandAUKilos, False, True)
             .Columns("AUK_Total").OwnerBand = bandAUKTotal
-            .Columns("AUA_Catcher1").OwnerBand = bandAUACatcher1
-            .Columns("AUA_Catcher2").OwnerBand = bandAUACatcher2
+            setOwnerBand("AUA_Catcher", bandAUAmount, True)
             .Columns("AUA_Total").OwnerBand = bandAUATotal
-            .Columns("SK_Catcher1").OwnerBand = bandSKCatcher1
-            .Columns("SK_Catcher2").OwnerBand = bandSKCatcher2
+            setOwnerBand("SK_Catcher", bandSKilos, False, True)
             .Columns("SK_Total").OwnerBand = bandSKTotal
-            .Columns("SA_Catcher1").OwnerBand = bandSACatcher1
-            .Columns("SA_Catcher2").OwnerBand = bandSACatcher2
+            setOwnerBand("SA_Catcher", bandSAmount, True)
             .Columns("SA_Total").OwnerBand = bandSATotal
-            .Columns("NK_Catcher1").OwnerBand = bandNKCatcher1
-            .Columns("NK_Catcher2").OwnerBand = bandNKCatcher2
+            setOwnerBand("NK_Catcher", bandNKilos, True, True)
             .Columns("NK_Total").OwnerBand = bandNKTotal
-            .Columns("NA_Catcher1").OwnerBand = bandNACatcher1
-            .Columns("NA_Catcher2").OwnerBand = bandNACatcher2
+            setOwnerBand("NA_Catcher", bandNAmount, True)
             .Columns("NA_Total").OwnerBand = bandNATotal
 
             .Columns("Class").OptionsColumn.ReadOnly = True
             .Columns("Size").OptionsColumn.ReadOnly = True
             .Columns("AUK_Total").OptionsColumn.ReadOnly = True
-            .Columns("AUA_Catcher1").OptionsColumn.ReadOnly = True
-            .Columns("AUA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("AUA_Total").OptionsColumn.ReadOnly = True
             .Columns("SK_Total").OptionsColumn.ReadOnly = True
-            .Columns("SA_Catcher1").OptionsColumn.ReadOnly = True
-            .Columns("SA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("SA_Total").OptionsColumn.ReadOnly = True
-            .Columns("NK_Catcher1").OptionsColumn.ReadOnly = True
-            .Columns("NK_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("NK_Total").OptionsColumn.ReadOnly = True
-            .Columns("NA_Catcher1").OptionsColumn.ReadOnly = True
-            .Columns("NA_Catcher2").OptionsColumn.ReadOnly = True
             .Columns("NA_Total").OptionsColumn.ReadOnly = True
 
-            If isPosted Then
-                For Each col As DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn In .Columns
-                    col.OptionsColumn.ReadOnly = True
-                Next
-            End If
-        End With
+            bandClass.Fixed = Columns.FixedStyle.Left
+            bandSize.Fixed = Columns.FixedStyle.Left
 
-        bandClass.Fixed = Columns.FixedStyle.Left
-        bandSize.Fixed = Columns.FixedStyle.Left
+            .OptionsView.ShowFooter = True
 
-        BandedGridView1.OptionsView.ShowFooter = True
-
-        For Each band As DevExpress.XtraGrid.Views.BandedGrid.GridBand In BandedGridView1.Bands
-            SetHeaderAlignment(band)
-        Next
-
-        With BandedGridView1
             .Columns("Class").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             .Columns("Size").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
 
-            .Columns("Price").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("AUK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("AUK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("SK_Catcher1").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
-            .Columns("SK_Catcher2").UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+            For Each band As DevExpress.XtraGrid.Views.BandedGrid.GridBand In BandedGridView1.Bands
+                SetHeaderAlignment(band)
+            Next
 
-            Dim AUKilo1 = .Columns.IndexOf(.Columns.Item("AUK_Catcher1"))
-            Dim AUKilo2 = .Columns.IndexOf(.Columns.Item("AUK_Catcher2"))
-            Dim SKilo1 = .Columns.IndexOf(.Columns.Item("SK_Catcher1"))
-            Dim SKilo2 = .Columns.IndexOf(.Columns.Item("SK_Catcher2"))
-            Dim NKilo1 = .Columns.IndexOf(.Columns.Item("NK_Catcher1"))
-            Dim NKilo2 = .Columns.IndexOf(.Columns.Item("NK_Catcher2"))
-
-            .Columns(AUKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "AUK_Catcher1", "Total: {0}")
-            .Columns(AUKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "AUK_Catcher2", "Total: {0}")
-            .Columns(SKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "SK_Catcher1", "Total: {0}")
-            .Columns(SKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "SK_Catcher2", "Total: {0}")
-            .Columns(NKilo1).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "NK_Catcher1", "Total: {0}")
-            .Columns(NKilo2).Summary.Add(DevExpress.Data.SummaryItemType.Sum, "NK_Catcher2", "Total: {0}")
+            For Each col As BandedGridColumn In BandedGridView1.Columns
+                col.Width = 100
+            Next
 
             .BestFitColumns()
             .OptionsView.ColumnAutoWidth = False
             .OptionsView.ShowColumnHeaders = False
         End With
+
+    End Sub
+
+    Sub populateBand(caption As String, ByRef parent As GridBand, count As Integer, Optional catcherID As Integer = Nothing)
+        For i As Integer = 1 To count
+            Dim band = AddBand(caption & " " & i, parent, i, catcherID)
+        Next
+    End Sub
+
+    Sub setOwnerBand(caption As String, parentBand As GridBand, Optional isReadOnly As Boolean = False, Optional isKilo As Boolean = False)
+        Dim countBand = 1
+        For Each band As GridBand In parentBand.Children
+            If band.Caption IsNot "Total" Then
+                With BandedGridView1.Columns(caption & countBand)
+                    .OwnerBand = band
+                    .UnboundType = DevExpress.Data.UnboundColumnType.Decimal
+                    If isReadOnly Then .OptionsColumn.ReadOnly = True
+                    .Summary.Add(DevExpress.Data.SummaryItemType.Sum, caption & countBand, "Total: {0}")
+                End With
+            End If
+            countBand = countBand + 1
+        Next
     End Sub
 
     Sub SetHeaderAlignment(ByVal band As DevExpress.XtraGrid.Views.BandedGrid.GridBand)
@@ -172,8 +151,26 @@ Public Class frm_salesInvoice
         Next
     End Sub
 
-    Function AddBand(ByVal caption As String, ByRef parent As GridBand) As GridBand
+    Function AddBand(ByVal caption As String, ByRef parent As GridBand, Optional index As Integer = 0, Optional catcherID As Integer = 0) As GridBand
+
+
         Dim band As New GridBand() With {.Caption = caption}
+
+        If catcherID <> 0 Then
+            Dim dc As New mkdbDataContext
+            Dim mdc As New tpmdbDataContext
+
+            Dim vesselDict = mdc.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
+
+            ' STEP 2: Fetch the vessel IDs directly using Take(1) to avoid loading all data
+            Dim vesselID = (From j In dc.trans_CatchActivityDetails
+                            Where j.catchActivity_ID = catcherID
+                            Select j.vessel_ID).Distinct().Skip(index - 1).Take(1).FirstOrDefault()
+
+            ' Step 3: Assign vessel name safely
+            band.Caption = vesselDict(vesselID)
+        End If
+
         parent.Children.Add(band)
         Return band
     End Function
@@ -264,7 +261,7 @@ Public Class frm_salesInvoice
         ' Validate fields
         Dim dateCreated = validateField(dtCreated)
         Dim sellType = validateField(cmbST)
-        Dim unloadingVesselType = validateField(cmbUVT)
+        Dim unloadingVessel = validateField(cmbUV)
         Dim salesNum = validateField(txtSaleNum)
         Dim catchDeliveryNum = validateField(txtCDNum)
         Dim usdRate = validateField(txtUSD)
@@ -274,7 +271,7 @@ Public Class frm_salesInvoice
         Dim missingFields As New StringBuilder()
         If Not dateCreated Then missingFields.AppendLine("Date Created")
         If Not sellType Then missingFields.AppendLine("Sell Type")
-        If Not unloadingVesselType Then missingFields.AppendLine("Unloading Vessel Type")
+        If Not unloadingVessel Then missingFields.AppendLine("Unloading Vessel")
         If Not salesNum Then missingFields.AppendLine("Sales Number")
         If Not catchDeliveryNum Then missingFields.AppendLine("Catch Delivery Number")
         If Not usdRate Then missingFields.AppendLine("USD Rate")
@@ -327,4 +324,21 @@ Public Class frm_salesInvoice
 
 
 
+    Private Sub cmbUV_EditValueChanged(sender As Object, e As EventArgs) Handles cmbUV.EditValueChanged
+        BandedGridView1.Bands.Clear()
+        Dim catcher = CType(sender, DevExpress.XtraEditors.LookUpEdit)
+        'Debug.WriteLine(catcher.EditValue)
+        ctrlSales.initSalesDataTable(CInt(catcher.EditValue))
+        GridControl1.DataSource = dt
+        createBands(rowCount, CInt(catcher.EditValue))
+        ctrlSales.loadRows()
+
+        ' Get reference number
+        Dim dc As New mkdbDataContext
+        Dim getValue = (From i In dc.trans_CatchActivityDetails
+                        Join j In dc.trans_CatchActivities On j.catchActivity_ID Equals i.catchActivity_ID
+                        Where i.catchActivityDetail_ID = CInt(catcher.EditValue)
+                        Select j.catchReferenceNum).Distinct().FirstOrDefault
+        txtCDNum.EditValue = getValue
+    End Sub
 End Class

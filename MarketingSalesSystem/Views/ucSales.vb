@@ -58,61 +58,90 @@ Public Class ucSales
 
         ' Fetch all sales reports in one query
         Dim sales = New SalesReport(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
+        Dim data = sales.Select(Function(sr) transformData(sr)).ToList
 
-        ' Fetch only necessary columns for sales price and vessel
-        Dim salesPriceDict = dc.trans_SalesReportPrices.Where(Function(sp) sales.Select(Function(s) s.salesReport_ID).Contains(sp.salesReport_ID)).ToList()
-        Dim vesselDict = mdb.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
-
-        ' Process sales data efficiently
-        Dim salesData = sales.Select(Function(sr) transformData(salesPriceDict, vesselDict, sr)).Where(Function(x) x IsNot Nothing).ToList()
-
-        gridView.GridControl.DataSource = salesData
+        gridView.GridControl.DataSource = data
         gridView.PopulateColumns()
 
         gridTransMode(gridView)
     End Sub
 
-    Function transformData(ByRef salesPriceDict As List(Of trans_SalesReportPrice), ByRef vesselDict As Dictionary(Of Integer, String), sr As SalesReport) As Object
-        Dim spList = salesPriceDict.Where(Function(sp) sp.salesReport_ID = sr.salesReport_ID).ToList()
+    Function transformData(sr As SalesReport) As Object
+        Dim dc = New mkdbDataContext()
+        Dim mdc = New tpmdbDataContext()
 
-        If Not spList.Count > 4 Then
-            Return Nothing
-        End If
+        ' Fetch price only once
+        Dim price = dc.trans_SalesReportPrices.FirstOrDefault(Function(i) i.salesReport_ID = sr.salesReport_ID)
 
+        ' Preload catchers to avoid multiple queries inside the loop
+        Dim catchers = dc.trans_SalesReportCatchers.
+            Where(Function(src) src.salesReport_ID = sr.salesReport_ID).
+            Select(Function(src) src.catchActivityDetail_ID).
+            Distinct().ToList()
 
-        Dim price = spList(0)
-        Dim actualCatcher1 = spList(1)
-        Dim actualCatcher2 = spList(2)
-        Dim spoilageCatcher1 = spList(3)
-        Dim spoilageCatcher2 = spList(4)
+        ' Preload all relevant catch data into a dictionary for quick lookup
+        Dim catchDataDict = dc.trans_SalesReportCatchers.
+            Where(Function(i) i.salesReport_ID = sr.salesReport_ID).
+            GroupBy(Function(i) i.catchActivityDetail_ID).
+            ToDictionary(Function(g) g.Key, Function(g) g.ToList())
 
-        ' Compute all values before assigning them to avoid repeated calculations
-        Dim actualQty = sumFields(actualCatcher1) + sumFields(actualCatcher2)
-        Dim spoilage = sumFields(spoilageCatcher1) + sumFields(spoilageCatcher2)
-        Dim netQty = actualQty - spoilage
-        Dim totalAmount = calculateTotalAmount(actualCatcher1, spoilageCatcher1, price) + calculateTotalAmount(actualCatcher2, spoilageCatcher2, price)
-        Dim usdRate = sr.usdRate
-        Dim salesInUSD = If(usdRate > 0, Math.Round(totalAmount / usdRate, 2), 0)
+        ' Initialize counters
+        Dim actualQty As Decimal = 0
+        Dim fishMeal As Decimal = 0
+        Dim spoilage As Decimal = 0
+        Dim net As Decimal = 0
+        Dim totalAmount As Decimal = 0
 
+        ' Process all catchers efficiently
+        For Each catcher In catchers
+            If catchDataDict.ContainsKey(catcher) Then
+                Dim getCatch = catchDataDict(catcher)
+
+                actualQty += sumFields(getCatch(0))
+                fishMeal += getCatch(0).fishmeal
+                spoilage += sumFields(getCatch(1))
+                net += (actualQty - spoilage)
+                totalAmount += calculateTotalAmount(getCatch(0), getCatch(1), price)
+            End If
+        Next
+
+        ' Load vessel data efficiently
+        Dim vesselDict = mdc.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
+
+        Dim vesselIDs = (From src In dc.trans_SalesReportCatchers
+                         Join cad In dc.trans_CatchActivityDetails On cad.catchActivityDetail_ID Equals src.catchActivityDetail_ID
+                         Join ca In dc.trans_CatchActivities On ca.catchActivity_ID Equals cad.catchActivity_ID
+                         Where src.salesReport_ID = sr.salesReport_ID
+                         Select New With {
+                             cad.vessel_ID,
+                             ca.catchReferenceNum
+                         }).Distinct().ToList()
+
+        Dim vessels = vesselIDs.Select(Function(id) New With {
+            .VesselName = If(vesselDict.ContainsKey(id.vessel_ID), vesselDict(id.vessel_ID), "Unknown")
+        }).ToList()
+
+        ' Return the final structured data
         Return New With {
             .salesReport_ID = sr.salesReport_ID,
             .SalesNo = sr.salesNum,
             .CoveredDate = sr.salesDate,
-            .Catcher = sr.catchtDeliveryNum,
+            .Catcher = vesselIDs.First().catchReferenceNum,
             .SellingType = sr.sellingType,
             .Buyer = sr.buyer,
-            .UnloadingVessel = If(vesselDict.ContainsKey(sr.unloadingVessel_ID.GetValueOrDefault()), vesselDict(sr.unloadingVessel_ID.GetValueOrDefault()), "Unknown"),
+            .UnloadingVessels = vessels,
             .ActualQty = actualQty,
-            .Fishmeal = actualCatcher1.fishmeal + actualCatcher2.fishmeal,
+            .Fishmeal = fishMeal,
             .Spoilage = spoilage,
-            .NetQty = netQty,
-            .SalesInUSD = salesInUSD,
-            .USDRate = usdRate,
+            .NetQty = actualQty - spoilage,
+            .SalesInUSD = Math.Round(totalAmount / sr.usdRate, 2),
+            .USDRate = sr.usdRate,
             .SalesInPHP = totalAmount,
             .AveragePrice = totalAmount
         }
     End Function
-    Function sumFields(record As trans_SalesReportPrice) As Decimal
+
+    Function sumFields(record As trans_SalesReportCatcher) As Decimal
         Return record.skipjack0_300To0_499 + record.skipjack0_500To0_999 +
                record.skipjack1_0To1_39 + record.skipjack1_4To1_79 +
                record.skipjack1_8To2_49 + record.skipjack2_5To3_49 +
@@ -127,7 +156,7 @@ Public Class ucSales
                record.bigeye10AndUP + record.bonito + record.fishmeal
     End Function
 
-    Function calculateTotalAmount(actual As trans_SalesReportPrice, spoilage As trans_SalesReportPrice, price As trans_SalesReportPrice) As Decimal
+    Function calculateTotalAmount(actual As trans_SalesReportCatcher, spoilage As trans_SalesReportCatcher, price As trans_SalesReportPrice) As Decimal
         Dim total As Decimal = 0
 
         total += (actual.skipjack0_300To0_499 - spoilage.skipjack0_300To0_499) * price.skipjack0_300To0_499

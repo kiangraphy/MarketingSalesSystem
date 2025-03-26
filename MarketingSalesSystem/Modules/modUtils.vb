@@ -84,11 +84,6 @@ Module modUtils
         End If
     End Sub
 
-    '================================== MessageBox Methods =================================='
-    Sub requiredMessage(ByVal fields As String)
-        XtraMessageBox.Show("Required Fields: " + vbNewLine + fields, APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-    End Sub
-
     Function ConfirmCloseWithoutSaving() As Boolean
         Return XtraMessageBox.Show("Are you sure you want to close without saving?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
     End Function
