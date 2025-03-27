@@ -55,4 +55,13 @@
 
         Return cadList
     End Function
+
+    Sub Delete()
+        Dim sca = From i In dc.trans_CatchActivityDetails Where i.catchActivity_ID = catchActivity_ID Select i
+
+        For Each i In sca
+            dc.trans_CatchActivityDetails.DeleteOnSubmit(i)
+            dc.SubmitChanges()
+        Next
+    End Sub
 End Class
