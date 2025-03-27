@@ -157,6 +157,10 @@
             endDate = Date.Now
         End If
 
+        If startDate = Nothing Then
+            startDate = #1/1/1900#
+        End If
+
         Dim srList As New List(Of SalesReport)
 
         Dim srs = From sr In dc.trans_SalesReports
