@@ -17,6 +17,7 @@ Public Class frm_catchActivity
         GridView1.OptionsSelection.MultiSelect = True
         GridView1.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect
 
+
         dtCreated.Properties.MaxValue = Date.Now
     End Sub
 
@@ -78,13 +79,26 @@ Public Class frm_catchActivity
 
     End Sub
 
-    Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles SimpleButton1.Click
+    Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles btnDeleteCatcher.Click
         If GridView1.SelectedRowsCount < 1 Then
-            XtraMessageBox.Show("Please select row first!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            XtraMessageBox.Show("Please select a row first!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
-        Dim confirmation = XtraMessageBox.Show("Are you sure do you want to delete the selected rows?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        Dim totalRows As Integer = GridView1.RowCount
+        Dim selectedRowCount As Integer = GridView1.SelectedRowsCount
+
+        If totalRows = 1 Then
+            XtraMessageBox.Show("Cannot delete this last row!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If selectedRowCount = totalRows Then
+            XtraMessageBox.Show("At least one row must remain. Cannot delete all rows!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim confirmation = XtraMessageBox.Show("Are you sure you want to delete the selected rows?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
         If confirmation = Windows.Forms.DialogResult.Yes Then
             Dim selectedRows As Integer() = GridView1.GetSelectedRows()
@@ -102,7 +116,10 @@ Public Class frm_catchActivity
         End If
     End Sub
 
-    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
 
+
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+        ctrlCA.deleteCatch()
     End Sub
+
 End Class

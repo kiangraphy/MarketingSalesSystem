@@ -70,6 +70,15 @@
         Next
     End Sub
 
+    Sub Delete()
+        Dim sca = From i In dc.trans_CatchActivities Where i.catchActivity_ID = catchActivity_ID Select i
+
+        For Each i In sca
+            dc.trans_CatchActivities.DeleteOnSubmit(i)
+            dc.SubmitChanges()
+        Next
+    End Sub
+  
     Function getRows() As List(Of CatchActivity)
         Dim caList As New List(Of CatchActivity)
 
@@ -103,7 +112,6 @@
 
         Return caList
     End Function
-
 
     Function GenerateRefNum() As String
         Dim yearMonth = Date.Now.Year & Date.Now.Month
