@@ -44,6 +44,19 @@
         Me.catchActivity_ID = ca.catchActivity_ID
     End Sub
 
+    Sub Save()
+        Dim sca = From i In dc.trans_CatchActivities Where i.catchActivity_ID = catchActivity_ID Select i
+
+        For Each i In sca
+            i.catchActivity_ID = catchActivity_ID
+            i.catchDate = catchDate
+            i.method_ID = method_ID
+            i.catchReferenceNum = catchReferenceNum
+            i.latitude = latitude
+            i.longitude = longitude
+        Next
+    End Sub
+
 
     Function GenerateRefNum() As String
         Dim yearMonth = Date.Now.Year & Date.Now.Month

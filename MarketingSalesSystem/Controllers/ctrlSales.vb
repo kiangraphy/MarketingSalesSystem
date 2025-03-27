@@ -237,12 +237,14 @@ Public Class ctrlSales
                         mdlSR.Save()
 
                         Debug.WriteLine("saved post...")
+                        SuccessfullyAddedUpdatedMessage()
                     Else
                         mdlSR.approvalStatus = Approval_Status.Draft
                         mdlSR.encodedOn = CDate(.dtCreated.EditValue)
                         mdlSR.Add()
 
                         Debug.WriteLine("add post...")
+                        SuccessfullySavedMessage()
                     End If
                 End With
 

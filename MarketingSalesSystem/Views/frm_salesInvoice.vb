@@ -294,9 +294,6 @@ Public Class frm_salesInvoice
         End If
 
         ctrlSales.saveDraft()
-        SuccessfullySavedMessage()
-
-        confirmClose = False
     End Sub
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
@@ -334,7 +331,7 @@ Public Class frm_salesInvoice
         Dim getValue = (From i In dc.trans_CatchActivities
                         Where i.catchActivity_ID = CInt(catcher.EditValue)
                         Select i.catchReferenceNum).Distinct().FirstOrDefault
-                          
+
         txtCDNum.EditValue = getValue
     End Sub
                         
