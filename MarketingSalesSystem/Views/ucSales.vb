@@ -44,46 +44,73 @@ Public Class ucSales
     Sub loadGrid()
         Dim gridView = New GridView()
         gridView.GridControl = grid
-
         AddHandler gridView.DoubleClick, AddressOf HandleGridDoubleClick
-
         grid.MainView = gridView
         grid.ViewCollection.Add(gridView)
 
-        Dim dc = New mkdbDataContext()
-        Dim mdb = New tpmdbDataContext()
+        Dim dc As New mkdbDataContext()
+        Dim mdc As New tpmdbDataContext()
 
-        ' Debug.WriteLine(CDate(dtFrom.EditValue))
-        ' Debug.WriteLine(CDate(dtTo.EditValue))
+        ' Fetch all necessary data in a single query
+        Dim salesList As List(Of SalesReport) = New SalesReport(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
 
-        ' Fetch all sales reports in one query
-        Dim sales = New SalesReport(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
-        Dim data = sales.Select(Function(sr) transformData(sr)).ToList
+        ' Preload all sales report prices in a Dictionary
+        Dim salesPricesDict As Dictionary(Of Integer, trans_SalesReportPrice) = dc.trans_SalesReportPrices.
+            Where(Function(p) salesList.Select(Function(s) s.salesReport_ID).Contains(p.salesReport_ID)).
+            ToDictionary(Function(p) p.salesReport_ID)
+
+        ' Preload all catchers related to sales reports
+        Dim salesCatchers As List(Of trans_SalesReportCatcher) = dc.trans_SalesReportCatchers.
+            Where(Function(src) salesList.Select(Function(s) s.salesReport_ID).Contains(src.salesReport_ID)).ToList()
+
+        ' Preload all vessel names
+        Dim vesselDict As Dictionary(Of Integer, String) = mdc.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
+
+        ' Preload catch details
+        Dim vesselIDs = (From src In salesCatchers
+                         Join cad In dc.trans_CatchActivityDetails On cad.catchActivityDetail_ID Equals src.catchActivityDetail_ID
+                         Join ca In dc.trans_CatchActivities On ca.catchActivity_ID Equals cad.catchActivity_ID
+                         Select New With {
+                             .salesReport_ID = src.salesReport_ID,
+                             .vessel_ID = cad.vessel_ID,
+                             .catchReferenceNum = ca.catchReferenceNum
+                         }).Distinct().ToList()
+
+        ' Fix: Convert to Dictionary<salesReport_ID, List<Object>>
+        Dim vesselLookup As Dictionary(Of Integer, List(Of Object)) = vesselIDs.GroupBy(Function(v) v.salesReport_ID).
+            ToDictionary(Function(g) g.Key, Function(g) g.Select(Function(x) CType(x, Object)).ToList())
+
+        ' Transform data efficiently
+        Dim data = salesList.Select(Function(sr) transformData(sr, salesPricesDict, salesCatchers, vesselDict, vesselLookup)).ToList()
 
         gridView.GridControl.DataSource = data
         gridView.PopulateColumns()
-
         gridTransMode(gridView)
     End Sub
 
-    Function transformData(sr As SalesReport) As Object
-        Dim dc = New mkdbDataContext()
-        Dim mdc = New tpmdbDataContext()
 
-        ' Fetch price only once
-        Dim price = dc.trans_SalesReportPrices.FirstOrDefault(Function(i) i.salesReport_ID = sr.salesReport_ID)
 
-        ' Preload catchers to avoid multiple queries inside the loop
-        Dim catchers = dc.trans_SalesReportCatchers.
-            Where(Function(src) src.salesReport_ID = sr.salesReport_ID).
-            Select(Function(src) src.catchActivityDetail_ID).
-            Distinct().ToList()
+    Function transformData(sr As SalesReport,
+                       salesPricesDict As Dictionary(Of Integer, trans_SalesReportPrice),
+                       salesCatchers As List(Of trans_SalesReportCatcher),
+                       vesselDict As Dictionary(Of Integer, String),
+                       vesselLookup As Dictionary(Of Integer, List(Of Object))) As Object
 
-        ' Preload all relevant catch data into a dictionary for quick lookup
-        Dim catchDataDict = dc.trans_SalesReportCatchers.
-            Where(Function(i) i.salesReport_ID = sr.salesReport_ID).
-            GroupBy(Function(i) i.catchActivityDetail_ID).
-            ToDictionary(Function(g) g.Key, Function(g) g.ToList())
+        Dim dc As New mkdbDataContext
+
+        ' Get price directly from dictionary
+        Dim price As trans_SalesReportPrice = If(salesPricesDict.ContainsKey(sr.salesReport_ID), salesPricesDict(sr.salesReport_ID), Nothing)
+
+        ' Get catchers related to the sales report and fetch vessel details
+        Dim catchers = (From c In salesCatchers
+                        Join cad In dc.trans_CatchActivityDetails On c.catchActivityDetail_ID Equals cad.catchActivityDetail_ID
+                        Join ca In dc.trans_CatchActivities On ca.catchActivity_ID Equals cad.catchActivity_ID
+                        Where c.salesReport_ID = sr.salesReport_ID
+                        Select New With {
+                            .CatchReferenceNum = ca.catchReferenceNum,
+                            .CatchActivityID = c.catchActivityDetail_ID,
+                            .VesselName = If(vesselDict.ContainsKey(cad.vessel_ID), vesselDict(cad.vessel_ID), "Unknown")
+                        }).Distinct().ToList()
 
         ' Initialize counters
         Dim actualQty As Decimal = 0
@@ -94,9 +121,8 @@ Public Class ucSales
 
         ' Process all catchers efficiently
         For Each catcher In catchers
-            If catchDataDict.ContainsKey(catcher) Then
-                Dim getCatch = catchDataDict(catcher)
-
+            Dim getCatch = salesCatchers.Where(Function(c) c.catchActivityDetail_ID = catcher.CatchActivityID).ToList()
+            If getCatch.Count >= 2 Then
                 actualQty += sumFields(getCatch(0))
                 fishMeal += getCatch(0).fishmeal
                 spoilage += sumFields(getCatch(1))
@@ -105,41 +131,27 @@ Public Class ucSales
             End If
         Next
 
-        ' Load vessel data efficiently
-        Dim vesselDict = mdc.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
 
-        Dim vesselIDs = (From src In dc.trans_SalesReportCatchers
-                         Join cad In dc.trans_CatchActivityDetails On cad.catchActivityDetail_ID Equals src.catchActivityDetail_ID
-                         Join ca In dc.trans_CatchActivities On ca.catchActivity_ID Equals cad.catchActivity_ID
-                         Where src.salesReport_ID = sr.salesReport_ID
-                         Select New With {
-                             cad.vessel_ID,
-                             ca.catchReferenceNum
-                         }).Distinct().ToList()
-
-        Dim vessels = vesselIDs.Select(Function(id) New With {
-            .VesselName = If(vesselDict.ContainsKey(id.vessel_ID), vesselDict(id.vessel_ID), "Unknown")
-        }).ToList()
-
-        ' Return the final structured data
+        ' Return structured data
         Return New With {
             .salesReport_ID = sr.salesReport_ID,
             .SalesNo = sr.salesNum,
             .CoveredDate = sr.salesDate,
-            .Catcher = vesselIDs.First().catchReferenceNum,
+            .Catcher = catchers.Select(Function(c) c.CatchReferenceNum).First,
             .SellingType = sr.sellingType,
+            .Vessels = catchers.Select(Function(v) New With {.VesselName = v.VesselName}).Distinct().ToList,
             .Buyer = sr.buyer,
-            .UnloadingVessels = vessels,
             .ActualQty = actualQty,
             .Fishmeal = fishMeal,
             .Spoilage = spoilage,
             .NetQty = actualQty - spoilage,
-            .SalesInUSD = Math.Round(totalAmount / sr.usdRate, 2),
+            .SalesInUSD = If(sr.usdRate > 0, Math.Round(totalAmount / sr.usdRate, 2), 0),
             .USDRate = sr.usdRate,
             .SalesInPHP = totalAmount,
             .AveragePrice = totalAmount
         }
     End Function
+
 
     Function sumFields(record As trans_SalesReportCatcher) As Decimal
         Return record.skipjack0_300To0_499 + record.skipjack0_500To0_999 +

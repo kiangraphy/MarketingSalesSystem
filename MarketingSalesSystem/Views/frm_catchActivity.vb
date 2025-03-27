@@ -18,14 +18,6 @@ Public Class frm_catchActivity
         GridView1.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect
 
         dtCreated.Properties.MaxValue = Date.Now
-
-        txtLat.Properties.Mask.MaskType = Mask.MaskType.Numeric
-        txtLat.Properties.Mask.EditMask = "000.000000"
-        txtLat.Properties.Mask.UseMaskAsDisplayFormat = True
-
-        txtLong.Properties.Mask.MaskType = Mask.MaskType.Numeric
-        txtLong.Properties.Mask.EditMask = "000.000000"
-        txtLong.Properties.Mask.UseMaskAsDisplayFormat = True
     End Sub
 
 
