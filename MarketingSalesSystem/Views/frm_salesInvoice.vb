@@ -275,7 +275,7 @@ Public Class frm_salesInvoice
         If Not sellType Then missingFields.AppendLine("Sell Type")
         If Not unloadingVessel Then missingFields.AppendLine("Unloading Vessel")
         If Not salesNum Then missingFields.AppendLine("Sales Number")
-        If Not catchDeliveryNum Then missingFields.AppendLine("Catch Delivery Number")
+        If Not catchDeliveryNum Then missingFields.AppendLine("Catch Delivery Number") 'HAKDOG
         If Not usdRate Then missingFields.AppendLine("USD Rate")
         If Not contactNum Then missingFields.AppendLine("Contact Number")
         If Not remark Then missingFields.AppendLine("Remarks")
@@ -296,9 +296,6 @@ Public Class frm_salesInvoice
         End If
 
         ctrlSales.saveDraft()
-        SuccessfullySavedMessage()
-
-        confirmClose = False
     End Sub
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick

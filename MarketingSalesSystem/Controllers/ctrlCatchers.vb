@@ -40,7 +40,7 @@ Public Class ctrlCatchers
         End With
     End Sub
 
-    Sub New(uc As ucCatcher, ByVal caID As Integer)
+    Sub New(ByRef uc As ucCatcher, ByVal caID As Integer)
         isNew = False
 
         mkdb = New mkdbDataContext
@@ -57,7 +57,7 @@ Public Class ctrlCatchers
         frmCA.GridControl1.DataSource = frmCA.dt
 
         With frmCA
-            .btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            '.btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .btnPost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .Text = "Catch Activity"
 
@@ -65,6 +65,7 @@ Public Class ctrlCatchers
             .cmbMethod.EditValue = mdlCA.method_ID
             .txtLat.EditValue = mdlCA.latitude
             .txtLong.EditValue = mdlCA.longitude
+            .txt_catNum.Caption = mdlCA.catchReferenceNum
             loadCombo()
             loadCatcher()
             .Show()
@@ -89,11 +90,17 @@ Public Class ctrlCatchers
             Try
                 With mdlCA
                     .catchDate = CDate(frmCA.dtCreated.EditValue)
-                    .catchReferenceNum = .GenerateRefNum()
                     .latitude = CDec(frmCA.txtLat.EditValue)
                     .longitude = CDec(frmCA.txtLong.EditValue)
                     .method_ID = CInt(frmCA.cmbMethod.EditValue)
-                    .Add()
+                    If isNew Then
+                        .catchReferenceNum = .GenerateRefNum()
+                        .Add()
+                    Else
+                        .catchReferenceNum = frmCA.txt_catNum.Caption
+                        .Save()
+                        SuccessfullyAddedUpdatedMessage()
+                    End If
                 End With
 
                 For Each item As DataRow In frmCA.dt.Rows

@@ -22,7 +22,7 @@ Partial Class frm_catchActivity
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_catchActivity))
         Me.RibbonControl = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.BarHeaderItem1 = New DevExpress.XtraBars.BarHeaderItem()
-        Me.BarStaticItem1 = New DevExpress.XtraBars.BarStaticItem()
+        Me.txt_catNum = New DevExpress.XtraBars.BarStaticItem()
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPost = New DevExpress.XtraBars.BarButtonItem()
@@ -85,7 +85,7 @@ Partial Class frm_catchActivity
         'RibbonControl
         '
         Me.RibbonControl.ExpandCollapseItem.Id = 0
-        Me.RibbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl.ExpandCollapseItem, Me.BarHeaderItem1, Me.BarStaticItem1, Me.btnSave, Me.btnDelete, Me.btnPost})
+        Me.RibbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl.ExpandCollapseItem, Me.BarHeaderItem1, Me.txt_catNum, Me.btnSave, Me.btnDelete, Me.btnPost})
         Me.RibbonControl.Location = New System.Drawing.Point(0, 0)
         Me.RibbonControl.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.RibbonControl.MaxItemId = 6
@@ -102,11 +102,11 @@ Partial Class frm_catchActivity
         Me.BarHeaderItem1.Id = 1
         Me.BarHeaderItem1.Name = "BarHeaderItem1"
         '
-        'BarStaticItem1
+        'txt_catNum
         '
-        Me.BarStaticItem1.Caption = "Draft"
-        Me.BarStaticItem1.Id = 2
-        Me.BarStaticItem1.Name = "BarStaticItem1"
+        Me.txt_catNum.Caption = "Draft"
+        Me.txt_catNum.Id = 2
+        Me.txt_catNum.Name = "txt_catNum"
         '
         'btnSave
         '
@@ -142,7 +142,7 @@ Partial Class frm_catchActivity
         '
         Me.RibbonPageGroup1.AllowTextClipping = False
         Me.RibbonPageGroup1.ItemLinks.Add(Me.BarHeaderItem1)
-        Me.RibbonPageGroup1.ItemLinks.Add(Me.BarStaticItem1)
+        Me.RibbonPageGroup1.ItemLinks.Add(Me.txt_catNum)
         Me.RibbonPageGroup1.Name = "RibbonPageGroup1"
         Me.RibbonPageGroup1.Text = "Information"
         '
@@ -455,7 +455,7 @@ Partial Class frm_catchActivity
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents RibbonStatusBar As DevExpress.XtraBars.Ribbon.RibbonStatusBar
     Friend WithEvents BarHeaderItem1 As DevExpress.XtraBars.BarHeaderItem
-    Friend WithEvents BarStaticItem1 As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents txt_catNum As DevExpress.XtraBars.BarStaticItem
     Friend WithEvents RibbonPageGroup2 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents btnSave As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem

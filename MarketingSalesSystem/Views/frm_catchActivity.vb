@@ -102,4 +102,7 @@ Public Class frm_catchActivity
         End If
     End Sub
 
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+
+    End Sub
 End Class

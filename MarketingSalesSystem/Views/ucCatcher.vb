@@ -18,7 +18,9 @@ Public Class ucCatcher
         AddHandler grid.Load, AddressOf gridLoaded
 
         dtFrom.EditValue = Nothing
+        dtFrom.Properties.MaxValue = Date.Now
         dtTo.EditValue = Nothing
+        dtTo.Properties.MaxValue = Date.Now.AddDays(1)
 
     End Sub
 
@@ -63,13 +65,22 @@ Public Class ucCatcher
         gridTransMode(gridView)
     End Sub
 
-    Sub HandleGridDoubleClick(sender As Object, e As EventArgs)
+    Private Sub HandleGridDoubleClick(sender As Object, e As EventArgs)
         Dim gridView As DevExpress.XtraGrid.Views.Grid.GridView = TryCast(sender, DevExpress.XtraGrid.Views.Grid.GridView)
         Dim value = gridView.GetRowCellValue(gridView.FocusedRowHandle, "catchActivity_ID")
-        Dim ctrlSI = New ctrlCatchers(Me, CInt(value))
+        Dim ctrlCA = New ctrlCatchers(Me, CInt(value))
+    End Sub
+
+    Protected Overrides Function GetGridControl() As GridControl
+        Return If(grid IsNot Nothing, grid, Nothing)
+    End Function
+
+    Overrides Sub refreshData()
+        loadGrid()
     End Sub
 
     Public Overrides Sub openForm()
         Dim ctrlCA = New ctrlCatchers(Me)
     End Sub
+
 End Class

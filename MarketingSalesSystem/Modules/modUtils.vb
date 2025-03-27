@@ -102,5 +102,13 @@ Module modUtils
     Function ConfirmDeleteMessage() As Boolean
         Return XtraMessageBox.Show("Are you sure you want to delete this record?", APPNAME, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes
     End Function
+
+    Function SelectFirstRow() As Integer
+        Return XtraMessageBox.Show("Please select row first!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Function
+
+    Function SuccessfullyAddedUpdatedMessage() As System.Windows.Forms.DialogResult
+        Return XtraMessageBox.Show("Your record is successfully added or updated in the database.", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Function
     '================================ End MessageBox Methods ==================================' 
 End Module
