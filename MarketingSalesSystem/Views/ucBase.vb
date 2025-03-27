@@ -10,6 +10,7 @@ Public Class ucBase
         Dim dateNow = getServerDate()
         dtFrom.Properties.MaxValue = Date.Now
         dtTo.Properties.MaxValue = Date.Now
+        ' comment
     End Sub
 
     Sub hideDate()
