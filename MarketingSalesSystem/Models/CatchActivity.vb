@@ -78,7 +78,7 @@
             dc.SubmitChanges()
         Next
     End Sub
-  
+
     Function getRows() As List(Of CatchActivity)
         Dim caList As New List(Of CatchActivity)
 
