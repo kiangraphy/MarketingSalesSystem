@@ -106,5 +106,9 @@ Module modUtils
     Function SelectFirstRow() As Integer
         Return XtraMessageBox.Show("Please select row first!", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Function
+
+    Function SuccessfullyAddedUpdatedMessage() As System.Windows.Forms.DialogResult
+        Return XtraMessageBox.Show("Your record is successfully added or updated in the database.", APPNAME, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Function
     '================================ End MessageBox Methods ==================================' 
 End Module
