@@ -28,6 +28,19 @@
 
     End Sub
 
+    Sub New(ByRef sr As trans_CatchActivity, ByRef dc_ As mkdbDataContext)
+        dc = dc_
+
+        Dim i = sr
+
+        Me.catchActivity_ID = i.catchActivity_ID
+        catchDate = i.catchDate
+        method_ID = i.method_ID
+        longitude = i.longitude
+        latitude = i.latitude
+        catchReferenceNum = i.catchReferenceNum
+    End Sub
+
     Sub Add()
         Dim ca = New trans_CatchActivity
 
@@ -56,6 +69,40 @@
             i.longitude = longitude
         Next
     End Sub
+
+    Function getRows() As List(Of CatchActivity)
+        Dim caList As New List(Of CatchActivity)
+
+        Dim cas = From item In dc.trans_CatchActivities Select item
+
+        For Each ca In cas
+            caList.Add(New CatchActivity(ca, dc))
+        Next
+
+        Return caList
+    End Function
+
+    Function getByDate(Optional ByVal startDate As Date = #1/1/1900#, Optional ByVal endDate As Date = Nothing) As List(Of CatchActivity)
+        If endDate = Nothing Then
+            endDate = Date.Now
+        End If
+
+        If startDate = Nothing Then
+            startDate = #1/1/1900#
+        End If
+
+        Dim caList As New List(Of CatchActivity)
+
+        Dim cas = From ca In dc.trans_CatchActivities
+                   Where ca.catchDate >= startDate.Date AndAlso ca.catchDate <= endDate.Date
+                   Select ca
+
+        For Each ca In cas
+            caList.Add(New CatchActivity(ca, dc))
+        Next
+
+        Return caList
+    End Function
 
 
     Function GenerateRefNum() As String

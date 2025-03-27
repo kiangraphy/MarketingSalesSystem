@@ -20,7 +20,7 @@ Public Class ucCatcher
         dtFrom.EditValue = Nothing
         dtFrom.Properties.MaxValue = Date.Now
         dtTo.EditValue = Nothing
-        dtTo.Properties.MaxValue = Date.Now.AddDays(1)
+        dtTo.Properties.MaxValue = Date.Now
 
     End Sub
 
@@ -42,14 +42,19 @@ Public Class ucCatcher
     Sub loadGrid()
         Dim dc As New mkdbDataContext
 
-        Dim caList = (From i In dc.trans_CatchActivities
-                      Join j In dc.trans_CatchMethods On i.method_ID Equals j.catchMethod_ID
-                      Select i.catchActivity_ID,
-                        CatchReferenceNumber = i.catchReferenceNum,
-                        CatchDate = i.catchDate,
-                        CatchMethod = j.catchMethod,
-                        Longitude = i.latitude,
-                        Latitude = i.latitude).ToList
+        Dim ca = New CatchActivity(dc).getByDate(CDate(dtFrom.EditValue), CDate(dtTo.EditValue)).ToList()
+        Dim cad = ca.Join(dc.trans_CatchMethods,
+                   Function(c) c.method_ID,
+                   Function(j) j.catchMethod_ID,
+                   Function(c, j) New With {
+                        .catchActivity_ID = c.catchActivity_ID,
+                        .CatchReferenceNumber = c.catchReferenceNum,
+                        .CatchDate = c.catchDate,
+                        .CatchMethod = j.catchMethod,
+                        .Longitude = c.longitude,
+                        .Latitude = c.latitude
+                    }).ToList()
+
 
         Dim gridView = New GridView()
         AddHandler gridView.DoubleClick, AddressOf HandleGridDoubleClick
@@ -59,7 +64,7 @@ Public Class ucCatcher
         grid.ViewCollection.Add(gridView)
 
 
-        gridView.GridControl.DataSource = caList
+        gridView.GridControl.DataSource = cad
         gridView.PopulateColumns()
 
         gridTransMode(gridView)

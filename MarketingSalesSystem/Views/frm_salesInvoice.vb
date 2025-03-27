@@ -42,6 +42,13 @@ Public Class frm_salesInvoice
     End Sub
 
     Sub createBands(count As Integer, catcherID As Integer)
+        Dim mkdb As New mkdbDataContext
+
+        ' Fetch all catchers in one go
+        Dim catchers As List(Of Integer) = mkdb.trans_CatchActivityDetails.
+            Where(Function(j) j.catchActivity_ID = catcherID).
+            Select(Function(j) j.vessel_ID).ToList()
+
         Dim bandClass = AddBand("Class", BandedGridView1)
         Dim bandSize = AddBand("Size", BandedGridView1)
         Dim bandPrice = AddBand("Price", BandedGridView1)
@@ -49,47 +56,51 @@ Public Class frm_salesInvoice
         Dim bandSpoilage = AddBand("Spoilage", BandedGridView1)
         Dim bandNet = AddBand("Net", BandedGridView1)
 
+        ' ---- Actual Unloading ----
         Dim bandAUKilos = AddBand("Kilos", bandAU)
         Dim bandAUAmount = AddBand("Amount", bandAU)
-        populateBand("Catcher", bandAUKilos, count, catcherID)
-        Dim bandAUKTotal = AddBand("Total", bandAUKilos)
-        populateBand("Catcher", bandAUAmount, count, catcherID)
-        Dim bandAUATotal = AddBand("Total", bandAUAmount)
+        populateBand(bandAUKilos, catchers)
+        Dim bandAUKTotal = AddBand("Total", bandAUKilos) ' Restored Total band
+        populateBand(bandAUAmount, catchers)
+        Dim bandAUATotal = AddBand("Total", bandAUAmount) ' Restored Total band
 
+        ' ---- Spoilage ----
         Dim bandSKilos = AddBand("Kilos", bandSpoilage)
         Dim bandSAmount = AddBand("Amount", bandSpoilage)
-        populateBand("Catcher", bandSKilos, count, catcherID)
-        Dim bandSKTotal = AddBand("Total", bandSKilos)
-        populateBand("Catcher", bandSAmount, count, catcherID)
-        Dim bandSATotal = AddBand("Total", bandSAmount)
+        populateBand(bandSKilos, catchers)
+        Dim bandSKTotal = AddBand("Total", bandSKilos) ' Restored Total band
+        populateBand(bandSAmount, catchers)
+        Dim bandSATotal = AddBand("Total", bandSAmount) ' Restored Total band
 
+        ' ---- Net ----
         Dim bandNKilos = AddBand("Kilos", bandNet)
         Dim bandNAmount = AddBand("Amount", bandNet)
-        populateBand("Catcher", bandNKilos, count, catcherID)
-        Dim bandNKTotal = AddBand("Total", bandNKilos)
-        populateBand("Catcher", bandNAmount, count, catcherID)
-        Dim bandNATotal = AddBand("Total", bandNAmount)
+        populateBand(bandNKilos, catchers)
+        Dim bandNKTotal = AddBand("Total", bandNKilos) ' Restored Total band
+        populateBand(bandNAmount, catchers)
+        Dim bandNATotal = AddBand("Total", bandNAmount) ' Restored Total band
 
+        ' ---- Assign Columns to Bands ----
         With BandedGridView1
-
             .PopulateColumns()
 
             .Columns("Class").OwnerBand = bandClass
             .Columns("Size").OwnerBand = bandSize
             .Columns("Price").OwnerBand = bandPrice
-            setOwnerBand("AUK_Catcher", bandAUKilos, False, True)
+            setOwnerBand("AUK_Catcher", bandAUKilos)
             .Columns("AUK_Total").OwnerBand = bandAUKTotal
             setOwnerBand("AUA_Catcher", bandAUAmount, True)
             .Columns("AUA_Total").OwnerBand = bandAUATotal
-            setOwnerBand("SK_Catcher", bandSKilos, False, True)
+            setOwnerBand("SK_Catcher", bandSKilos)
             .Columns("SK_Total").OwnerBand = bandSKTotal
             setOwnerBand("SA_Catcher", bandSAmount, True)
             .Columns("SA_Total").OwnerBand = bandSATotal
-            setOwnerBand("NK_Catcher", bandNKilos, True, True)
+            setOwnerBand("NK_Catcher", bandNKilos, True)
             .Columns("NK_Total").OwnerBand = bandNKTotal
             setOwnerBand("NA_Catcher", bandNAmount, True)
             .Columns("NA_Total").OwnerBand = bandNATotal
 
+            ' ---- Read-Only Settings ----
             .Columns("Class").OptionsColumn.ReadOnly = True
             .Columns("Size").OptionsColumn.ReadOnly = True
             .Columns("AUK_Total").OptionsColumn.ReadOnly = True
@@ -104,9 +115,7 @@ Public Class frm_salesInvoice
 
             .OptionsView.ShowFooter = True
 
-            .Columns("Class").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-            .Columns("Size").AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-
+            ' ---- Align Headers & Columns ----
             For Each band As DevExpress.XtraGrid.Views.BandedGrid.GridBand In BandedGridView1.Bands
                 SetHeaderAlignment(band)
             Next
@@ -119,16 +128,26 @@ Public Class frm_salesInvoice
             .OptionsView.ColumnAutoWidth = False
             .OptionsView.ShowColumnHeaders = False
         End With
-
     End Sub
 
-    Sub populateBand(caption As String, ByRef parent As GridBand, count As Integer, Optional catcherID As Integer = Nothing)
-        For i As Integer = 1 To count
-            Dim band = AddBand(caption & " " & i, parent, i, catcherID)
+
+    Sub populateBand(ByRef parent As GridBand, catchers As List(Of Integer))
+        Dim tspdb As New tpmdbDataContext
+
+        ' Fetch all vessel names in one query and store them in a Dictionary
+        Dim vesselDict As Dictionary(Of Integer, String) = tspdb.ml_Vessels.
+            Where(Function(i) catchers.Contains(i.ml_vID)).
+            ToDictionary(Function(i) i.ml_vID, Function(i) i.vesselName)
+
+        ' Iterate only once and add bands
+        For Each catcher In catchers
+            Dim vesselName As String = If(vesselDict.ContainsKey(catcher), vesselDict(catcher), "Unknown")
+            Dim band As New GridBand() With {.Caption = vesselName}
+            parent.Children.Add(band)
         Next
     End Sub
 
-    Sub setOwnerBand(caption As String, parentBand As GridBand, Optional isReadOnly As Boolean = False, Optional isKilo As Boolean = False)
+    Sub setOwnerBand(caption As String, parentBand As GridBand, Optional isReadOnly As Boolean = False)
         Dim countBand = 1
         For Each band As GridBand In parentBand.Children
             If band.Caption IsNot "Total" Then
@@ -151,25 +170,8 @@ Public Class frm_salesInvoice
         Next
     End Sub
 
-    Function AddBand(ByVal caption As String, ByRef parent As GridBand, Optional index As Integer = 0, Optional catcherID As Integer = 0) As GridBand
-
-
+    Function AddBand(ByVal caption As String, ByRef parent As GridBand) As GridBand
         Dim band As New GridBand() With {.Caption = caption}
-
-        If catcherID <> 0 Then
-            Dim dc As New mkdbDataContext
-            Dim mdc As New tpmdbDataContext
-
-            Dim vesselDict = mdc.ml_Vessels.ToDictionary(Function(v) v.ml_vID, Function(v) v.vesselName)
-
-            ' STEP 2: Fetch the vessel IDs directly using Take(1) to avoid loading all data
-            Dim vesselID = (From j In dc.trans_CatchActivityDetails
-                            Where j.catchActivity_ID = catcherID
-                            Select j.vessel_ID).Distinct().Skip(index - 1).Take(1).FirstOrDefault()
-
-            ' Step 3: Assign vessel name safely
-            band.Caption = vesselDict(vesselID)
-        End If
 
         parent.Children.Add(band)
         Return band
@@ -289,7 +291,7 @@ Public Class frm_salesInvoice
         End If
 
         If missingFields.Length > 0 Then
-            RequiredMessage(missingFields.ToString())
+            requiredMessage(missingFields.ToString())
             Return
         End If
 
@@ -332,7 +334,8 @@ Public Class frm_salesInvoice
                         Where i.catchActivity_ID = CInt(catcher.EditValue)
                         Select i.catchReferenceNum).Distinct().FirstOrDefault
 
+        'Debug.WriteLine(CInt(catcher.EditValue))
         txtCDNum.EditValue = getValue
     End Sub
-                        
+
 End Class
