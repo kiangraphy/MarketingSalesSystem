@@ -55,6 +55,7 @@ Public Class frm_salesInvoice
         Dim bandAU = AddBand("Actual Unloading", BandedGridView1)
         Dim bandSpoilage = AddBand("Spoilage", BandedGridView1)
         Dim bandNet = AddBand("Net", BandedGridView1)
+        ' Testing Trace
 
         ' ---- Actual Unloading ----
         Dim bandAUKilos = AddBand("Kilos", bandAU)
