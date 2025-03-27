@@ -32,15 +32,15 @@ Partial Class frm_catchActivity
         Me.RibbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
         Me.LayoutControl1 = New DevExpress.XtraLayout.LayoutControl()
         Me.LayoutControl2 = New DevExpress.XtraLayout.LayoutControl()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnDeleteCatcher = New DevExpress.XtraEditors.SimpleButton()
         Me.btnAddCatcher = New DevExpress.XtraEditors.SimpleButton()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Root = New DevExpress.XtraLayout.LayoutControlGroup()
         Me.LayoutControlItem6 = New DevExpress.XtraLayout.LayoutControlItem()
-        Me.LayoutControlItem7 = New DevExpress.XtraLayout.LayoutControlItem()
+        Me.layoutBtnAdd = New DevExpress.XtraLayout.LayoutControlItem()
         Me.EmptySpaceItem1 = New DevExpress.XtraLayout.EmptySpaceItem()
-        Me.LayoutControlItem8 = New DevExpress.XtraLayout.LayoutControlItem()
+        Me.layoutBtnDelete = New DevExpress.XtraLayout.LayoutControlItem()
         Me.txtLong = New DevExpress.XtraEditors.TextEdit()
         Me.txtLat = New DevExpress.XtraEditors.TextEdit()
         Me.cmbMethod = New DevExpress.XtraEditors.LookUpEdit()
@@ -63,9 +63,9 @@ Partial Class frm_catchActivity
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.LayoutControlItem7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.layoutBtnAdd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.LayoutControlItem8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.layoutBtnDelete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLong.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtLat.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbMethod.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -182,7 +182,7 @@ Partial Class frm_catchActivity
         '
         'LayoutControl2
         '
-        Me.LayoutControl2.Controls.Add(Me.SimpleButton1)
+        Me.LayoutControl2.Controls.Add(Me.btnDeleteCatcher)
         Me.LayoutControl2.Controls.Add(Me.btnAddCatcher)
         Me.LayoutControl2.Controls.Add(Me.GridControl1)
         Me.LayoutControl2.Location = New System.Drawing.Point(12, 60)
@@ -193,16 +193,16 @@ Partial Class frm_catchActivity
         Me.LayoutControl2.TabIndex = 8
         Me.LayoutControl2.Text = "LayoutControl2"
         '
-        'SimpleButton1
+        'btnDeleteCatcher
         '
-        Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(682, 12)
-        Me.SimpleButton1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(75, 38)
-        Me.SimpleButton1.StyleController = Me.LayoutControl2
-        Me.SimpleButton1.TabIndex = 6
-        Me.SimpleButton1.Text = "Delete"
+        Me.btnDeleteCatcher.ImageOptions.Image = CType(resources.GetObject("btnDeleteCatcher.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDeleteCatcher.Location = New System.Drawing.Point(682, 12)
+        Me.btnDeleteCatcher.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btnDeleteCatcher.Name = "btnDeleteCatcher"
+        Me.btnDeleteCatcher.Size = New System.Drawing.Size(75, 38)
+        Me.btnDeleteCatcher.StyleController = Me.LayoutControl2
+        Me.btnDeleteCatcher.TabIndex = 6
+        Me.btnDeleteCatcher.Text = "Delete"
         '
         'btnAddCatcher
         '
@@ -238,7 +238,7 @@ Partial Class frm_catchActivity
         '
         Me.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.[True]
         Me.Root.GroupBordersVisible = False
-        Me.Root.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem6, Me.LayoutControlItem7, Me.EmptySpaceItem1, Me.LayoutControlItem8})
+        Me.Root.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.LayoutControlItem6, Me.layoutBtnAdd, Me.EmptySpaceItem1, Me.layoutBtnDelete})
         Me.Root.Name = "Root"
         Me.Root.Size = New System.Drawing.Size(877, 419)
         Me.Root.TextVisible = False
@@ -252,14 +252,14 @@ Partial Class frm_catchActivity
         Me.LayoutControlItem6.TextSize = New System.Drawing.Size(0, 0)
         Me.LayoutControlItem6.TextVisible = False
         '
-        'LayoutControlItem7
+        'layoutBtnAdd
         '
-        Me.LayoutControlItem7.Control = Me.btnAddCatcher
-        Me.LayoutControlItem7.Location = New System.Drawing.Point(749, 0)
-        Me.LayoutControlItem7.Name = "LayoutControlItem7"
-        Me.LayoutControlItem7.Size = New System.Drawing.Size(108, 42)
-        Me.LayoutControlItem7.TextSize = New System.Drawing.Size(0, 0)
-        Me.LayoutControlItem7.TextVisible = False
+        Me.layoutBtnAdd.Control = Me.btnAddCatcher
+        Me.layoutBtnAdd.Location = New System.Drawing.Point(749, 0)
+        Me.layoutBtnAdd.Name = "layoutBtnAdd"
+        Me.layoutBtnAdd.Size = New System.Drawing.Size(108, 42)
+        Me.layoutBtnAdd.TextSize = New System.Drawing.Size(0, 0)
+        Me.layoutBtnAdd.TextVisible = False
         '
         'EmptySpaceItem1
         '
@@ -269,14 +269,14 @@ Partial Class frm_catchActivity
         Me.EmptySpaceItem1.Size = New System.Drawing.Size(670, 42)
         Me.EmptySpaceItem1.TextSize = New System.Drawing.Size(0, 0)
         '
-        'LayoutControlItem8
+        'layoutBtnDelete
         '
-        Me.LayoutControlItem8.Control = Me.SimpleButton1
-        Me.LayoutControlItem8.Location = New System.Drawing.Point(670, 0)
-        Me.LayoutControlItem8.Name = "LayoutControlItem8"
-        Me.LayoutControlItem8.Size = New System.Drawing.Size(79, 42)
-        Me.LayoutControlItem8.TextSize = New System.Drawing.Size(0, 0)
-        Me.LayoutControlItem8.TextVisible = False
+        Me.layoutBtnDelete.Control = Me.btnDeleteCatcher
+        Me.layoutBtnDelete.Location = New System.Drawing.Point(670, 0)
+        Me.layoutBtnDelete.Name = "layoutBtnDelete"
+        Me.layoutBtnDelete.Size = New System.Drawing.Size(79, 42)
+        Me.layoutBtnDelete.TextSize = New System.Drawing.Size(0, 0)
+        Me.layoutBtnDelete.TextVisible = False
         '
         'txtLong
         '
@@ -425,9 +425,9 @@ Partial Class frm_catchActivity
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Root, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.LayoutControlItem7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.layoutBtnAdd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EmptySpaceItem1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.LayoutControlItem8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.layoutBtnDelete, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLong.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtLat.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmbMethod.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -478,9 +478,9 @@ Partial Class frm_catchActivity
     Friend WithEvents LayoutControlItem6 As DevExpress.XtraLayout.LayoutControlItem
     Friend WithEvents EmptySpaceItem1 As DevExpress.XtraLayout.EmptySpaceItem
     Friend WithEvents LayoutControlItem5 As DevExpress.XtraLayout.LayoutControlItem
-    Friend WithEvents LayoutControlItem7 As DevExpress.XtraLayout.LayoutControlItem
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents LayoutControlItem8 As DevExpress.XtraLayout.LayoutControlItem
+    Friend WithEvents layoutBtnAdd As DevExpress.XtraLayout.LayoutControlItem
+    Friend WithEvents btnDeleteCatcher As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents layoutBtnDelete As DevExpress.XtraLayout.LayoutControlItem
 
 
 End Class

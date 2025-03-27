@@ -59,6 +59,9 @@ Public Class ctrlCatchers
         With frmCA
             '.btnDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             .btnPost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            .layoutBtnAdd.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never
+            .layoutBtnDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never
+
             .Text = "Catch Activity"
 
             .dtCreated.EditValue = mdlCA.catchDate
@@ -143,5 +146,24 @@ Public Class ctrlCatchers
         dr("Catcher") = ""
 
         frmCA.dt.Rows.Add(dr)
+    End Sub
+
+    Sub deleteCatch()
+        If ConfirmDeleteMessage() = True Then
+            Using ts As New TransactionScope
+                Try
+                    mdlCAD.catchActivity_ID = mdlCA.catchActivity_ID
+
+                    mdlCA.Delete()
+                    mdlCAD.Delete()
+
+                    ts.Complete()
+                Catch ex As Exception
+                    Debug.WriteLine("Error: " & ex.Message)
+                End Try
+            End Using
+        End If
+        ucC.loadGrid()
+        frmCA.Close()
     End Sub
 End Class
