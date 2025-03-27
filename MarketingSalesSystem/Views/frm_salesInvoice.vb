@@ -334,6 +334,7 @@ Public Class frm_salesInvoice
         Dim getValue = (From i In dc.trans_CatchActivities
                         Where i.catchActivity_ID = CInt(catcher.EditValue)
                         Select i.catchReferenceNum).Distinct().FirstOrDefault
+                          
         txtCDNum.EditValue = getValue
     End Sub
                         
